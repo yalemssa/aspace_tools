@@ -1,0 +1,704 @@
+2019-08-06 09:31:21,824 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:31:21,824 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 22, in main
+    config_file = u.get_config(cfg=home_dir + '/as_tools_config.yml')
+  File "/Users/aliciadetelich/anaconda3/lib/python3.7/site-packages/utilities/utilities.py", line 28, in get_config
+    cfg_file = yaml.load(open(cfg, 'r', encoding='utf-8'), Loader=yaml.FullLoader)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/aliciadetelich/as_tools_config.yml'
+2019-08-06 09:32:46,829 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:32:46,832 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 26, in main
+    crud_action = cli_args[1]
+NameError: name 'cli_args' is not defined
+2019-08-06 09:37:14,369 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:37:14,436 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:37:15,038 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/users/amd243/login?password=FFmIjc5xLw HTTP/1.1" 200 None
+2019-08-06 09:37:15,048 - root - DEBUG - Success!
+2019-08-06 09:37:15,048 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 30, in main
+    result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=c.crud_action, json_data=jd.json_selection)
+AttributeError: module 'crud' has no attribute 'crud_action'
+2019-08-06 09:38:13,808 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:38:13,811 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 28, in main
+    print(crud_action.__name__)
+AttributeError: 'str' object has no attribute '__name__'
+2019-08-06 09:38:58,830 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:38:58,845 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:38:59,438 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/users/amd243/login?password=FFmIjc5xLw HTTP/1.1" 200 None
+2019-08-06 09:38:59,444 - root - DEBUG - Success!
+2019-08-06 09:38:59,444 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 34, in main
+    result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=c.sys.argv[1], json_data=jd.sys.argv[2])
+AttributeError: module 'crud' has no attribute 'sys'
+2019-08-06 09:43:02,582 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:43:02,586 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 26, in main
+    print(getattr(sys.argv[1]))
+TypeError: getattr expected at least 2 arguments, got 1
+2019-08-06 09:44:21,268 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:44:21,271 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 27, in main
+    print(getattr(jd, sys.argv[1]))
+AttributeError: module 'json_data' has no attribute 'update_data'
+2019-08-06 09:44:37,442 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:44:37,501 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:44:38,090 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/users/amd243/login?password=FFmIjc5xLw HTTP/1.1" 200 None
+2019-08-06 09:44:38,094 - root - DEBUG - Success!
+2019-08-06 09:44:38,094 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 37, in main
+    result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=c.sys.argv[1], json_data=jd.sys.argv[2])
+AttributeError: module 'crud' has no attribute 'sys'
+2019-08-06 09:45:35,142 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:45:35,157 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:45:35,706 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/users/amd243/login?password=FFmIjc5xLw HTTP/1.1" 200 None
+2019-08-06 09:45:35,708 - root - DEBUG - Success!
+2019-08-06 09:45:35,708 - aspace_tools - DEBUG - Starting 'call_api'
+2019-08-06 09:45:35,709 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,709 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,709 - aspace_tools - ERROR - Error on row 1
+2019-08-06 09:45:35,709 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,710 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,710 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,710 - aspace_tools - ERROR - Error on row 2
+2019-08-06 09:45:35,710 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,710 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,711 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,711 - aspace_tools - ERROR - Error on row 3
+2019-08-06 09:45:35,711 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,711 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,711 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,711 - aspace_tools - ERROR - Error on row 4
+2019-08-06 09:45:35,712 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,712 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,712 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,712 - aspace_tools - ERROR - Error on row 5
+2019-08-06 09:45:35,712 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,712 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,712 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,713 - aspace_tools - ERROR - Error on row 6
+2019-08-06 09:45:35,713 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,713 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,713 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,713 - aspace_tools - ERROR - Error on row 7
+2019-08-06 09:45:35,714 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,714 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,714 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,714 - aspace_tools - ERROR - Error on row 8
+2019-08-06 09:45:35,714 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,714 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,714 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error on row 9
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,715 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,715 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error on row 10
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,716 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,716 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,716 - aspace_tools - ERROR - Error on row 11
+2019-08-06 09:45:35,716 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,716 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,717 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,717 - aspace_tools - ERROR - Error on row 12
+2019-08-06 09:45:35,717 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,717 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,717 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,718 - aspace_tools - ERROR - Error on row 13
+2019-08-06 09:45:35,718 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,718 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,718 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,719 - aspace_tools - ERROR - Error on row 14
+2019-08-06 09:45:35,719 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,719 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,719 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,720 - aspace_tools - ERROR - Error on row 15
+2019-08-06 09:45:35,720 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,720 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,720 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,720 - aspace_tools - ERROR - Error on row 16
+2019-08-06 09:45:35,721 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,721 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,721 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,721 - aspace_tools - ERROR - Error on row 17
+2019-08-06 09:45:35,721 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,721 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,722 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,722 - aspace_tools - ERROR - Error on row 18
+2019-08-06 09:45:35,722 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,722 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,722 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,723 - aspace_tools - ERROR - Error on row 19
+2019-08-06 09:45:35,723 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,723 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,723 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,724 - aspace_tools - ERROR - Error on row 20
+2019-08-06 09:45:35,724 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,724 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,724 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,725 - aspace_tools - ERROR - Error on row 21
+2019-08-06 09:45:35,725 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,725 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,725 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,726 - aspace_tools - ERROR - Error on row 22
+2019-08-06 09:45:35,726 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,726 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,726 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,727 - aspace_tools - ERROR - Error on row 23
+2019-08-06 09:45:35,727 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,727 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,727 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,727 - aspace_tools - ERROR - Error on row 24
+2019-08-06 09:45:35,728 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,728 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:45:35,728 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,728 - aspace_tools - ERROR - Error on row 25
+2019-08-06 09:45:35,728 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,728 - aspace_tools - DEBUG - 'call_api' run time: 0.0199 secs
+2019-08-06 09:45:35,728 - __main__ - DEBUG - 'main' run time: 0.5859 secs
+2019-08-06 09:48:28,575 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:48:28,591 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:29,164 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/users/amd243/login?password=FFmIjc5xLw HTTP/1.1" 200 None
+2019-08-06 09:48:29,166 - root - DEBUG - Success!
+2019-08-06 09:48:29,166 - aspace_tools - DEBUG - Starting 'call_api'
+2019-08-06 09:48:29,167 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:48:29,169 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:29,646 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780932 HTTP/1.1" 200 None
+2019-08-06 09:48:29,648 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:48:29,648 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:29,652 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:30,089 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780932 HTTP/1.1" 400 97
+2019-08-06 09:48:30,093 - crud - DEBUG - 'update_data' run time: 0.9267 secs
+2019-08-06 09:48:30,094 - aspace_tools - ERROR - Error on row 1
+2019-08-06 09:48:30,094 - aspace_tools - ERROR - Had some trouble parsing your request: A JSON text must at least contain two octets!
+2019-08-06 09:48:30,094 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:48:30,098 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:30,592 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780933 HTTP/1.1" 200 None
+2019-08-06 09:48:30,598 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:48:30,598 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:30,604 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:31,023 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780933 HTTP/1.1" 400 97
+2019-08-06 09:48:31,027 - crud - DEBUG - 'update_data' run time: 0.9326 secs
+2019-08-06 09:48:31,027 - aspace_tools - ERROR - Error on row 2
+2019-08-06 09:48:31,028 - aspace_tools - ERROR - Had some trouble parsing your request: A JSON text must at least contain two octets!
+2019-08-06 09:48:31,028 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:48:31,032 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:31,568 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780934 HTTP/1.1" 200 None
+2019-08-06 09:48:31,571 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:48:31,571 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:31,573 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:31,989 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780934 HTTP/1.1" 400 97
+2019-08-06 09:48:31,991 - crud - DEBUG - 'update_data' run time: 0.9626 secs
+2019-08-06 09:48:31,991 - aspace_tools - ERROR - Error on row 3
+2019-08-06 09:48:31,991 - aspace_tools - ERROR - Had some trouble parsing your request: A JSON text must at least contain two octets!
+2019-08-06 09:48:31,991 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:48:31,993 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:48:32,513 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780935 HTTP/1.1" 200 None
+2019-08-06 09:48:32,516 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:48:32,516 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:32,519 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:52,551 - __main__ - DEBUG - Starting 'main'
+2019-08-06 09:50:52,597 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:53,166 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/users/amd243/login?password=FFmIjc5xLw HTTP/1.1" 200 None
+2019-08-06 09:50:53,172 - root - DEBUG - Success!
+2019-08-06 09:50:53,172 - aspace_tools - DEBUG - Starting 'call_api'
+2019-08-06 09:50:53,172 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:53,176 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:53,705 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780932 HTTP/1.1" 200 None
+2019-08-06 09:50:53,711 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:50:53,711 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:50:53,716 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:54,298 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780932 HTTP/1.1" 200 126
+2019-08-06 09:50:54,303 - crud - DEBUG - 'update_data' run time: 1.1309 secs
+2019-08-06 09:50:54,303 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:54,308 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:54,761 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780933 HTTP/1.1" 200 None
+2019-08-06 09:50:54,763 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:50:54,763 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:50:54,765 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:55,446 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780933 HTTP/1.1" 200 126
+2019-08-06 09:50:55,450 - crud - DEBUG - 'update_data' run time: 1.1469 secs
+2019-08-06 09:50:55,451 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:55,453 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:55,917 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780934 HTTP/1.1" 200 None
+2019-08-06 09:50:55,921 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:50:55,921 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:50:55,924 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:56,573 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780934 HTTP/1.1" 200 126
+2019-08-06 09:50:56,577 - crud - DEBUG - 'update_data' run time: 1.1259 secs
+2019-08-06 09:50:56,577 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:56,580 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:57,015 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780935 HTTP/1.1" 200 None
+2019-08-06 09:50:57,020 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:50:57,020 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:50:57,023 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:57,561 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780935 HTTP/1.1" 200 126
+2019-08-06 09:50:57,563 - crud - DEBUG - 'update_data' run time: 0.9863 secs
+2019-08-06 09:50:57,563 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:57,566 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:58,108 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780936 HTTP/1.1" 200 None
+2019-08-06 09:50:58,113 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:50:58,113 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:50:58,116 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:58,722 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780936 HTTP/1.1" 200 126
+2019-08-06 09:50:58,727 - crud - DEBUG - 'update_data' run time: 1.1632 secs
+2019-08-06 09:50:58,727 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:58,730 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:59,176 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780937 HTTP/1.1" 200 None
+2019-08-06 09:50:59,181 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:50:59,181 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:50:59,184 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:50:59,762 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780937 HTTP/1.1" 200 126
+2019-08-06 09:50:59,765 - crud - DEBUG - 'update_data' run time: 1.0385 secs
+2019-08-06 09:50:59,766 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:50:59,769 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:00,221 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780938 HTTP/1.1" 200 None
+2019-08-06 09:51:00,224 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:00,224 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:00,226 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:00,766 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780938 HTTP/1.1" 200 126
+2019-08-06 09:51:00,768 - crud - DEBUG - 'update_data' run time: 1.0025 secs
+2019-08-06 09:51:00,768 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:00,771 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:01,219 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780939 HTTP/1.1" 200 None
+2019-08-06 09:51:01,222 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:01,222 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:01,224 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:01,742 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780939 HTTP/1.1" 200 126
+2019-08-06 09:51:01,744 - crud - DEBUG - 'update_data' run time: 0.9756 secs
+2019-08-06 09:51:01,744 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:01,748 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:02,186 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780940 HTTP/1.1" 200 None
+2019-08-06 09:51:02,188 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:02,188 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:02,190 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:02,850 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780940 HTTP/1.1" 200 126
+2019-08-06 09:51:02,853 - crud - DEBUG - 'update_data' run time: 1.1087 secs
+2019-08-06 09:51:02,853 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:02,856 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:03,343 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780941 HTTP/1.1" 200 None
+2019-08-06 09:51:03,347 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:03,347 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:03,350 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:03,893 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780941 HTTP/1.1" 200 126
+2019-08-06 09:51:03,896 - crud - DEBUG - 'update_data' run time: 1.0422 secs
+2019-08-06 09:51:03,896 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:03,899 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:04,328 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780942 HTTP/1.1" 200 None
+2019-08-06 09:51:04,332 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:04,332 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:04,334 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:04,829 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780942 HTTP/1.1" 200 126
+2019-08-06 09:51:04,832 - crud - DEBUG - 'update_data' run time: 0.9356 secs
+2019-08-06 09:51:04,832 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:04,834 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:05,378 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780943 HTTP/1.1" 200 None
+2019-08-06 09:51:05,383 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:05,383 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:05,385 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:05,943 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780943 HTTP/1.1" 200 126
+2019-08-06 09:51:05,947 - crud - DEBUG - 'update_data' run time: 1.1147 secs
+2019-08-06 09:51:05,947 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:05,950 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:06,402 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780945 HTTP/1.1" 200 None
+2019-08-06 09:51:06,405 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:06,405 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:06,408 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:06,929 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780945 HTTP/1.1" 200 126
+2019-08-06 09:51:06,932 - crud - DEBUG - 'update_data' run time: 0.9844 secs
+2019-08-06 09:51:06,932 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:06,935 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:07,372 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780946 HTTP/1.1" 200 None
+2019-08-06 09:51:07,375 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:07,375 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:07,377 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:07,891 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780946 HTTP/1.1" 200 126
+2019-08-06 09:51:07,893 - crud - DEBUG - 'update_data' run time: 0.9616 secs
+2019-08-06 09:51:07,893 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:07,896 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:08,348 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780948 HTTP/1.1" 200 None
+2019-08-06 09:51:08,350 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:08,350 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:08,352 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:08,871 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780948 HTTP/1.1" 200 126
+2019-08-06 09:51:08,874 - crud - DEBUG - 'update_data' run time: 0.9800 secs
+2019-08-06 09:51:08,874 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:08,877 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:09,325 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780949 HTTP/1.1" 200 None
+2019-08-06 09:51:09,329 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:09,329 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:09,332 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:09,922 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780949 HTTP/1.1" 200 126
+2019-08-06 09:51:09,925 - crud - DEBUG - 'update_data' run time: 1.0508 secs
+2019-08-06 09:51:09,925 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:09,929 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:10,371 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780950 HTTP/1.1" 200 None
+2019-08-06 09:51:10,373 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:10,373 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:10,375 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:10,871 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780950 HTTP/1.1" 200 126
+2019-08-06 09:51:10,874 - crud - DEBUG - 'update_data' run time: 0.9494 secs
+2019-08-06 09:51:10,874 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:10,878 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:11,420 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780951 HTTP/1.1" 200 None
+2019-08-06 09:51:11,423 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:11,423 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:11,425 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:11,932 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780951 HTTP/1.1" 200 126
+2019-08-06 09:51:11,934 - crud - DEBUG - 'update_data' run time: 1.0598 secs
+2019-08-06 09:51:11,935 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:11,937 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:12,444 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780953 HTTP/1.1" 200 None
+2019-08-06 09:51:12,448 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:12,448 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:12,451 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:12,971 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780953 HTTP/1.1" 200 126
+2019-08-06 09:51:12,974 - crud - DEBUG - 'update_data' run time: 1.0395 secs
+2019-08-06 09:51:12,974 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:12,977 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:13,459 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780955 HTTP/1.1" 200 None
+2019-08-06 09:51:13,462 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:13,462 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:13,465 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:13,998 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780955 HTTP/1.1" 200 126
+2019-08-06 09:51:14,000 - crud - DEBUG - 'update_data' run time: 1.0257 secs
+2019-08-06 09:51:14,000 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:14,003 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:14,528 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780956 HTTP/1.1" 200 None
+2019-08-06 09:51:14,531 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:14,531 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:14,533 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:15,036 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780956 HTTP/1.1" 200 126
+2019-08-06 09:51:15,039 - crud - DEBUG - 'update_data' run time: 1.0380 secs
+2019-08-06 09:51:15,039 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:15,041 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:15,527 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780959 HTTP/1.1" 200 None
+2019-08-06 09:51:15,530 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:15,530 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:15,533 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:16,008 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780959 HTTP/1.1" 200 126
+2019-08-06 09:51:16,010 - crud - DEBUG - 'update_data' run time: 0.9707 secs
+2019-08-06 09:51:16,010 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:16,012 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:16,466 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780960 HTTP/1.1" 200 None
+2019-08-06 09:51:16,469 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:16,469 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:16,471 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:17,013 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780960 HTTP/1.1" 200 126
+2019-08-06 09:51:17,016 - crud - DEBUG - 'update_data' run time: 1.0059 secs
+2019-08-06 09:51:17,016 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:17,018 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:17,564 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780961 HTTP/1.1" 200 None
+2019-08-06 09:51:17,567 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:17,567 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:17,570 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:18,306 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780961 HTTP/1.1" 200 126
+2019-08-06 09:51:18,309 - crud - DEBUG - 'update_data' run time: 1.2927 secs
+2019-08-06 09:51:18,309 - crud - DEBUG - Starting 'update_data'
+2019-08-06 09:51:18,311 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:18,933 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "GET /api/repositories/12/archival_objects/780962 HTTP/1.1" 200 None
+2019-08-06 09:51:18,937 - json_data - DEBUG - Starting 'update_record_component'
+2019-08-06 09:51:18,937 - json_data - DEBUG - 'update_record_component' run time: 0.0000 secs
+2019-08-06 09:51:18,940 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): testarchivesspace.library.yale.edu:443
+2019-08-06 09:51:19,575 - urllib3.connectionpool - DEBUG - https://testarchivesspace.library.yale.edu:443 "POST /api/repositories/12/archival_objects/780962 HTTP/1.1" 200 126
+2019-08-06 09:51:19,577 - crud - DEBUG - 'update_data' run time: 1.2684 secs
+2019-08-06 09:51:19,578 - aspace_tools - DEBUG - 'call_api' run time: 26.4048 secs
+2019-08-06 09:51:19,578 - __main__ - DEBUG - 'main' run time: 27.0262 secs

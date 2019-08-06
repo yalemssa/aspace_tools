@@ -1,0 +1,15 @@
+path_to_key:
+sql_hostname:
+sql_username:
+sql_password:
+sql_database:
+sql_port:
+ssh_host:
+ssh_user:
+ssh_port:
+api_url:
+api_username:
+api_password:
+input_csv:
+output_csv:
+backup_directory:

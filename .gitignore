@@ -23,7 +23,7 @@
 #other
 *.README.md.html
 
-*.to_do.MD
+*.todo.MD
 
 /aspace-tools/data/
 

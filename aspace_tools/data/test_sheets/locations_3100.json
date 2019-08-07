@@ -1,0 +1,39 @@
+{
+    "barcode": "81184",
+    "building": "SML",
+    "coordinate_1_indicator": "8",
+    "coordinate_1_label": "Range",
+    "coordinate_2_indicator": "c",
+    "coordinate_2_label": "Section",
+    "coordinate_3_indicator": "1",
+    "coordinate_3_label": "Shelf",
+    "create_time": "2015-06-01T15:51:46Z",
+    "created_by": "admin",
+    "external_ids": [
+        {
+            "create_time": "2019-06-11T14:48:19Z",
+            "created_by": "amd243",
+            "external_id": "3523",
+            "jsonmodel_type": "external_id",
+            "last_modified_by": "amd243",
+            "source": "Archivists Toolkit Database::LOCATION",
+            "system_mtime": "2019-06-11T14:48:19Z",
+            "user_mtime": "2019-06-11T14:48:19Z"
+        }
+    ],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "location_profile": {
+        "ref": "/location_profiles/7"
+    },
+    "lock_version": 3,
+    "owner_repo": {
+        "ref": "/repositories/12"
+    },
+    "room": "B70",
+    "system_mtime": "2019-06-17T16:44:53Z",
+    "title": "SML, B70 [81184, Range: 8, Section: c, Shelf: 1]",
+    "uri": "/locations/3100",
+    "user_mtime": "2019-06-11T14:48:19Z"
+}

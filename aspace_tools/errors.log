@@ -1,0 +1,417 @@
+2019-08-06 09:31:21,824 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 22, in main
+    config_file = u.get_config(cfg=home_dir + '/as_tools_config.yml')
+  File "/Users/aliciadetelich/anaconda3/lib/python3.7/site-packages/utilities/utilities.py", line 28, in get_config
+    cfg_file = yaml.load(open(cfg, 'r', encoding='utf-8'), Loader=yaml.FullLoader)
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/aliciadetelich/as_tools_config.yml'
+2019-08-06 09:32:46,832 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 26, in main
+    crud_action = cli_args[1]
+NameError: name 'cli_args' is not defined
+2019-08-06 09:37:15,048 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 30, in main
+    result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=c.crud_action, json_data=jd.json_selection)
+AttributeError: module 'crud' has no attribute 'crud_action'
+2019-08-06 09:38:13,811 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 28, in main
+    print(crud_action.__name__)
+AttributeError: 'str' object has no attribute '__name__'
+2019-08-06 09:38:59,444 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 34, in main
+    result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=c.sys.argv[1], json_data=jd.sys.argv[2])
+AttributeError: module 'crud' has no attribute 'sys'
+2019-08-06 09:43:02,586 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 26, in main
+    print(getattr(sys.argv[1]))
+TypeError: getattr expected at least 2 arguments, got 1
+2019-08-06 09:44:21,271 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 27, in main
+    print(getattr(jd, sys.argv[1]))
+AttributeError: module 'json_data' has no attribute 'update_data'
+2019-08-06 09:44:38,094 - __main__ - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "aspace-api.py", line 37, in main
+    result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=c.sys.argv[1], json_data=jd.sys.argv[2])
+AttributeError: module 'crud' has no attribute 'sys'
+2019-08-06 09:45:35,709 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,709 - aspace_tools - ERROR - Error on row 1
+2019-08-06 09:45:35,709 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,710 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,710 - aspace_tools - ERROR - Error on row 2
+2019-08-06 09:45:35,710 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,711 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,711 - aspace_tools - ERROR - Error on row 3
+2019-08-06 09:45:35,711 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,711 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,711 - aspace_tools - ERROR - Error on row 4
+2019-08-06 09:45:35,712 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,712 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,712 - aspace_tools - ERROR - Error on row 5
+2019-08-06 09:45:35,712 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,712 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,713 - aspace_tools - ERROR - Error on row 6
+2019-08-06 09:45:35,713 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,713 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,713 - aspace_tools - ERROR - Error on row 7
+2019-08-06 09:45:35,714 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,714 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,714 - aspace_tools - ERROR - Error on row 8
+2019-08-06 09:45:35,714 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,714 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error on row 9
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,715 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error on row 10
+2019-08-06 09:45:35,715 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,716 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,716 - aspace_tools - ERROR - Error on row 11
+2019-08-06 09:45:35,716 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,717 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,717 - aspace_tools - ERROR - Error on row 12
+2019-08-06 09:45:35,717 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,717 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,718 - aspace_tools - ERROR - Error on row 13
+2019-08-06 09:45:35,718 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,718 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,719 - aspace_tools - ERROR - Error on row 14
+2019-08-06 09:45:35,719 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,719 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,720 - aspace_tools - ERROR - Error on row 15
+2019-08-06 09:45:35,720 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,720 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,720 - aspace_tools - ERROR - Error on row 16
+2019-08-06 09:45:35,721 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,721 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,721 - aspace_tools - ERROR - Error on row 17
+2019-08-06 09:45:35,721 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,722 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,722 - aspace_tools - ERROR - Error on row 18
+2019-08-06 09:45:35,722 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,722 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,723 - aspace_tools - ERROR - Error on row 19
+2019-08-06 09:45:35,723 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,723 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,724 - aspace_tools - ERROR - Error on row 20
+2019-08-06 09:45:35,724 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,724 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,725 - aspace_tools - ERROR - Error on row 21
+2019-08-06 09:45:35,725 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,725 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,726 - aspace_tools - ERROR - Error on row 22
+2019-08-06 09:45:35,726 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,726 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,727 - aspace_tools - ERROR - Error on row 23
+2019-08-06 09:45:35,727 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,727 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,727 - aspace_tools - ERROR - Error on row 24
+2019-08-06 09:45:35,728 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:45:35,728 - crud - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/crud.py", line 38, in update_data
+    uri = row[0]
+KeyError: 0
+2019-08-06 09:45:35,728 - aspace_tools - ERROR - Error on row 25
+2019-08-06 09:45:35,728 - aspace_tools - ERROR - Error
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools.py", line 76, in call_api
+    if 'error' in record_json:
+TypeError: argument of type 'NoneType' is not iterable
+2019-08-06 09:48:29,648 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:30,094 - aspace_tools - ERROR - Error on row 1
+2019-08-06 09:48:30,094 - aspace_tools - ERROR - Had some trouble parsing your request: A JSON text must at least contain two octets!
+2019-08-06 09:48:30,598 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:31,027 - aspace_tools - ERROR - Error on row 2
+2019-08-06 09:48:31,028 - aspace_tools - ERROR - Had some trouble parsing your request: A JSON text must at least contain two octets!
+2019-08-06 09:48:31,571 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'
+2019-08-06 09:48:31,991 - aspace_tools - ERROR - Error on row 3
+2019-08-06 09:48:31,991 - aspace_tools - ERROR - Had some trouble parsing your request: A JSON text must at least contain two octets!
+2019-08-06 09:48:32,516 - json_data - ERROR - Error: 
+Traceback (most recent call last):
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/aspace_tools_logging.py", line 54, in wrapper_as_tools_logger
+    value = func(*args, **kwargs)
+  File "/Users/aliciadetelich/Dropbox/git/aspace-tools/aspace-tools/json_data.py", line 594, in update_record_component
+    record_json['title'] = row['updated_text']
+KeyError: 'updated_text'

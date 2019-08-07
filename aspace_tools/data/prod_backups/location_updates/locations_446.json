@@ -1,0 +1,36 @@
+{
+    "barcode": "82600",
+    "building": "SML",
+    "coordinate_1_indicator": " 2",
+    "coordinate_1_label": "Drawer",
+    "coordinate_2_indicator": "SML, B51-B [Drawer:  2]",
+    "create_time": "2015-06-01T15:47:14Z",
+    "created_by": "admin",
+    "external_ids": [
+        {
+            "create_time": "2019-06-11T19:10:18Z",
+            "created_by": "amd243",
+            "external_id": "279",
+            "jsonmodel_type": "external_id",
+            "last_modified_by": "amd243",
+            "source": "Archivists Toolkit Database::LOCATION",
+            "system_mtime": "2019-06-11T19:10:18Z",
+            "user_mtime": "2019-06-11T19:10:18Z"
+        }
+    ],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "location_profile": {
+        "ref": "/location_profiles/8"
+    },
+    "lock_version": 2,
+    "owner_repo": {
+        "ref": "/repositories/12"
+    },
+    "room": "B51-B",
+    "system_mtime": "2019-06-11T19:10:18Z",
+    "title": "SML, B51-B [82600, Drawer:  2]",
+    "uri": "/locations/446",
+    "user_mtime": "2019-06-11T19:10:18Z"
+}

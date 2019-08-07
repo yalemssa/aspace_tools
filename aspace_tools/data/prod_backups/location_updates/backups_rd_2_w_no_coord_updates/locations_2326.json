@@ -1,0 +1,28 @@
+{
+    "building": "SML",
+    "coordinate_1_indicator": " 61",
+    "coordinate_1_label": "Drawer",
+    "create_time": "2015-06-01T15:50:30Z",
+    "created_by": "admin",
+    "external_ids": [
+        {
+            "create_time": "2015-06-01T15:50:30Z",
+            "created_by": "admin",
+            "external_id": "2412",
+            "jsonmodel_type": "external_id",
+            "last_modified_by": "admin",
+            "source": "Archivists Toolkit Database::LOCATION",
+            "system_mtime": "2015-06-01T15:50:30Z",
+            "user_mtime": "2015-06-01T15:50:30Z"
+        }
+    ],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "admin",
+    "lock_version": 0,
+    "room": "B57-A",
+    "system_mtime": "2017-11-18T04:46:40Z",
+    "title": "SML, B57-A [Drawer:  61]",
+    "uri": "/locations/2326",
+    "user_mtime": "2015-06-01T15:50:30Z"
+}

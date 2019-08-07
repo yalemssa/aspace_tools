@@ -25,6 +25,8 @@
 
 *.todo.MD
 
-/aspace-tools/data/
+aspace_tools/logs/
 
-/aspace-tools/.DS_Store
+aspace_tools/data/
+
+aspace_tools/.DS_Store

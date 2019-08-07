@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Requirements &mdash; aspace_tools 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> aspace_tools
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Requirements</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#project-structure-philosophy">Project Structure/Philosophy</a><ul>
+<li><a class="reference internal" href="#aspace-run-py"><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code></a></li>
+<li><a class="reference internal" href="#crud-py"><code class="docutils literal notranslate"><span class="pre">crud.py</span></code></a></li>
+<li><a class="reference internal" href="#json-data-py"><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code></a></li>
+<li><a class="reference internal" href="#queries-py"><code class="docutils literal notranslate"><span class="pre">queries.py</span></code></a></li>
+<li><a class="reference internal" href="#templates-py"><code class="docutils literal notranslate"><span class="pre">templates.py</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">aspace_tools</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Requirements</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>This is the main documentation page for the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> Python package.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> is a command-line interface for interacting with the ArchivesSpace API and MySQL database, usually using CSV files as input and output.</p>
+<div class="section" id="requirements">
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Python 3.7+</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utilities</span></code> package (will also install a few other dependencies)</p></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/package
+$ pip install .
+</pre></div>
+</div>
+</div>
+<div class="section" id="project-structure-philosophy">
+<h1>Project Structure/Philosophy<a class="headerlink" href="#project-structure-philosophy" title="Permalink to this headline">¶</a></h1>
+<p>This package is structured in a modular fashion which makes it highly extensible and which limits the repetition of boilerplate code.</p>
+<p>While all functions can be run independently, the primary way that end users will interact with the package is through the <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and <code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code> command-line interfaces.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>aspace-tools
+│   README.md
+│   LICENSE.txt
+│   MANIFEST.in
+│   setup.py
+│
+└───aspace-tools
+    │   __init__.py
+    │   aspace_api.py
+    │   aspace_db.py
+    │   aspace_run.py
+    │   crud.py
+    │   json_data.py
+    │   queries.py
+    │   templates.py
+    │   data_processing.py
+    │   aspace_tools_logging.py
+    │   aspace_tools_tests.py
+    │   as_tools_config.yml (this is a blank template; once filled out should be moved to home directory)
+    │
+    └───standalone_scripts
+    │   └───python
+    │   │     ..lots of .py files..
+    │   │
+    │   └───sql
+    │         ..lots of .sql files..
+    │
+    └───implementations
+    │      music_data.py
+    │
+    └───templates
+    │
+    └───logs
+    │      logging_config.yml
+    │
+    └───fixtures
+           as_schema_data.py
+           property_exclusions.csv (does the file path need to be changed in templates.py?)
+           schema_exclusions.csv (same as above)
+           schemas.json
+</pre></div>
+</div>
+<div class="section" id="aspace-run-py">
+<h2><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code><a class="headerlink" href="#aspace-run-py" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>The main scaffolding for all the other functions are stored in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code>.</p>
+</div></blockquote>
+</div>
+<div class="section" id="crud-py">
+<h2><code class="docutils literal notranslate"><span class="pre">crud.py</span></code><a class="headerlink" href="#crud-py" title="Permalink to this headline">¶</a></h2>
+<p>This file holds all of the CRUD-related functions that are used in the <code class="docutils literal notranslate"><span class="pre">aspace_run.call_api</span></code> function.</p>
+</div>
+<div class="section" id="json-data-py">
+<h2><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code><a class="headerlink" href="#json-data-py" title="Permalink to this headline">¶</a></h2>
+<p>This file holds all JSON data structures which are used in create, update, and delete functions in <code class="docutils literal notranslate"><span class="pre">crud.py</span></code></p>
+</div>
+<div class="section" id="queries-py">
+<h2><code class="docutils literal notranslate"><span class="pre">queries.py</span></code><a class="headerlink" href="#queries-py" title="Permalink to this headline">¶</a></h2>
+<p>This file holds all query strings and query functions used in the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> functions in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code></p>
+</div>
+<div class="section" id="templates-py">
+<h2><code class="docutils literal notranslate"><span class="pre">templates.py</span></code><a class="headerlink" href="#templates-py" title="Permalink to this headline">¶</a></h2>
+<p>This file compiles JSON and CSV templates using the ArchivesSpace schema,</p>
+</div>
+</div>
+<div class="section" id="tutorial">
+<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<p>End-user interaction with this package takes place on the command line.</p>
+<p>To run a basic API update using <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code>, do the following:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api update_data update_primary_names
+</pre></div>
+</div>
+<p>To run a single database query, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">apispace</span> <span class="n">import</span> <span class="n">apispace</span><span class="p">,</span> <span class="n">queries</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">utilities</span> <span class="n">import</span> <span class="n">dbssh</span><span class="p">,</span> <span class="n">utilities</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dbconn</span> <span class="o">=</span> <span class="n">dbssh</span><span class="p">.</span><span class="n">DBConn</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dirpath</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">.</span><span class="n">set_directory</span><span class="p">(</span><span class="s1">&#39;/path/to/folder&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query_data</span> <span class="o">=</span> <span class="n">apispace</span><span class="p">.</span><span class="n">run_db_query</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">queries</span><span class="p">.</span><span class="n">get_extent_types</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">dirpath</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note: requires a configuration file, <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> with database connection data. Can also use the <code class="docutils literal notranslate"><span class="pre">db</span></code> file in <code class="docutils literal notranslate"><span class="pre">utilities</span></code> package to connect without SSH.</p>
+<p>To run multiple database queries using a CSV as input, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">apispace</span> <span class="n">import</span> <span class="n">apispace</span><span class="p">,</span> <span class="n">queries</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">utilities</span> <span class="n">import</span> <span class="n">dbssh</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dbconn</span> <span class="o">=</span> <span class="n">dbssh</span><span class="p">.</span><span class="n">DBConn</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">csvfile</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">.</span><span class="n">opencsv</span><span class="p">(</span><span class="s1">&#39;/path/to/csvfile.csv&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">query_data</span> <span class="o">=</span> <span class="n">apispace</span><span class="p">.</span><span class="n">run_db_queries</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">csvfile</span><span class="p">,</span> <span class="n">queries</span><span class="p">.</span><span class="n">get_distinct_creators</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To compile JSON and CSV templates, do:</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

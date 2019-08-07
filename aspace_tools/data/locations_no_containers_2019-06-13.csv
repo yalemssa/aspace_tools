@@ -1,0 +1,190 @@
+location_uri,barcode,title,room,coordinate_1_indicator,tc_uri,indicator,barcode
+/locations/3076,NULL,"SML, B54 [Map Print Carton: 1]",B54,1,NULL,NULL,NULL
+/locations/3077,NULL,"SML, B54 [Map Print Carton: 2]",B54,2,NULL,NULL,NULL
+/locations/3078,NULL,"SML, B54 [Map Print Carton: 3]",B54,3,NULL,NULL,NULL
+/locations/3079,NULL,"SML, B54 [Map Print Carton: 4]",B54,4,NULL,NULL,NULL
+/locations/3080,NULL,"SML, B54 [Map Print Carton: 5]",B54,5,NULL,NULL,NULL
+/locations/3081,NULL,"SML, B54 [Map Print Carton: 6]",B54,6,NULL,NULL,NULL
+/locations/3082,NULL,"SML, B54 [Map Print Carton: 7]",B54,7,NULL,NULL,NULL
+/locations/3083,NULL,"SML, B54 [Map Print Carton: 8]",B54,8,NULL,NULL,NULL
+/locations/3084,NULL,"SML, B54 [Map Print Carton: 9]",B54,9,NULL,NULL,NULL
+/locations/3085,NULL,"SML, B54 [Map Print Carton: 10]",B54,10,NULL,NULL,NULL
+/locations/3086,NULL,"SML, B54 [Map Print Carton: 11]",B54,11,NULL,NULL,NULL
+/locations/1838,NULL,"SML, B57 [Range: 1, Section: a, Shelf: 1]",B57,1,NULL,NULL,NULL
+/locations/1839,NULL,"SML, B57 [Range: 1, Section: a, Shelf: 2]",B57,1,NULL,NULL,NULL
+/locations/1840,NULL,"SML, B57 [Range: 1, Section: a, Shelf: 3]",B57,1,NULL,NULL,NULL
+/locations/1841,NULL,"SML, B57 [Range: 1, Section: a, Shelf: 4]",B57,1,NULL,NULL,NULL
+/locations/1842,NULL,"SML, B57 [Range: 1, Section: a, Shelf: 5]",B57,1,NULL,NULL,NULL
+/locations/1843,NULL,"SML, B57 [Range: 1, Section: a, Shelf: 6]",B57,1,NULL,NULL,NULL
+/locations/2077,NULL,"SML, B57 [Range: 2, Section: a, Shelf: 5]",B57,2,NULL,NULL,NULL
+/locations/2078,NULL,"SML, B57 [Range: 2, Section: a, Shelf: 6]",B57,2,NULL,NULL,NULL
+/locations/2079,NULL,"SML, B57 [Range: 2, Section: b, Shelf: 1]",B57,2,NULL,NULL,NULL
+/locations/2080,NULL,"SML, B57 [Range: 2, Section: b, Shelf: 2]",B57,2,NULL,NULL,NULL
+/locations/2081,NULL,"SML, B57 [Range: 2, Section: b, Shelf: 3]",B57,2,NULL,NULL,NULL
+/locations/2082,NULL,"SML, B57 [Range: 2, Section: b, Shelf: 4]",B57,2,NULL,NULL,NULL
+/locations/2083,NULL,"SML, B57 [Range: 2, Section: b, Shelf: 5]",B57,2,NULL,NULL,NULL
+/locations/2084,NULL,"SML, B57 [Range: 2, Section: b, Shelf: 6]",B57,2,NULL,NULL,NULL
+/locations/2085,NULL,"SML, B57 [Range: 2, Section: c, Shelf: 1]",B57,2,NULL,NULL,NULL
+/locations/2086,NULL,"SML, B57 [Range: 2, Section: c, Shelf: 2]",B57,2,NULL,NULL,NULL
+/locations/2087,NULL,"SML, B57 [Range: 2, Section: c, Shelf: 3]",B57,2,NULL,NULL,NULL
+/locations/2088,NULL,"SML, B57 [Range: 2, Section: c, Shelf: 4]",B57,2,NULL,NULL,NULL
+/locations/2089,NULL,"SML, B57 [Range: 2, Section: c, Shelf: 5]",B57,2,NULL,NULL,NULL
+/locations/2090,NULL,"SML, B57 [Range: 2, Section: c, Shelf: 6]",B57,2,NULL,NULL,NULL
+/locations/2036,NULL,"SML, B57 [Range: 4, Section: a, Shelf: 6]",B57,4,NULL,NULL,NULL
+/locations/2042,NULL,"SML, B57 [Range: 4, Section: b, Shelf: 6]",B57,4,NULL,NULL,NULL
+/locations/2048,NULL,"SML, B57 [Range: 4, Section: c, Shelf: 6]",B57,4,NULL,NULL,NULL
+/locations/2091,NULL,"SML, B57-B [Range: 1, Section: a, Shelf: 1]",B57-B,1,NULL,NULL,NULL
+/locations/2092,NULL,"SML, B57-B [Range: 1, Section: a, Shelf: 2]",B57-B,1,NULL,NULL,NULL
+/locations/2093,NULL,"SML, B57-B [Range: 1, Section: a, Shelf: 3]",B57-B,1,NULL,NULL,NULL
+/locations/2094,NULL,"SML, B57-B [Range: 1, Section: a, Shelf: 4]",B57-B,1,NULL,NULL,NULL
+/locations/2095,NULL,"SML, B57-B [Range: 1, Section: a, Shelf: 5]",B57-B,1,NULL,NULL,NULL
+/locations/2096,NULL,"SML, B57-B [Range: 1, Section: a, Shelf: 6]",B57-B,1,NULL,NULL,NULL
+/locations/2097,NULL,"SML, B57-B [Range: 1, Section: b, Shelf: 1]",B57-B,1,NULL,NULL,NULL
+/locations/2098,NULL,"SML, B57-B [Range: 1, Section: b, Shelf: 2]",B57-B,1,NULL,NULL,NULL
+/locations/2100,NULL,"SML, B57-B [Range: 1, Section: b, Shelf: 4]",B57-B,1,NULL,NULL,NULL
+/locations/2101,NULL,"SML, B57-B [Range: 1, Section: b, Shelf: 5]",B57-B,1,NULL,NULL,NULL
+/locations/2102,NULL,"SML, B57-B [Range: 1, Section: b, Shelf: 6]",B57-B,1,NULL,NULL,NULL
+/locations/3274,NULL,"SML, B57-B [Range: 3, Section: a, Shelf: 6]",B57-B,3,NULL,NULL,NULL
+/locations/3967,NULL,"SML, B57-B [Range: 3, Section: e, Shelf: 6]",B57-B,3,NULL,NULL,NULL
+/locations/3973,NULL,"SML, B57-B [Range: 3, Section: d, Shelf: 7]",B57-B,3,NULL,NULL,NULL
+/locations/511,NULL,"SML, B57-B [Range: 12, Section: b, Shelf: 2]",B57-B,12,NULL,NULL,NULL
+/locations/336,NULL,"SML, B57-B [Shelf:  43]",B57-B,43,NULL,NULL,NULL
+/locations/3026,NULL,"SML, B70 [Map Print Carton:  2]",B70,2,NULL,NULL,NULL
+/locations/3027,NULL,"SML, B70 [Map Print Carton:  3]",B70,3,NULL,NULL,NULL
+/locations/3028,NULL,"SML, B70 [Map Print Carton:  4]",B70,4,NULL,NULL,NULL
+/locations/3029,NULL,"SML, B70 [Map Print Carton:  5]",B70,5,NULL,NULL,NULL
+/locations/3030,NULL,"SML, B70 [Map Print Carton:  6]",B70,6,NULL,NULL,NULL
+/locations/3031,NULL,"SML, B70 [Map Print Carton:  7]",B70,7,NULL,NULL,NULL
+/locations/3879,NULL,"SML, B70 [Range: 7, Section: c, Shelf: 1]",B70,7,NULL,NULL,NULL
+/locations/3885,NULL,"SML, B70 [Range: 7, Section: d, Shelf: 1]",B70,7,NULL,NULL,NULL
+/locations/3032,NULL,"SML, B70 [Map Print Carton:  8]",B70,8,NULL,NULL,NULL
+/locations/3970,NULL,"SML, B70 [Range: 8, Section: e, Shelf: 2]",B70,8,NULL,NULL,NULL
+/locations/3971,NULL,"SML, B70 [Range: 8, Section: e, Shelf: 3]",B70,8,NULL,NULL,NULL
+/locations/3972,NULL,"SML, B70 [Range: 8, Section: e, Shelf: 2]",B70,8,NULL,NULL,NULL
+/locations/524,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/525,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/526,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/527,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/528,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/529,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/530,NULL,"SML, B70 [Range: 9, Section: d, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/531,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/1746,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/1747,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/1748,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/1749,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/1750,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/1751,NULL,"SML, B70 [Range: 9, Section: f, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/1752,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/1753,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/1754,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/1755,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/1756,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/1757,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/1758,NULL,"SML, B70 [Range: 9, Section: g, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/1759,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/1760,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/1761,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/1762,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/1763,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/1764,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/1765,NULL,"SML, B70 [Range: 9, Section: h, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/1766,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/1767,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/1768,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/1769,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/1770,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/1771,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/1772,NULL,"SML, B70 [Range: 9, Section: i, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/1773,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/1774,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/1775,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/1776,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/1777,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/1778,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/1779,NULL,"SML, B70 [Range: 9, Section: j, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/1780,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 1]",B70,9,NULL,NULL,NULL
+/locations/1781,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 2]",B70,9,NULL,NULL,NULL
+/locations/1782,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 3]",B70,9,NULL,NULL,NULL
+/locations/1783,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 4]",B70,9,NULL,NULL,NULL
+/locations/1784,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 5]",B70,9,NULL,NULL,NULL
+/locations/1785,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 6]",B70,9,NULL,NULL,NULL
+/locations/1786,NULL,"SML, B70 [Range: 9, Section: k, Shelf: 7]",B70,9,NULL,NULL,NULL
+/locations/3033,NULL,"SML, B70 [Map Print Carton:  9]",B70,9,NULL,NULL,NULL
+/locations/1377,NULL,"SML, B70 [Range: 10, Section: h, Shelf: 1]",B70,10,NULL,NULL,NULL
+/locations/1384,NULL,"SML, B70 [Range: 10, Section: i, Shelf: 1]",B70,10,NULL,NULL,NULL
+/locations/1391,NULL,"SML, B70 [Range: 10, Section: j, Shelf: 1]",B70,10,NULL,NULL,NULL
+/locations/1398,NULL,"SML, B70 [Range: 10, Section: k, Shelf: 1]",B70,10,NULL,NULL,NULL
+/locations/3034,NULL,"SML, B70 [Map Print Carton:  10]",B70,10,NULL,NULL,NULL
+/locations/1419,NULL,"SML, B70 [Range: 11, Section: c, Shelf: 1]",B70,11,NULL,NULL,NULL
+/locations/3041,NULL,"SML, B70 [Map Print Carton: 11]",B70,11,NULL,NULL,NULL
+/locations/3042,NULL,"SML, B70 [Map Print Carton: 12]",B70,12,NULL,NULL,NULL
+/locations/3043,NULL,"SML, B70 [Map Print Carton: 13]",B70,13,NULL,NULL,NULL
+/locations/3044,NULL,"SML, B70 [Map Print Carton: 14]",B70,14,NULL,NULL,NULL
+/locations/1682,NULL,"SML, B70 [Range: 15, Section: a, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1689,NULL,"SML, B70 [Range: 15, Section: b, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1696,NULL,"SML, B70 [Range: 15, Section: c, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1703,NULL,"SML, B70 [Range: 15, Section: d, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1710,NULL,"SML, B70 [Range: 15, Section: f, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1717,NULL,"SML, B70 [Range: 15, Section: g, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1724,NULL,"SML, B70 [Range: 15, Section: h, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1731,NULL,"SML, B70 [Range: 15, Section: i, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1738,NULL,"SML, B70 [Range: 15, Section: j, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/1745,NULL,"SML, B70 [Range: 15, Section: k, Shelf: 7]",B70,15,NULL,NULL,NULL
+/locations/3045,NULL,"SML, B70 [Map Print Carton: 15]",B70,15,NULL,NULL,NULL
+/locations/3046,NULL,"SML, B70 [Map Print Carton: 16]",B70,16,NULL,NULL,NULL
+/locations/3047,NULL,"SML, B70 [Map Print Carton: 17]",B70,17,NULL,NULL,NULL
+/locations/3048,NULL,"SML, B70 [Map Print Carton: 18]",B70,18,NULL,NULL,NULL
+/locations/3049,NULL,"SML, B70 [Map Print Carton: 19]",B70,19,NULL,NULL,NULL
+/locations/3050,NULL,"SML, B70 [Map Print Carton: 20]",B70,20,NULL,NULL,NULL
+/locations/3051,NULL,"SML, B70 [Map Print Carton: 21]",B70,21,NULL,NULL,NULL
+/locations/3052,NULL,"SML, B70 [Map Print Carton: 22]",B70,22,NULL,NULL,NULL
+/locations/3054,NULL,"SML, B70 [Map Print Carton:  23]",B70,23,NULL,NULL,NULL
+/locations/1789,NULL,"SML, B70-B [Range: 1, Section: a, Shelf: 1]",B70-B,1,NULL,NULL,NULL
+/locations/1791,NULL,"SML, B70-B [Range: 1, Section: a, Shelf: 3]",B70-B,1,NULL,NULL,NULL
+/locations/1792,NULL,"SML, B70-B [Range: 1, Section: a, Shelf: 4]",B70-B,1,NULL,NULL,NULL
+/locations/1793,NULL,"SML, B70-B [Range: 1, Section: a, Shelf: 5]",B70-B,1,NULL,NULL,NULL
+/locations/1794,NULL,"SML, B70-B [Range: 1, Section: a, Shelf: 6]",B70-B,1,NULL,NULL,NULL
+/locations/1795,NULL,"SML, B70-B [Range: 1, Section: a, Shelf: 7]",B70-B,1,NULL,NULL,NULL
+/locations/1796,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 1]",B70-B,1,NULL,NULL,NULL
+/locations/1797,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 2]",B70-B,1,NULL,NULL,NULL
+/locations/1798,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 3]",B70-B,1,NULL,NULL,NULL
+/locations/1799,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 4]",B70-B,1,NULL,NULL,NULL
+/locations/1800,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 5]",B70-B,1,NULL,NULL,NULL
+/locations/1801,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 6]",B70-B,1,NULL,NULL,NULL
+/locations/1802,NULL,"SML, B70-B [Range: 1, Section: b, Shelf: 7]",B70-B,1,NULL,NULL,NULL
+/locations/1803,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 1]",B70-B,1,NULL,NULL,NULL
+/locations/1804,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 2]",B70-B,1,NULL,NULL,NULL
+/locations/1805,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 3]",B70-B,1,NULL,NULL,NULL
+/locations/1806,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 4]",B70-B,1,NULL,NULL,NULL
+/locations/1807,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 5]",B70-B,1,NULL,NULL,NULL
+/locations/1808,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 6]",B70-B,1,NULL,NULL,NULL
+/locations/1809,NULL,"SML, B70-B [Range: 1, Section: c, Shelf: 7]",B70-B,1,NULL,NULL,NULL
+/locations/331,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 0]",B70-B,2,NULL,NULL,NULL
+/locations/1810,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 1]",B70-B,2,NULL,NULL,NULL
+/locations/1811,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 2]",B70-B,2,NULL,NULL,NULL
+/locations/1812,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 3]",B70-B,2,NULL,NULL,NULL
+/locations/1813,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 4]",B70-B,2,NULL,NULL,NULL
+/locations/1814,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 5]",B70-B,2,NULL,NULL,NULL
+/locations/1815,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 6]",B70-B,2,NULL,NULL,NULL
+/locations/1816,NULL,"SML, B70-B [Range: 2, Section: a, Shelf: 7]",B70-B,2,NULL,NULL,NULL
+/locations/1817,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 1]",B70-B,2,NULL,NULL,NULL
+/locations/1819,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 3]",B70-B,2,NULL,NULL,NULL
+/locations/1820,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 4]",B70-B,2,NULL,NULL,NULL
+/locations/1821,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 5]",B70-B,2,NULL,NULL,NULL
+/locations/1822,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 6]",B70-B,2,NULL,NULL,NULL
+/locations/1823,NULL,"SML, B70-B [Range: 2, Section: b, Shelf: 7]",B70-B,2,NULL,NULL,NULL
+/locations/1824,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 1]",B70-B,2,NULL,NULL,NULL
+/locations/1825,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 2]",B70-B,2,NULL,NULL,NULL
+/locations/1826,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 3]",B70-B,2,NULL,NULL,NULL
+/locations/1827,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 4]",B70-B,2,NULL,NULL,NULL
+/locations/1828,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 5]",B70-B,2,NULL,NULL,NULL
+/locations/1829,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 6]",B70-B,2,NULL,NULL,NULL
+/locations/1830,NULL,"SML, B70-B [Range: 2, Section: c, Shelf: 7]",B70-B,2,NULL,NULL,NULL
+/locations/1831,NULL,"SML, B70-B [Range: 2, Section: d, Shelf: 1]",B70-B,2,NULL,NULL,NULL
+/locations/1832,NULL,"SML, B70-B [Range: 2, Section: d, Shelf: 2]",B70-B,2,NULL,NULL,NULL
+/locations/1833,NULL,"SML, B70-B [Range: 2, Section: d, Shelf: 3]",B70-B,2,NULL,NULL,NULL
+/locations/1834,NULL,"SML, B70-B [Range: 2, Section: d, Shelf: 4]",B70-B,2,NULL,NULL,NULL
+/locations/1835,NULL,"SML, B70-B [Range: 2, Section: d, Shelf: 5]",B70-B,2,NULL,NULL,NULL
+/locations/1837,NULL,"SML, B70-B [Range: 2, Section: d, Shelf: 7]",B70-B,2,NULL,NULL,NULL
+/locations/3472,NULL,"SML, B69 [Range: 12, Section: i, Shelf: 8]",NULL,12,NULL,NULL,NULL

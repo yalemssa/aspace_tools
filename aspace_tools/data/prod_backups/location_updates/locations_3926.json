@@ -1,0 +1,21 @@
+{
+    "building": "SML",
+    "coordinate_1_indicator": "9",
+    "coordinate_1_label": "Range",
+    "coordinate_2_indicator": "a",
+    "coordinate_2_label": "Section",
+    "coordinate_3_indicator": "2",
+    "coordinate_3_label": "Shelf",
+    "create_time": "2017-03-16T20:44:57Z",
+    "created_by": "cconnoll",
+    "external_ids": [],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "lock_version": 2,
+    "room": "B70",
+    "system_mtime": "2018-10-31T17:04:00Z",
+    "title": "SML, B70 [Range: 9, Section: a, Shelf: 2]",
+    "uri": "/locations/3926",
+    "user_mtime": "2018-10-31T17:04:00Z"
+}

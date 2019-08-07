@@ -1,0 +1,32 @@
+{
+    "building": "SML",
+    "coordinate_1_indicator": "11",
+    "coordinate_1_label": "Range",
+    "coordinate_2_indicator": "b",
+    "coordinate_2_label": "Section",
+    "coordinate_3_indicator": "3",
+    "coordinate_3_label": "Shelf",
+    "create_time": "2015-06-01T15:50:16Z",
+    "created_by": "admin",
+    "external_ids": [
+        {
+            "create_time": "2018-10-31T16:06:30Z",
+            "created_by": "amd243",
+            "external_id": "2154",
+            "jsonmodel_type": "external_id",
+            "last_modified_by": "amd243",
+            "source": "Archivists Toolkit Database::LOCATION",
+            "system_mtime": "2018-10-31T16:06:30Z",
+            "user_mtime": "2018-10-31T16:06:30Z"
+        }
+    ],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "lock_version": 1,
+    "room": "B51-A",
+    "system_mtime": "2018-10-31T16:06:30Z",
+    "title": "SML, B51-A [Range: 11, Section: b, Shelf: 3]",
+    "uri": "/locations/2169",
+    "user_mtime": "2018-10-31T16:06:30Z"
+}

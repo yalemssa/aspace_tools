@@ -1,0 +1,25 @@
+{
+    "barcode": "80568",
+    "building": "SML",
+    "coordinate_1_indicator": "1",
+    "coordinate_1_label": "Range",
+    "coordinate_2_indicator": "A",
+    "coordinate_2_label": "Section",
+    "coordinate_3_indicator": "5",
+    "coordinate_3_label": "Shelf",
+    "create_time": "2019-06-11T21:12:13Z",
+    "created_by": "amd243",
+    "external_ids": [],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "location_profile": {
+        "ref": "/location_profiles/1"
+    },
+    "lock_version": 0,
+    "room": "B51-A",
+    "system_mtime": "2019-06-11T21:12:13Z",
+    "title": "SML, B51-A [80568, Range: 1, Section: A, Shelf: 5]",
+    "uri": "/locations/4134",
+    "user_mtime": "2019-06-11T21:12:13Z"
+}

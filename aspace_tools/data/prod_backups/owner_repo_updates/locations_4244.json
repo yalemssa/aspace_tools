@@ -1,0 +1,25 @@
+{
+    "barcode": "81519",
+    "building": "SML",
+    "coordinate_1_indicator": "14",
+    "coordinate_1_label": "Range",
+    "coordinate_2_indicator": "E",
+    "coordinate_2_label": "Section",
+    "coordinate_3_indicator": "1",
+    "coordinate_3_label": "Shelf",
+    "create_time": "2019-06-11T21:12:58Z",
+    "created_by": "amd243",
+    "external_ids": [],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "location_profile": {
+        "ref": "/location_profiles/4"
+    },
+    "lock_version": 0,
+    "room": "B70",
+    "system_mtime": "2019-06-11T21:12:58Z",
+    "title": "SML, B70 [81519, Range: 14, Section: E, Shelf: 1]",
+    "uri": "/locations/4244",
+    "user_mtime": "2019-06-11T21:12:58Z"
+}

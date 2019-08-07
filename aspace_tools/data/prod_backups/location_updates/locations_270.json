@@ -1,0 +1,36 @@
+{
+    "barcode": "82388",
+    "building": "SML",
+    "coordinate_1_indicator": " 123",
+    "coordinate_1_label": "Drawer",
+    "coordinate_2_indicator": "SML, B57-A [Drawer:  123]",
+    "create_time": "2015-06-01T15:46:51Z",
+    "created_by": "admin",
+    "external_ids": [
+        {
+            "create_time": "2019-06-11T19:09:36Z",
+            "created_by": "amd243",
+            "external_id": "77",
+            "jsonmodel_type": "external_id",
+            "last_modified_by": "amd243",
+            "source": "Archivists Toolkit Database::LOCATION",
+            "system_mtime": "2019-06-11T19:09:36Z",
+            "user_mtime": "2019-06-11T19:09:36Z"
+        }
+    ],
+    "functions": [],
+    "jsonmodel_type": "location",
+    "last_modified_by": "amd243",
+    "location_profile": {
+        "ref": "/location_profiles/6"
+    },
+    "lock_version": 1,
+    "owner_repo": {
+        "ref": "/repositories/12"
+    },
+    "room": "B57-A",
+    "system_mtime": "2019-06-11T19:09:36Z",
+    "title": "SML, B57-A [82388, Drawer:  123]",
+    "uri": "/locations/270",
+    "user_mtime": "2019-06-11T19:09:36Z"
+}

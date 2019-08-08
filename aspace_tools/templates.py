@@ -8,7 +8,7 @@ import csv
 import requests
 from utilities import utilities as u
 
-import aspace_tools_logging as atl
+from aspace_tools import aspace_tools_logging as atl
 
 '''
 A class for creating JSON and CSV templates from the ArchivesSpace schema.

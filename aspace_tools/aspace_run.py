@@ -6,10 +6,10 @@ import traceback
 from utilities import dbssh
 from utilities import utilities as u
 
-import json_data as jd
-import queries as qs
-import crud as c
-import aspace_tools_logging as atl
+from aspace_tools import json_data as jd
+from aspace_tools import queries as qs
+from aspace_tools import crud as c
+from aspace_tools import aspace_tools_logging as atl
 
 '''
 This file contains three functions which provide the scaffolding for interacting

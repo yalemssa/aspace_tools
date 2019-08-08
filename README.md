@@ -1,7 +1,5 @@
 # ArchivesSpace Tools
 
-This is the main documentation page for `aspace_tools`.
-
 `aspace_tools` is a Python package and command-line interface for interacting with the ArchivesSpace API and MySQL database, usually using CSV files as input and output.
 
 ## Requirements

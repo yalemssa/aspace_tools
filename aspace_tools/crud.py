@@ -1,25 +1,6 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''
-These functions represent various types of create, read, update, and delete actions
-possible in the ArchivesSpace API. Some are generalized - i.e. the update_data, create_data,
-and delete_data functions can all be used to perform said actions on any record.
-
-The create_data and update_data functions call other functions which are stored in json_data.py
-to formulate the JSON which is required for API data transmission.
-
-All of the CRUD functions are themselves called by the functions in aspace_tools.py
-
-Other functions are scoped to specific endpoints that are formatted somewhat differently or take
-different parameters than the generalized functions. These include updating the parent and position
-of an archival object and updating the position of an enumeration value, among others.
-
-Todo:
-    also need to make sure that merge_data variables like record type are accounted for in the main interface; right now it
-    might be interpreted as a json_data variable which it is not; implement asnake.
-'''
-
 import json
 import traceback
 import requests
@@ -39,6 +20,13 @@ import aspace_tools_logging as atl
 
 # def write_output(result_data, output_file):
 #     pass
+
+'''
+
+Todo:
+    also need to make sure that merge_data variables like record type are accounted for in the main interface; right now it
+    might be interpreted as a json_data variable which it is not; implement asnake.
+'''
 
 logger = atl.logging.getLogger(__name__)
 

@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
+#this is useless right now
+#from utilities.decorators import register, PLUGINS
+
+import aspace_tools_logging as atl
+
 '''
 JSON data structures for ArchivesSpace record creation, update, etc. Called by CRUD functions in
 crud.py
@@ -12,17 +17,6 @@ Todo:
     Continue adding stuff from remaining .py files
     also need to work on the templates
     would like to be able to set options - i.e. if something is empty don't add it. Or look for indexing error
-'''
-
-#this is useless right now
-#from utilities.decorators import register, PLUGINS
-
-import aspace_tools_logging as atl
-
-'''
------------------------
-CREATE RECORD FUNCTIONS
------------------------
 '''
 
 logger = atl.logging.getLogger(__name__)

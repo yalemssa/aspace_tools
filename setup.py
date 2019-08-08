@@ -28,3 +28,6 @@ setup(name='aspace-tools',
 	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4'],
 	  include_package_data=True,
 	  zip_safe=False)
+
+
+#NEED TO ADD A REQUIREMENT TO INSTALL UTILITIES

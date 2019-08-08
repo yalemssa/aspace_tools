@@ -19,6 +19,9 @@ logger = atl.logging.getLogger(__name__)
 def main(result=None):
     '''This is the primary interface for interacting with the ArchivesSpace database via
        aspace_tools.
+
+       Todo:
+        add argument for run_db_query vs. run_db_queries???
     '''
     home_dir = str(Path.home())
     config_file = u.get_config(cfg=home_dir + '/as_tools_config.yml')

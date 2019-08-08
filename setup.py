@@ -25,7 +25,8 @@ setup(name='aspace_tools',
           'Operating System :: OS Independent'
           ],
 	  packages=['aspace_tools'],
-	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4', 'utilities @ https://github.com/ucancallmealicia/utilities/tarball/master'],
+	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4'],
+	  dependency_links=['git + https://github.com/ucancallmealicia/utilities/tarball/master#egg=utilities-0.1'],
 	  include_package_data=True,
 	  zip_safe=False)
 

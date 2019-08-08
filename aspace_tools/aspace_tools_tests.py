@@ -18,11 +18,11 @@ import sys
 import requests
 import responses
 
-from aspace_tools import crud
-from aspace_tools import json_data
-from aspace_tools import queries
+from . import crud
+from . import json_data
+from . import queries
 
-from aspace_tools import aspace_tools_logging as atl
+from . import aspace_tools_logging as atl
 
 sample_data_path = 'fixtures'
 

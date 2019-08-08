@@ -25,7 +25,7 @@ setup(name='aspace_tools',
           'Operating System :: OS Independent'
           ],
 	  packages=['aspace_tools'],
-	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4', 'yaml', 'https://github.com/username/repo.git'],
+	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4', 'yaml'],
 	  include_package_data=True,
 	  zip_safe=False)
 

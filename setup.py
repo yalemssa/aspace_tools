@@ -9,8 +9,8 @@ def readme():
 	with open('README.md') as f:
 		return f.read()
 
-setup(name='aspace-tools',
-	  version='0.1',
+setup(name='aspace_tools',
+	  version='0.0.1',
 	  description='Scripts for interacting with the ArchivesSpace database and API',
 	  long_description=readme(),
 	  #url='https://github.com/ucancallmealicia/utilities',
@@ -24,7 +24,7 @@ setup(name='aspace-tools',
           'Natural Language :: English',
           'Operating System :: OS Independent'
           ],
-	  packages=['aspace-tools'],
+	  packages=['aspace_tools'],
 	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4'],
 	  include_package_data=True,
 	  zip_safe=False)

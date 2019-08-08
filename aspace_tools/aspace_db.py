@@ -9,9 +9,9 @@ from utilities import utilities as u
 from utilities import dbssh
 
 #imports from aspace-tools
-import queries
-import aspace_run
-import aspace_tools_logging as atl
+from aspace_tools import queries
+from aspace_tools import aspace_run
+from aspace_tools import aspace_tools_logging as atl
 
 logger = atl.logging.getLogger(__name__)
 

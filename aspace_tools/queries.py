@@ -8,7 +8,7 @@ Note:
 	To run a single query string from the queries.py file, just use the DBConn class in utilities.dbssh.
 '''
 
-import aspace_tools_logging as atl
+from aspace_tools import aspace_tools_logging as atl
 
 logger = atl.logging.getLogger(__name__)
 

@@ -8,11 +8,11 @@ from pathlib import Path
 from utilities import utilities as u
 
 #imports from aspace-tools
-import json_data as jd
-import crud as c
-import aspace_run
+from aspace_tools import json_data as jd
+from aspace_tools import crud as c
+from aspace_tools import aspace_run
 
-import aspace_tools_logging as atl
+from aspace_tools import aspace_tools_logging as atl
 
 '''This is the main interface for setting program parameters and running functions that act on the ArchivesSpace API.
 

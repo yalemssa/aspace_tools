@@ -4,7 +4,7 @@
 #this is useless right now
 #from utilities.decorators import register, PLUGINS
 
-import aspace_tools_logging as atl
+from aspace_tools import aspace_tools_logging as atl
 
 '''
 JSON data structures for ArchivesSpace record creation, update, etc. Called by CRUD functions in

@@ -8,7 +8,7 @@ import requests
 #from asnake.client import ASnakeClient
 
 from utilities import utilities as u #, dbssh
-from aspace_tools import aspace_tools_logging as atl
+from . import aspace_tools_logging as atl
 
 # client = ASnakeClient()
 # auth = client.authorize()

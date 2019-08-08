@@ -14,7 +14,7 @@ import ast
 #from fuzzywuzzy import fuzz
 import pandas as pd
 
-from aspace_tools import aspace_tools_logging as atl
+from . import aspace_tools_logging as atl
 
 logger = atl.logging.getLogger(__name__)
 

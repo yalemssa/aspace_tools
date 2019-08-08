@@ -9,9 +9,9 @@ from utilities import utilities as u
 from utilities import dbssh
 
 #imports from aspace-tools
-from aspace_tools import queries
-from aspace_tools import aspace_run
-from aspace_tools import aspace_tools_logging as atl
+from . import queries
+from . import aspace_run
+from . import aspace_tools_logging as atl
 
 logger = atl.logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def main(result=None):
     try:
         dbconn = dbssh.DBConn()
         if len(sys.argv) > 1:
-            result = aspace_tools.run_db_queries(dbconn, csvfile, getattr(queries, sys.argv[1]))
+            result = aspace_run.run_db_queries(dbconn, csvfile, getattr(queries, sys.argv[1]))
         else:
             print('Error! Expected two arguments and got zero.')
     finally:

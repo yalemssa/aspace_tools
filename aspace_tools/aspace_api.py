@@ -8,11 +8,11 @@ from pathlib import Path
 from utilities import utilities as u
 
 #imports from aspace-tools
-from aspace_tools import json_data as jd
-from aspace_tools import crud as c
-from aspace_tools import aspace_run
+from . import json_data as jd
+from . import crud as c
+from . import aspace_run
 
-from aspace_tools import aspace_tools_logging as atl
+from . import aspace_tools_logging as atl
 
 '''This is the main interface for setting program parameters and running functions that act on the ArchivesSpace API.
 
@@ -62,9 +62,9 @@ def main(result=None):
         if sys.argv[1] == 'merge_data':
             pass
         else:
-            result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=getattr(c, sys.argv[1]))
+            result = aspace_run.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=getattr(c, sys.argv[1]))
     if len(sys.argv) == 3:
-        result = aspace_tools.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=getattr(c, sys.argv[1]), json_data=getattr(jd, sys.argv[2]))
+        result = aspace_run.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=getattr(c, sys.argv[1]), json_data=getattr(jd, sys.argv[2]))
     else:
         print(f"Error! Expected 1 or 2 arguments and got {len(sys.argv)}")
     return result

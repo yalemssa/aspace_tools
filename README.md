@@ -13,7 +13,6 @@ This is the main documentation page for `aspace_tools`.
 ```
 $ cd /path/to/package
 $ pip install .
-
 ```
 
 ## Package Overview/Tutorial

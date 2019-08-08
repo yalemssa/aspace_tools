@@ -1,6 +1,15 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
+import re
+import json
+import pprint
+import csv
+import requests
+from utilities import utilities as u
+
+import aspace_tools_logging as atl
+
 '''
 A class for creating JSON and CSV templates from the ArchivesSpace schema.
 
@@ -17,15 +26,6 @@ Todo:
     -DONE: Make sure to add a proper type for the 'jsonmodel_type' field
     -DONE: Reorganize functions
 '''
-
-import re
-import json
-import pprint
-import csv
-import requests
-from utilities import utilities as u
-
-import aspace_tools_logging as atl
 
 logger = atl.logging.getLogger(__name__)
 

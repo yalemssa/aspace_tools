@@ -86,15 +86,25 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Requirements</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#project-structure-philosophy">Project Structure/Philosophy</a><ul>
+<li><a class="reference internal" href="#package-overview-tutorial">Package Overview/Tutorial</a><ul>
+<li><a class="reference internal" href="#aspace-api-py"><code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code></a></li>
+<li><a class="reference internal" href="#aspace-db-py"><code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code></a></li>
 <li><a class="reference internal" href="#aspace-run-py"><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code></a></li>
 <li><a class="reference internal" href="#crud-py"><code class="docutils literal notranslate"><span class="pre">crud.py</span></code></a></li>
 <li><a class="reference internal" href="#json-data-py"><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code></a></li>
 <li><a class="reference internal" href="#queries-py"><code class="docutils literal notranslate"><span class="pre">queries.py</span></code></a></li>
+<li><a class="reference internal" href="#data-processing-py"><code class="docutils literal notranslate"><span class="pre">data_processing.py</span></code></a></li>
 <li><a class="reference internal" href="#templates-py"><code class="docutils literal notranslate"><span class="pre">templates.py</span></code></a></li>
+<li><a class="reference internal" href="#aspace-tools-logging-py"><code class="docutils literal notranslate"><span class="pre">aspace_tools_logging.py</span></code></a></li>
+<li><a class="reference internal" href="#aspace-tools-tests-py"><code class="docutils literal notranslate"><span class="pre">aspace_tools_tests.py</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">implementations</span></code></a></li>
+<li><a class="reference internal" href="#standalone-scripts"><code class="docutils literal notranslate"><span class="pre">standalone_scripts</span></code></a></li>
+<li><a class="reference internal" href="#templates"><code class="docutils literal notranslate"><span class="pre">templates</span></code></a></li>
+<li><a class="reference internal" href="#logs"><code class="docutils literal notranslate"><span class="pre">logs</span></code></a></li>
+<li><a class="reference internal" href="#fixtures"><code class="docutils literal notranslate"><span class="pre">fixtures</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li><a class="reference internal" href="#package-structure">Package Structure</a></li>
 </ul>
 </div>
             
@@ -159,26 +169,199 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>This is the main documentation page for the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> Python package.</p>
-<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> is a command-line interface for interacting with the ArchivesSpace API and MySQL database, usually using CSV files as input and output.</p>
+  <p>This is the main documentation page for <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> is a Python package and command-line interface for interacting with the ArchivesSpace API and MySQL database, usually using CSV files as input and output.</p>
 <div class="section" id="requirements">
 <h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p>Python 3.7+</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">utilities</span></code> package (will also install a few other dependencies)</p></li>
+<li><p><a class="reference external" href="https://github.com/ucancallmealicia/utilities">utilities</a> package, which will also install a several other dependencies: <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">bs4</span></code>, <code class="docutils literal notranslate"><span class="pre">requests</span></code>, <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>, <code class="docutils literal notranslate"><span class="pre">paramiko</span></code>, and <code class="docutils literal notranslate"><span class="pre">sshtunnel</span></code></p></li>
+<li><p>Read/write access to ArchivesSpace API and/or database</p></li>
 </ul>
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/package
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /path/to/package
 $ pip install .
 </pre></div>
 </div>
 </div>
-<div class="section" id="project-structure-philosophy">
-<h1>Project Structure/Philosophy<a class="headerlink" href="#project-structure-philosophy" title="Permalink to this headline">¶</a></h1>
-<p>This package is structured in a modular fashion which makes it highly extensible and which limits the repetition of boilerplate code.</p>
-<p>While all functions can be run independently, the primary way that end users will interact with the package is through the <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and <code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code> command-line interfaces.</p>
+<div class="section" id="package-overview-tutorial">
+<h1>Package Overview/Tutorial<a class="headerlink" href="#package-overview-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>This package is organized into several modules, which allows for easy extensibility and limits the repetition of boilerplate code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> can either be imported into a Python file or interactive interpreter, or run on the command line using the the <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and <code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code> interfaces.</p>
+<p>To get started, configure your API and database login information, set a backup directory, and define your input/output CSV file paths by filling in the appropriate fields in the included <code class="docutils literal notranslate"><span class="pre">as_tools_config.yml</span></code> template file, and move the file to your home directory.</p>
+<div class="section" id="aspace-api-py">
+<h2><code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code><a class="headerlink" href="#aspace-api-py" title="Permalink to this headline">¶</a></h2>
+<p>This is the primary command-line interface for interaction with the ArchivesSpace API. It is called with two required arguments: 1.) the <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> function to be called, i.e. <code class="docutils literal notranslate"><span class="pre">create_data</span></code>, <code class="docutils literal notranslate"><span class="pre">update_data</span></code> 2.) The <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> function to be called, i.e. <code class="docutils literal notranslate"><span class="pre">create_archival_objects</span></code></p>
+<p>To run a basic API update using <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code>, do the following:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_data update_primary_names
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_enum_position
+</pre></div>
+</div>
+<p>If running the <code class="docutils literal notranslate"><span class="pre">update_record_components</span></code> function, an additional argument is required to specify the field to be updated, i.e. <code class="docutils literal notranslate"><span class="pre">level</span></code>. The <code class="docutils literal notranslate"><span class="pre">update_subrecord_components</span></code> function requires two additional arguments, the subrecord type, i.e. <code class="docutils literal notranslate"><span class="pre">extent</span></code>, and the field to be updated, i.e. <code class="docutils literal notranslate"><span class="pre">extent_type</span></code>. If running the <code class="docutils literal notranslate"><span class="pre">merge_records</span></code> function, a third argument is required to specify the record type, i.e. <code class="docutils literal notranslate"><span class="pre">agent</span></code>.</p>
+<p>Examples:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py merge_data agent
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_data update_record_component level
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_data update_subrecord_component extent extent_type
+</pre></div>
+</div>
+<p>See the <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> and <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> API documentation to see which fields are required in each CSV input file.</p>
+</div>
+<div class="section" id="aspace-db-py">
+<h2><code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code><a class="headerlink" href="#aspace-db-py" title="Permalink to this headline">¶</a></h2>
+<p>This is the primary command-line interface for interaction with the ArchivesSpace MySQL database. It is called with two required arguments: 1.) Whether to run the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> function or the <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> function 2.) The <code class="docutils literal notranslate"><span class="pre">queries.py</span></code> file to be called, i.e. <code class="docutils literal notranslate"><span class="pre">get_access_notes</span></code></p>
+<p>To run a single database query from <code class="docutils literal notranslate"><span class="pre">queries.py</span></code>, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_db.py run_db_query get_all_microfilm
+</pre></div>
+</div>
+<p>To run multiple database queries using a CSV as input, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_db.py run_db_queries get_accessrestrict_notes
+</pre></div>
+</div>
+</div>
+<div class="section" id="aspace-run-py">
+<h2><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code><a class="headerlink" href="#aspace-run-py" title="Permalink to this headline">¶</a></h2>
+<p>This file contains three functions which provide the basic scaffolding for the other modules. The   <code class="docutils literal notranslate"><span class="pre">call_api</span></code> function is a loop which processes each line of an input CSV that is defined in the <code class="docutils literal notranslate"><span class="pre">aspace_tools_config.yml</span></code> file. This is the primary function that is called in <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and will be the primary function used if importing the package into another <code class="docutils literal notranslate"><span class="pre">.py</span></code> file or an interactive interpreter.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def call_api(api_url, headers, csvfile, dirpath=None, crud=None, json_data=None):
+    record_set = []
+    for i, row in enumerate(csvfile, 1):
+        try:
+            if json_data != None:
+                # the crud function selected by the user is called, and the
+                # json_data function selected by the user is passed to the crud function
+                record_json = crud(api_url, headers, row, dirpath, json_data)
+                if crud.__name__ == &#39;create_data&#39;:
+                    append_uris_to_record_set(row, record_json, record_set)
+                print(record_json)
+            else:
+                record_json = crud(api_url, headers, row, dirpath)
+                print(record_json)
+                if crud.__name__ == &#39;get_data&#39;:
+                    record_set.append(record_json)
+            if &#39;error&#39; in record_json:
+                exception_handler(record_json.get(&#39;error&#39;), &#39;error&#39;)
+        except Exception as exc:
+            exception_handler(traceback.format_exc(), &#39;exception&#39;)
+    if record_set:
+        return record_set
+</pre></div>
+</div>
+<p>The function takes several arguments. The <code class="docutils literal notranslate"><span class="pre">api_url</span></code>, <code class="docutils literal notranslate"><span class="pre">headers</span></code>, <code class="docutils literal notranslate"><span class="pre">csvfile</span></code>, and <code class="docutils literal notranslate"><span class="pre">dirpath</span></code> arguments can all be stored in the <code class="docutils literal notranslate"><span class="pre">as_tools_config.yml</span></code> file. The <code class="docutils literal notranslate"><span class="pre">crud</span></code> and <code class="docutils literal notranslate"><span class="pre">json_data</span></code> arguments are populated with functions from the <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> and <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> files.</p>
+<p><em>NOTE</em>: Not all <code class="docutils literal notranslate"><span class="pre">crud</span></code> functions take a <code class="docutils literal notranslate"><span class="pre">json_data</span></code> function as an argument.</p>
+<p>Example usage:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def main(result=None):
+    home_dir = str(Path.home())
+    config_file = u.get_config(cfg=home_dir + &#39;/as_tools_config.yml&#39;)
+    dirpath = u.setdirectory(config_file[&#39;backup_directory&#39;])
+    csvfile = u.opencsvdict(config_file[&#39;input_csv&#39;])
+    api_url, headers = u.login(url=config_file[&#39;api_url&#39;], username=config_file[&#39;api_username&#39;], password=config_file[&#39;api_password&#39;])
+    result = aspace_run.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=crud.create_data, json_data=json_data.create_archival_objects)
+    return result
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://github.com/yalemssa/aspace-tools/tree/master/aspace_tools/implementations">implementations</a> sub-folder for more examples.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code> also contains two functions for interacting with the ArchivesSpace MySQL database.</p>
+<p><code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> will run a single query. Many queries can be called from the <code class="docutils literal notranslate"><span class="pre">queries.py</span></code> file, though it is also possible to pass in a standalone <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def run_db_query(dbconn, query_func, outfile=None):
+    return (dbconn.run_query_list(query_func))
+</pre></div>
+</div>
+<p>Example usage:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Example
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> will run multiple queries using a CSV as input. This is useful in cases where a user wants to query a lot of variable data, such as a list of barcodes, identifiers, etc. This function loops through the CSV file and calls a query function in <code class="docutils literal notranslate"><span class="pre">queries.py</span></code> which uses f-strings (new in Python 3.7) to insert variable data from a CSV into the query each time it is run.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def run_db_queries(dbconn, csvfile, query_func):
+    return (dbconn.run_query_list(query_func(row)) for row in csvfile)
+</pre></div>
+</div>
+<p>Example usage:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def main(result=None):
+  try:
+    home_dir = str(Path.home())
+    config_file = u.get_config(cfg=home_dir + &#39;/as_tools_config.yml&#39;)
+    dirpath = u.setdirectory(config_file[&#39;backup_directory&#39;])
+    #what if just using the regular queries without f string functions?? Do like a csvfile=None variable?
+    header_row, csvfile = u.opencsv(config_file[&#39;input_csv&#39;])
+    dbconn = dbssh.DBConn()
+    result = aspace_tools.run_db_queries(dbconn, csvfile, getattr(queries, sys.argv[1]))
+  finally:
+     dbconn.close_conn()
+     return result
+</pre></div>
+</div>
+<p>The results of database queries can be written to an output file or stored in a Python list, generator, or DataFrame.</p>
+<p><em>NOTE</em>: Can also use the <code class="docutils literal notranslate"><span class="pre">db</span></code> file in <code class="docutils literal notranslate"><span class="pre">utilities</span></code> package to connect without SSH.</p>
+</div>
+<div class="section" id="crud-py">
+<h2><code class="docutils literal notranslate"><span class="pre">crud.py</span></code><a class="headerlink" href="#crud-py" title="Permalink to this headline">¶</a></h2>
+<p>This file holds all of the CRUD-related functions that are passed as the <code class="docutils literal notranslate"><span class="pre">crud</span></code> argument in the <code class="docutils literal notranslate"><span class="pre">aspace_run.call_api</span></code> function. These functions represent various types of create, read, update, and delete actions possible via the ArchivesSpace API. Some are generalized - the <code class="docutils literal notranslate"><span class="pre">update_data</span></code>, <code class="docutils literal notranslate"><span class="pre">create_data</span></code>, <code class="docutils literal notranslate"><span class="pre">get_data</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete_data</span></code> functions can all be used to perform said actions on any record.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">create_data</span></code>, <code class="docutils literal notranslate"><span class="pre">update_data</span></code>, and <code class="docutils literal notranslate"><span class="pre">get_data</span></code> functions call other functions which are stored in <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> to formulate the JSON which is required for API data transmission.</p>
+<p>Other functions in this file are scoped to specific endpoints that are formatted somewhat differently or take
+different parameters than the four generalized functions. These include functions which update the parent and position of an archival object and which update the position of an enumeration value, among others.</p>
+<p><em>NOTE</em>: currently working on a version of <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> which implements the <code class="docutils literal notranslate"><span class="pre">ArchivesSnake</span></code> Python package.</p>
+</div>
+<div class="section" id="json-data-py">
+<h2><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code><a class="headerlink" href="#json-data-py" title="Permalink to this headline">¶</a></h2>
+<p>This file holds all JSON data structures which are passed to the create, update, and delete functions in <code class="docutils literal notranslate"><span class="pre">crud.py</span></code>. The functions take a CSV row as input, and use the fields to populate a bit of JSON which is posted to ArchivesSpace via a <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> function.</p>
+</div>
+<div class="section" id="queries-py">
+<h2><code class="docutils literal notranslate"><span class="pre">queries.py</span></code><a class="headerlink" href="#queries-py" title="Permalink to this headline">¶</a></h2>
+<p>This file holds all query strings and query functions used in the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> functions in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code>. Some functions are simply query strings which are passed to <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and run once. Others take a CSV row as input and insert row data into a query using Python’s f-string syntax.</p>
+</div>
+<div class="section" id="data-processing-py">
+<h2><code class="docutils literal notranslate"><span class="pre">data_processing.py</span></code><a class="headerlink" href="#data-processing-py" title="Permalink to this headline">¶</a></h2>
+<p>This file contains a compilation of post-processing functions that can be used on outputs from the ArchivesSpace API or database.</p>
+</div>
+<div class="section" id="templates-py">
+<h2><code class="docutils literal notranslate"><span class="pre">templates.py</span></code><a class="headerlink" href="#templates-py" title="Permalink to this headline">¶</a></h2>
+<p>This file compiles JSON and CSV templates using the ArchivesSpace schema. To compile the templates, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">aspace_tools</span> <span class="kn">import</span> <span class="n">templates</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">ASTemplates</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">as_templates</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">parse_schemas</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">as_templates</span><span class="p">[</span><span class="s1">&#39;archival_object&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">download_csv_templates</span><span class="p">(</span><span class="n">as_templates</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aspace-tools-logging-py">
+<h2><code class="docutils literal notranslate"><span class="pre">aspace_tools_logging.py</span></code><a class="headerlink" href="#aspace-tools-logging-py" title="Permalink to this headline">¶</a></h2>
+<p>This file contains a custom logger which is initialized when the package is imported or run on the command line. All of the other files in this package import this file and initialize their own custom loggers.</p>
+</div>
+<div class="section" id="aspace-tools-tests-py">
+<h2><code class="docutils literal notranslate"><span class="pre">aspace_tools_tests.py</span></code><a class="headerlink" href="#aspace-tools-tests-py" title="Permalink to this headline">¶</a></h2>
+<p>Tests. Nothing here yet :(</p>
+</div>
+<div class="section" id="id1">
+<h2><code class="docutils literal notranslate"><span class="pre">implementations</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Includes <code class="docutils literal notranslate"><span class="pre">.py</span></code> files that rely on the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> package.</p>
+</div>
+<div class="section" id="standalone-scripts">
+<h2><code class="docutils literal notranslate"><span class="pre">standalone_scripts</span></code><a class="headerlink" href="#standalone-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Legacy <code class="docutils literal notranslate"><span class="pre">.py</span></code> and <code class="docutils literal notranslate"><span class="pre">.sql</span></code> files which do not rely on the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> package.</p>
+</div>
+<div class="section" id="templates">
+<h2><code class="docutils literal notranslate"><span class="pre">templates</span></code><a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>Outputs from <code class="docutils literal notranslate"><span class="pre">templates.py</span></code> are stored in this folder.</p>
+</div>
+<div class="section" id="logs">
+<h2><code class="docutils literal notranslate"><span class="pre">logs</span></code><a class="headerlink" href="#logs" title="Permalink to this headline">¶</a></h2>
+<p>Logs are stored in this folder.</p>
+</div>
+<div class="section" id="fixtures">
+<h2><code class="docutils literal notranslate"><span class="pre">fixtures</span></code><a class="headerlink" href="#fixtures" title="Permalink to this headline">¶</a></h2>
+<p>These files are used by <code class="docutils literal notranslate"><span class="pre">aspace_tools_tests.py</span></code>.</p>
+</div>
+</div>
+<div class="section" id="package-structure">
+<h1>Package Structure<a class="headerlink" href="#package-structure" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>aspace-tools
 │   README.md
 │   LICENSE.txt
@@ -197,7 +380,7 @@ $ pip install .
     │   data_processing.py
     │   aspace_tools_logging.py
     │   aspace_tools_tests.py
-    │   as_tools_config.yml (this is a blank template; once filled out should be moved to home directory)
+    │   as_tools_config.yml
     │
     └───standalone_scripts
     │   └───python
@@ -221,54 +404,6 @@ $ pip install .
            schemas.json
 </pre></div>
 </div>
-<div class="section" id="aspace-run-py">
-<h2><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code><a class="headerlink" href="#aspace-run-py" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><p>The main scaffolding for all the other functions are stored in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code>.</p>
-</div></blockquote>
-</div>
-<div class="section" id="crud-py">
-<h2><code class="docutils literal notranslate"><span class="pre">crud.py</span></code><a class="headerlink" href="#crud-py" title="Permalink to this headline">¶</a></h2>
-<p>This file holds all of the CRUD-related functions that are used in the <code class="docutils literal notranslate"><span class="pre">aspace_run.call_api</span></code> function.</p>
-</div>
-<div class="section" id="json-data-py">
-<h2><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code><a class="headerlink" href="#json-data-py" title="Permalink to this headline">¶</a></h2>
-<p>This file holds all JSON data structures which are used in create, update, and delete functions in <code class="docutils literal notranslate"><span class="pre">crud.py</span></code></p>
-</div>
-<div class="section" id="queries-py">
-<h2><code class="docutils literal notranslate"><span class="pre">queries.py</span></code><a class="headerlink" href="#queries-py" title="Permalink to this headline">¶</a></h2>
-<p>This file holds all query strings and query functions used in the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> functions in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code></p>
-</div>
-<div class="section" id="templates-py">
-<h2><code class="docutils literal notranslate"><span class="pre">templates.py</span></code><a class="headerlink" href="#templates-py" title="Permalink to this headline">¶</a></h2>
-<p>This file compiles JSON and CSV templates using the ArchivesSpace schema,</p>
-</div>
-</div>
-<div class="section" id="tutorial">
-<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<p>End-user interaction with this package takes place on the command line.</p>
-<p>To run a basic API update using <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code>, do the following:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api update_data update_primary_names
-</pre></div>
-</div>
-<p>To run a single database query, do:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">apispace</span> <span class="n">import</span> <span class="n">apispace</span><span class="p">,</span> <span class="n">queries</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">utilities</span> <span class="n">import</span> <span class="n">dbssh</span><span class="p">,</span> <span class="n">utilities</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">dbconn</span> <span class="o">=</span> <span class="n">dbssh</span><span class="p">.</span><span class="n">DBConn</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">dirpath</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">.</span><span class="n">set_directory</span><span class="p">(</span><span class="s1">&#39;/path/to/folder&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">query_data</span> <span class="o">=</span> <span class="n">apispace</span><span class="p">.</span><span class="n">run_db_query</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">queries</span><span class="p">.</span><span class="n">get_extent_types</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">dirpath</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Note: requires a configuration file, <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> with database connection data. Can also use the <code class="docutils literal notranslate"><span class="pre">db</span></code> file in <code class="docutils literal notranslate"><span class="pre">utilities</span></code> package to connect without SSH.</p>
-<p>To run multiple database queries using a CSV as input, do:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">apispace</span> <span class="n">import</span> <span class="n">apispace</span><span class="p">,</span> <span class="n">queries</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">utilities</span> <span class="n">import</span> <span class="n">dbssh</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">dbconn</span> <span class="o">=</span> <span class="n">dbssh</span><span class="p">.</span><span class="n">DBConn</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">csvfile</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">.</span><span class="n">opencsv</span><span class="p">(</span><span class="s1">&#39;/path/to/csvfile.csv&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">query_data</span> <span class="o">=</span> <span class="n">apispace</span><span class="p">.</span><span class="n">run_db_queries</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">csvfile</span><span class="p">,</span> <span class="n">queries</span><span class="p">.</span><span class="n">get_distinct_creators</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To compile JSON and CSV templates, do:</p>
 </div>
 
 

@@ -87,27 +87,37 @@
 <li><a class="reference internal" href="#">ArchivesSpace Tools</a><ul>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#project-structure-philosophy">Project Structure/Philosophy</a><ul>
+<li><a class="reference internal" href="#package-overview-tutorial">Package Overview/Tutorial</a><ul>
+<li><a class="reference internal" href="#aspace-api-py"><code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code></a></li>
+<li><a class="reference internal" href="#aspace-db-py"><code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code></a></li>
 <li><a class="reference internal" href="#aspace-run-py"><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code></a></li>
 <li><a class="reference internal" href="#crud-py"><code class="docutils literal notranslate"><span class="pre">crud.py</span></code></a></li>
 <li><a class="reference internal" href="#json-data-py"><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code></a></li>
 <li><a class="reference internal" href="#queries-py"><code class="docutils literal notranslate"><span class="pre">queries.py</span></code></a></li>
+<li><a class="reference internal" href="#data-processing-py"><code class="docutils literal notranslate"><span class="pre">data_processing.py</span></code></a></li>
 <li><a class="reference internal" href="#templates-py"><code class="docutils literal notranslate"><span class="pre">templates.py</span></code></a></li>
+<li><a class="reference internal" href="#aspace-tools-logging-py"><code class="docutils literal notranslate"><span class="pre">aspace_tools_logging.py</span></code></a></li>
+<li><a class="reference internal" href="#aspace-tools-tests-py"><code class="docutils literal notranslate"><span class="pre">aspace_tools_tests.py</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">implementations</span></code></a></li>
+<li><a class="reference internal" href="#standalone-scripts"><code class="docutils literal notranslate"><span class="pre">standalone_scripts</span></code></a></li>
+<li><a class="reference internal" href="#templates"><code class="docutils literal notranslate"><span class="pre">templates</span></code></a></li>
+<li><a class="reference internal" href="#logs"><code class="docutils literal notranslate"><span class="pre">logs</span></code></a></li>
+<li><a class="reference internal" href="#fixtures"><code class="docutils literal notranslate"><span class="pre">fixtures</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
+<li><a class="reference internal" href="#package-structure">Package Structure</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#api-documentation">API Documentation</a><ul>
-<li><a class="reference internal" href="#module-aspace_api">aspace_api.py</a></li>
-<li><a class="reference internal" href="#module-aspace_db">aspace_db.py</a></li>
-<li><a class="reference internal" href="#id2">aspace_run.py</a></li>
-<li><a class="reference internal" href="#id7">crud.py</a></li>
-<li><a class="reference internal" href="#id9">json_data.py</a></li>
-<li><a class="reference internal" href="#id22">queries.py</a></li>
-<li><a class="reference internal" href="#id23">templates.py</a></li>
-<li><a class="reference internal" href="#module-data_processing">data_processing.py</a></li>
-<li><a class="reference internal" href="#module-aspace_tools_logging">aspace_tools_logging.py</a></li>
+<li><a class="reference internal" href="#id2">aspace_api.py</a></li>
+<li><a class="reference internal" href="#id3">aspace_db.py</a></li>
+<li><a class="reference internal" href="#id4">aspace_run.py</a></li>
+<li><a class="reference internal" href="#id5">crud.py</a></li>
+<li><a class="reference internal" href="#id6">json_data.py</a></li>
+<li><a class="reference internal" href="#id7">queries.py</a></li>
+<li><a class="reference internal" href="#id8">templates.py</a></li>
+<li><a class="reference internal" href="#id9">data_processing.py</a></li>
+<li><a class="reference internal" href="#id10">aspace_tools_logging.py</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -179,26 +189,199 @@
 <h1>ArchivesSpace Tools<a class="headerlink" href="#archivesspace-tools" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
-<p>This is the main documentation page for the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> Python package.</p>
-<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> is a command-line interface for interacting with the ArchivesSpace API and MySQL database, usually using CSV files as input and output.</p>
+<p>This is the main documentation page for <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> is a Python package and command-line interface for interacting with the ArchivesSpace API and MySQL database, usually using CSV files as input and output.</p>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Python 3.7+</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">utilities</span></code> package (will also install a few other dependencies)</p></li>
+<li><p><a class="reference external" href="https://github.com/ucancallmealicia/utilities">utilities</a> package, which will also install a several other dependencies: <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">bs4</span></code>, <code class="docutils literal notranslate"><span class="pre">requests</span></code>, <code class="docutils literal notranslate"><span class="pre">pymysql</span></code>, <code class="docutils literal notranslate"><span class="pre">paramiko</span></code>, and <code class="docutils literal notranslate"><span class="pre">sshtunnel</span></code></p></li>
+<li><p>Read/write access to ArchivesSpace API and/or database</p></li>
 </ul>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ cd /path/to/package
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /path/to/package
 $ pip install .
 </pre></div>
 </div>
 </div>
-<div class="section" id="project-structure-philosophy">
-<h2>Project Structure/Philosophy<a class="headerlink" href="#project-structure-philosophy" title="Permalink to this headline">¶</a></h2>
-<p>This package is structured in a modular fashion which makes it highly extensible and which limits the repetition of boilerplate code.</p>
-<p>While all functions can be run independently, the primary way that end users will interact with the package is through the <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and <code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code> command-line interfaces.</p>
+<div class="section" id="package-overview-tutorial">
+<h2>Package Overview/Tutorial<a class="headerlink" href="#package-overview-tutorial" title="Permalink to this headline">¶</a></h2>
+<p>This package is organized into several modules, which allows for easy extensibility and limits the repetition of boilerplate code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> can either be imported into a Python file or interactive interpreter, or run on the command line using the the <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and <code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code> interfaces.</p>
+<p>To get started, configure your API and database login information, set a backup directory, and define your input/output CSV file paths by filling in the appropriate fields in the included <code class="docutils literal notranslate"><span class="pre">as_tools_config.yml</span></code> template file, and move the file to your home directory.</p>
+<div class="section" id="aspace-api-py">
+<h3><code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code><a class="headerlink" href="#aspace-api-py" title="Permalink to this headline">¶</a></h3>
+<p>This is the primary command-line interface for interaction with the ArchivesSpace API. It is called with two required arguments: 1.) the <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> function to be called, i.e. <code class="docutils literal notranslate"><span class="pre">create_data</span></code>, <code class="docutils literal notranslate"><span class="pre">update_data</span></code> 2.) The <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> function to be called, i.e. <code class="docutils literal notranslate"><span class="pre">create_archival_objects</span></code></p>
+<p>To run a basic API update using <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code>, do the following:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_data update_primary_names
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_enum_position
+</pre></div>
+</div>
+<p>If running the <code class="docutils literal notranslate"><span class="pre">update_record_components</span></code> function, an additional argument is required to specify the field to be updated, i.e. <code class="docutils literal notranslate"><span class="pre">level</span></code>. The <code class="docutils literal notranslate"><span class="pre">update_subrecord_components</span></code> function requires two additional arguments, the subrecord type, i.e. <code class="docutils literal notranslate"><span class="pre">extent</span></code>, and the field to be updated, i.e. <code class="docutils literal notranslate"><span class="pre">extent_type</span></code>. If running the <code class="docutils literal notranslate"><span class="pre">merge_records</span></code> function, a third argument is required to specify the record type, i.e. <code class="docutils literal notranslate"><span class="pre">agent</span></code>.</p>
+<p>Examples:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py merge_data agent
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_data update_record_component level
+</pre></div>
+</div>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api.py update_data update_subrecord_component extent extent_type
+</pre></div>
+</div>
+<p>See the <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> and <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> API documentation to see which fields are required in each CSV input file.</p>
+</div>
+<div class="section" id="aspace-db-py">
+<h3><code class="docutils literal notranslate"><span class="pre">aspace_db.py</span></code><a class="headerlink" href="#aspace-db-py" title="Permalink to this headline">¶</a></h3>
+<p>This is the primary command-line interface for interaction with the ArchivesSpace MySQL database. It is called with two required arguments: 1.) Whether to run the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> function or the <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> function 2.) The <code class="docutils literal notranslate"><span class="pre">queries.py</span></code> file to be called, i.e. <code class="docutils literal notranslate"><span class="pre">get_access_notes</span></code></p>
+<p>To run a single database query from <code class="docutils literal notranslate"><span class="pre">queries.py</span></code>, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_db.py run_db_query get_all_microfilm
+</pre></div>
+</div>
+<p>To run multiple database queries using a CSV as input, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_db.py run_db_queries get_accessrestrict_notes
+</pre></div>
+</div>
+</div>
+<div class="section" id="aspace-run-py">
+<h3><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code><a class="headerlink" href="#aspace-run-py" title="Permalink to this headline">¶</a></h3>
+<p>This file contains three functions which provide the basic scaffolding for the other modules. The   <code class="docutils literal notranslate"><span class="pre">call_api</span></code> function is a loop which processes each line of an input CSV that is defined in the <code class="docutils literal notranslate"><span class="pre">aspace_tools_config.yml</span></code> file. This is the primary function that is called in <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code> and will be the primary function used if importing the package into another <code class="docutils literal notranslate"><span class="pre">.py</span></code> file or an interactive interpreter.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def call_api(api_url, headers, csvfile, dirpath=None, crud=None, json_data=None):
+    record_set = []
+    for i, row in enumerate(csvfile, 1):
+        try:
+            if json_data != None:
+                # the crud function selected by the user is called, and the
+                # json_data function selected by the user is passed to the crud function
+                record_json = crud(api_url, headers, row, dirpath, json_data)
+                if crud.__name__ == &#39;create_data&#39;:
+                    append_uris_to_record_set(row, record_json, record_set)
+                print(record_json)
+            else:
+                record_json = crud(api_url, headers, row, dirpath)
+                print(record_json)
+                if crud.__name__ == &#39;get_data&#39;:
+                    record_set.append(record_json)
+            if &#39;error&#39; in record_json:
+                exception_handler(record_json.get(&#39;error&#39;), &#39;error&#39;)
+        except Exception as exc:
+            exception_handler(traceback.format_exc(), &#39;exception&#39;)
+    if record_set:
+        return record_set
+</pre></div>
+</div>
+<p>The function takes several arguments. The <code class="docutils literal notranslate"><span class="pre">api_url</span></code>, <code class="docutils literal notranslate"><span class="pre">headers</span></code>, <code class="docutils literal notranslate"><span class="pre">csvfile</span></code>, and <code class="docutils literal notranslate"><span class="pre">dirpath</span></code> arguments can all be stored in the <code class="docutils literal notranslate"><span class="pre">as_tools_config.yml</span></code> file. The <code class="docutils literal notranslate"><span class="pre">crud</span></code> and <code class="docutils literal notranslate"><span class="pre">json_data</span></code> arguments are populated with functions from the <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> and <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> files.</p>
+<p><em>NOTE</em>: Not all <code class="docutils literal notranslate"><span class="pre">crud</span></code> functions take a <code class="docutils literal notranslate"><span class="pre">json_data</span></code> function as an argument.</p>
+<p>Example usage:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def main(result=None):
+    home_dir = str(Path.home())
+    config_file = u.get_config(cfg=home_dir + &#39;/as_tools_config.yml&#39;)
+    dirpath = u.setdirectory(config_file[&#39;backup_directory&#39;])
+    csvfile = u.opencsvdict(config_file[&#39;input_csv&#39;])
+    api_url, headers = u.login(url=config_file[&#39;api_url&#39;], username=config_file[&#39;api_username&#39;], password=config_file[&#39;api_password&#39;])
+    result = aspace_run.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=crud.create_data, json_data=json_data.create_archival_objects)
+    return result
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://github.com/yalemssa/aspace-tools/tree/master/aspace_tools/implementations">implementations</a> sub-folder for more examples.</p>
+<p><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code> also contains two functions for interacting with the ArchivesSpace MySQL database.</p>
+<p><code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> will run a single query. Many queries can be called from the <code class="docutils literal notranslate"><span class="pre">queries.py</span></code> file, though it is also possible to pass in a standalone <code class="docutils literal notranslate"><span class="pre">.sql</span></code> file.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def run_db_query(dbconn, query_func, outfile=None):
+    return (dbconn.run_query_list(query_func))
+</pre></div>
+</div>
+<p>Example usage:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>Example
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> will run multiple queries using a CSV as input. This is useful in cases where a user wants to query a lot of variable data, such as a list of barcodes, identifiers, etc. This function loops through the CSV file and calls a query function in <code class="docutils literal notranslate"><span class="pre">queries.py</span></code> which uses f-strings (new in Python 3.7) to insert variable data from a CSV into the query each time it is run.</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def run_db_queries(dbconn, csvfile, query_func):
+    return (dbconn.run_query_list(query_func(row)) for row in csvfile)
+</pre></div>
+</div>
+<p>Example usage:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>def main(result=None):
+  try:
+    home_dir = str(Path.home())
+    config_file = u.get_config(cfg=home_dir + &#39;/as_tools_config.yml&#39;)
+    dirpath = u.setdirectory(config_file[&#39;backup_directory&#39;])
+    #what if just using the regular queries without f string functions?? Do like a csvfile=None variable?
+    header_row, csvfile = u.opencsv(config_file[&#39;input_csv&#39;])
+    dbconn = dbssh.DBConn()
+    result = aspace_tools.run_db_queries(dbconn, csvfile, getattr(queries, sys.argv[1]))
+  finally:
+     dbconn.close_conn()
+     return result
+</pre></div>
+</div>
+<p>The results of database queries can be written to an output file or stored in a Python list, generator, or DataFrame.</p>
+<p><em>NOTE</em>: Can also use the <code class="docutils literal notranslate"><span class="pre">db</span></code> file in <code class="docutils literal notranslate"><span class="pre">utilities</span></code> package to connect without SSH.</p>
+</div>
+<div class="section" id="crud-py">
+<h3><code class="docutils literal notranslate"><span class="pre">crud.py</span></code><a class="headerlink" href="#crud-py" title="Permalink to this headline">¶</a></h3>
+<p>This file holds all of the CRUD-related functions that are passed as the <code class="docutils literal notranslate"><span class="pre">crud</span></code> argument in the <code class="docutils literal notranslate"><span class="pre">aspace_run.call_api</span></code> function. These functions represent various types of create, read, update, and delete actions possible via the ArchivesSpace API. Some are generalized - the <code class="docutils literal notranslate"><span class="pre">update_data</span></code>, <code class="docutils literal notranslate"><span class="pre">create_data</span></code>, <code class="docutils literal notranslate"><span class="pre">get_data</span></code>, and <code class="docutils literal notranslate"><span class="pre">delete_data</span></code> functions can all be used to perform said actions on any record.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">create_data</span></code>, <code class="docutils literal notranslate"><span class="pre">update_data</span></code>, and <code class="docutils literal notranslate"><span class="pre">get_data</span></code> functions call other functions which are stored in <code class="docutils literal notranslate"><span class="pre">json_data.py</span></code> to formulate the JSON which is required for API data transmission.</p>
+<p>Other functions in this file are scoped to specific endpoints that are formatted somewhat differently or take
+different parameters than the four generalized functions. These include functions which update the parent and position of an archival object and which update the position of an enumeration value, among others.</p>
+<p><em>NOTE</em>: currently working on a version of <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> which implements the <code class="docutils literal notranslate"><span class="pre">ArchivesSnake</span></code> Python package.</p>
+</div>
+<div class="section" id="json-data-py">
+<h3><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code><a class="headerlink" href="#json-data-py" title="Permalink to this headline">¶</a></h3>
+<p>This file holds all JSON data structures which are passed to the create, update, and delete functions in <code class="docutils literal notranslate"><span class="pre">crud.py</span></code>. The functions take a CSV row as input, and use the fields to populate a bit of JSON which is posted to ArchivesSpace via a <code class="docutils literal notranslate"><span class="pre">crud.py</span></code> function.</p>
+</div>
+<div class="section" id="queries-py">
+<h3><code class="docutils literal notranslate"><span class="pre">queries.py</span></code><a class="headerlink" href="#queries-py" title="Permalink to this headline">¶</a></h3>
+<p>This file holds all query strings and query functions used in the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> functions in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code>. Some functions are simply query strings which are passed to <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and run once. Others take a CSV row as input and insert row data into a query using Python’s f-string syntax.</p>
+</div>
+<div class="section" id="data-processing-py">
+<h3><code class="docutils literal notranslate"><span class="pre">data_processing.py</span></code><a class="headerlink" href="#data-processing-py" title="Permalink to this headline">¶</a></h3>
+<p>This file contains a compilation of post-processing functions that can be used on outputs from the ArchivesSpace API or database.</p>
+</div>
+<div class="section" id="templates-py">
+<h3><code class="docutils literal notranslate"><span class="pre">templates.py</span></code><a class="headerlink" href="#templates-py" title="Permalink to this headline">¶</a></h3>
+<p>This file compiles JSON and CSV templates using the ArchivesSpace schema. To compile the templates, do:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">aspace_tools</span> <span class="kn">import</span> <span class="n">templates</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">ASTemplates</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">as_templates</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">parse_schemas</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">as_templates</span><span class="p">[</span><span class="s1">&#39;archival_object&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">download_csv_templates</span><span class="p">(</span><span class="n">as_templates</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aspace-tools-logging-py">
+<h3><code class="docutils literal notranslate"><span class="pre">aspace_tools_logging.py</span></code><a class="headerlink" href="#aspace-tools-logging-py" title="Permalink to this headline">¶</a></h3>
+<p>This file contains a custom logger which is initialized when the package is imported or run on the command line. All of the other files in this package import this file and initialize their own custom loggers.</p>
+</div>
+<div class="section" id="aspace-tools-tests-py">
+<h3><code class="docutils literal notranslate"><span class="pre">aspace_tools_tests.py</span></code><a class="headerlink" href="#aspace-tools-tests-py" title="Permalink to this headline">¶</a></h3>
+<p>Tests. Nothing here yet :(</p>
+</div>
+<div class="section" id="id1">
+<h3><code class="docutils literal notranslate"><span class="pre">implementations</span></code><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Includes <code class="docutils literal notranslate"><span class="pre">.py</span></code> files that rely on the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> package.</p>
+</div>
+<div class="section" id="standalone-scripts">
+<h3><code class="docutils literal notranslate"><span class="pre">standalone_scripts</span></code><a class="headerlink" href="#standalone-scripts" title="Permalink to this headline">¶</a></h3>
+<p>Legacy <code class="docutils literal notranslate"><span class="pre">.py</span></code> and <code class="docutils literal notranslate"><span class="pre">.sql</span></code> files which do not rely on the <code class="docutils literal notranslate"><span class="pre">aspace_tools</span></code> package.</p>
+</div>
+<div class="section" id="templates">
+<h3><code class="docutils literal notranslate"><span class="pre">templates</span></code><a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h3>
+<p>Outputs from <code class="docutils literal notranslate"><span class="pre">templates.py</span></code> are stored in this folder.</p>
+</div>
+<div class="section" id="logs">
+<h3><code class="docutils literal notranslate"><span class="pre">logs</span></code><a class="headerlink" href="#logs" title="Permalink to this headline">¶</a></h3>
+<p>Logs are stored in this folder.</p>
+</div>
+<div class="section" id="fixtures">
+<h3><code class="docutils literal notranslate"><span class="pre">fixtures</span></code><a class="headerlink" href="#fixtures" title="Permalink to this headline">¶</a></h3>
+<p>These files are used by <code class="docutils literal notranslate"><span class="pre">aspace_tools_tests.py</span></code>.</p>
+</div>
+</div>
+<div class="section" id="package-structure">
+<h2>Package Structure<a class="headerlink" href="#package-structure" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>aspace-tools
 │   README.md
 │   LICENSE.txt
@@ -217,7 +400,7 @@ $ pip install .
     │   data_processing.py
     │   aspace_tools_logging.py
     │   aspace_tools_tests.py
-    │   as_tools_config.yml (this is a blank template; once filled out should be moved to home directory)
+    │   as_tools_config.yml
     │
     └───standalone_scripts
     │   └───python
@@ -241,87 +424,34 @@ $ pip install .
            schemas.json
 </pre></div>
 </div>
-<div class="section" id="aspace-run-py">
-<h3><code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code><a class="headerlink" href="#aspace-run-py" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>The main scaffolding for all the other functions are stored in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code>.</p>
-</div></blockquote>
-</div>
-<div class="section" id="crud-py">
-<h3><code class="docutils literal notranslate"><span class="pre">crud.py</span></code><a class="headerlink" href="#crud-py" title="Permalink to this headline">¶</a></h3>
-<p>This file holds all of the CRUD-related functions that are used in the <code class="docutils literal notranslate"><span class="pre">aspace_run.call_api</span></code> function.</p>
-</div>
-<div class="section" id="json-data-py">
-<h3><code class="docutils literal notranslate"><span class="pre">json_data.py</span></code><a class="headerlink" href="#json-data-py" title="Permalink to this headline">¶</a></h3>
-<p>This file holds all JSON data structures which are used in create, update, and delete functions in <code class="docutils literal notranslate"><span class="pre">crud.py</span></code></p>
-</div>
-<div class="section" id="queries-py">
-<h3><code class="docutils literal notranslate"><span class="pre">queries.py</span></code><a class="headerlink" href="#queries-py" title="Permalink to this headline">¶</a></h3>
-<p>This file holds all query strings and query functions used in the <code class="docutils literal notranslate"><span class="pre">run_db_query</span></code> and <code class="docutils literal notranslate"><span class="pre">run_db_queries</span></code> functions in <code class="docutils literal notranslate"><span class="pre">aspace_run.py</span></code></p>
-</div>
-<div class="section" id="templates-py">
-<h3><code class="docutils literal notranslate"><span class="pre">templates.py</span></code><a class="headerlink" href="#templates-py" title="Permalink to this headline">¶</a></h3>
-<p>This file compiles JSON and CSV templates using the ArchivesSpace schema,</p>
-</div>
-</div>
-<div class="section" id="tutorial">
-<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
-<p>End-user interaction with this package takes place on the command line.</p>
-<p>To run a basic API update using <code class="docutils literal notranslate"><span class="pre">aspace_api.py</span></code>, do the following:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>$ ./aspace_api update_data update_primary_names
-</pre></div>
-</div>
-<p>To run a single database query, do:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">apispace</span> <span class="n">import</span> <span class="n">apispace</span><span class="p">,</span> <span class="n">queries</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">utilities</span> <span class="n">import</span> <span class="n">dbssh</span><span class="p">,</span> <span class="n">utilities</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">dbconn</span> <span class="o">=</span> <span class="n">dbssh</span><span class="p">.</span><span class="n">DBConn</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">dirpath</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">.</span><span class="n">set_directory</span><span class="p">(</span><span class="s1">&#39;/path/to/folder&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">query_data</span> <span class="o">=</span> <span class="n">apispace</span><span class="p">.</span><span class="n">run_db_query</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">queries</span><span class="p">.</span><span class="n">get_extent_types</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">dirpath</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Note: requires a configuration file, <code class="docutils literal notranslate"><span class="pre">config.yml</span></code> with database connection data. Can also use the <code class="docutils literal notranslate"><span class="pre">db</span></code> file in <code class="docutils literal notranslate"><span class="pre">utilities</span></code> package to connect without SSH.</p>
-<p>To run multiple database queries using a CSV as input, do:</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">apispace</span> <span class="n">import</span> <span class="n">apispace</span><span class="p">,</span> <span class="n">queries</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">from</span> <span class="n">utilities</span> <span class="n">import</span> <span class="n">dbssh</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">dbconn</span> <span class="o">=</span> <span class="n">dbssh</span><span class="p">.</span><span class="n">DBConn</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">_</span><span class="p">,</span> <span class="n">csvfile</span> <span class="o">=</span> <span class="n">utilities</span><span class="p">.</span><span class="n">opencsv</span><span class="p">(</span><span class="s1">&#39;/path/to/csvfile.csv&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">query_data</span> <span class="o">=</span> <span class="n">apispace</span><span class="p">.</span><span class="n">run_db_queries</span><span class="p">(</span><span class="n">dbconn</span><span class="p">,</span> <span class="n">csvfile</span><span class="p">,</span> <span class="n">queries</span><span class="p">.</span><span class="n">get_distinct_creators</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>To compile JSON and CSV templates, do:</p>
 </div>
 </div>
 <div class="section" id="api-documentation">
 <h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-aspace_api">
-<span id="aspace-api-py"></span><h2>aspace_api.py<a class="headerlink" href="#module-aspace_api" title="Permalink to this headline">¶</a></h2>
-<p>This is the main interface for setting program parameters and running functions that act on the ArchivesSpace API.</p>
-<dl class="function">
+<div class="section" id="id2">
+<h2>aspace_api.py<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-aspace_api"></span><dl class="function">
 <dt id="aspace_api.main">
-<code class="sig-prename descclassname">aspace_api.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_api.main" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_api.</code><code class="descname">main</code><span class="sig-paren">(</span><em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_api.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the primary interface for interacting with the ArchivesSpace API via aspace-tools</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-aspace_db">
-<span id="aspace-db-py"></span><h2>aspace_db.py<a class="headerlink" href="#module-aspace_db" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<div class="section" id="id3">
+<h2>aspace_db.py<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-aspace_db"></span><dl class="function">
 <dt id="aspace_db.main">
-<code class="sig-prename descclassname">aspace_db.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_db.main" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_db.</code><code class="descname">main</code><span class="sig-paren">(</span><em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_db.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the primary interface for interacting with the ArchivesSpace database via
 aspace_tools.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id2">
-<h2>aspace_run.py<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-aspace_run"></span><p>This file contains three functions which provide the scaffolding for interacting
-with the ArchivesSpace API and MySQL database.</p>
-<p>CRUD actions which are called by the call_api function are stored in the crud.py
-file. CRUD functions include create_data, update_data, etc.</p>
-<dl class="function">
+<div class="section" id="id4">
+<h2>aspace_run.py<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-aspace_run"></span><dl class="function">
 <dt id="aspace_run.call_api">
-<code class="sig-prename descclassname">aspace_run.</code><code class="sig-name descname">call_api</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">csvfile</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">crud=None</em>, <em class="sig-param">json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_run.call_api" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_run.</code><code class="descname">call_api</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>csvfile</em>, <em>dirpath=None</em>, <em>crud=None</em>, <em>json_data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_run.call_api" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the basic boilerplate loop structure for processing CSV files for use
 in ArchivesSpace API calls. Both the crud and json_data variables should be
 populated by functions from the json_data.py and crud.py files.</p>
@@ -341,7 +471,7 @@ populated by functions from the json_data.py and crud.py files.</p>
 
 <dl class="function">
 <dt id="aspace_run.run_db_queries">
-<code class="sig-prename descclassname">aspace_run.</code><code class="sig-name descname">run_db_queries</code><span class="sig-paren">(</span><em class="sig-param">dbconn</em>, <em class="sig-param">csvfile</em>, <em class="sig-param">query_func</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_run.run_db_queries" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_run.</code><code class="descname">run_db_queries</code><span class="sig-paren">(</span><em>dbconn</em>, <em>csvfile</em>, <em>query_func</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_run.run_db_queries" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs multiple queries against the ArchivesSpace database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -356,7 +486,7 @@ populated by functions from the json_data.py and crud.py files.</p>
 
 <dl class="function">
 <dt id="aspace_run.run_db_query">
-<code class="sig-prename descclassname">aspace_run.</code><code class="sig-name descname">run_db_query</code><span class="sig-paren">(</span><em class="sig-param">dbconn</em>, <em class="sig-param">query_func</em>, <em class="sig-param">outfile=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_run.run_db_query" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_run.</code><code class="descname">run_db_query</code><span class="sig-paren">(</span><em>dbconn</em>, <em>query_func</em>, <em>outfile=None</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_run.run_db_query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs a single query against the ArchivesSpace database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -369,20 +499,11 @@ populated by functions from the json_data.py and crud.py files.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id7">
-<h2>crud.py<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-crud"></span><p>These functions represent various types of create, read, update, and delete actions
-possible in the ArchivesSpace API. Some are generalized - i.e. the update_data, create_data,
-and delete_data functions can all be used to perform said actions on any record.</p>
-<p>The create_data and update_data functions call other functions which are stored in json_data.py
-to formulate the JSON which is required for API data transmission.</p>
-<p>All of the CRUD functions are themselves called by the functions in aspace_tools.py</p>
-<p>Other functions are scoped to specific endpoints that are formatted somewhat differently or take
-different parameters than the generalized functions. These include updating the parent and position
-of an archival object and updating the position of an enumeration value, among others.</p>
-<dl class="function">
+<div class="section" id="id5">
+<h2>crud.py<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-crud"></span><dl class="function">
 <dt id="crud.api_login">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">api_login</code><span class="sig-paren">(</span><em class="sig-param">url=None</em>, <em class="sig-param">username=None</em>, <em class="sig-param">password=None</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.api_login" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">api_login</code><span class="sig-paren">(</span><em>url=None</em>, <em>username=None</em>, <em>password=None</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.api_login" title="Permalink to this definition">¶</a></dt>
 <dd><p>Logs into the ArchivesSpace API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -403,7 +524,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.create_data">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">create_data</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em>, <em class="sig-param">_</em>, <em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.create_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">create_data</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em>, <em>_</em>, <em>json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.create_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates new records via the ArchivesSpace API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,7 +546,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.delete_data">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">delete_data</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em>, <em class="sig-param">dirpath</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.delete_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">delete_data</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em>, <em>dirpath</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.delete_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes records via the ArchivesSpace API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -447,7 +568,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.get_data">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">get_data</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves JSON data from the ArchivesSpace API. NOTE: Want to flatten this to CSV with the pandas module (can flatten nested JSON)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -468,7 +589,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.get_extents">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">get_extents</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_extents" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">get_extents</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_extents" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates extents for a set of resource records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -489,7 +610,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.get_nodes">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">get_nodes</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_nodes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">get_nodes</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a list of child URIs for an archival object record</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -511,7 +632,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.get_tree">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">get_tree</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_tree" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">get_tree</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.get_tree" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a tree for a record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -532,7 +653,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.merge_data">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">merge_data</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em>, <em class="sig-param">dirpath</em>, <em class="sig-param">record_type</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.merge_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">merge_data</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em>, <em>dirpath</em>, <em>record_type</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.merge_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merges two records.</p>
 <p>NOTE: need to add another sys.argv value for this so can specify record type outside of CSV</p>
 <dl class="field-list simple">
@@ -557,7 +678,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.search_container_profiles">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">search_container_profiles</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.search_container_profiles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">search_container_profiles</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.search_container_profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches container profiles by name. NOTE: make sure that I added the container lookup function that stores all containers.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -578,7 +699,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.search_data">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">search_data</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.search_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">search_data</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.search_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a search via the ArchivesSpace API</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -599,7 +720,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.update_data">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">update_data</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em>, <em class="sig-param">dirpath</em>, <em class="sig-param">json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.update_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">update_data</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em>, <em>dirpath</em>, <em>json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.update_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates data via the ArchivesSpace API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -622,7 +743,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.update_enum_position">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">update_enum_position</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.update_enum_position" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">update_enum_position</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.update_enum_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the position of an enumeration value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -644,7 +765,7 @@ of an archival object and updating the position of an enumeration value, among o
 
 <dl class="function">
 <dt id="crud.update_parent">
-<code class="sig-prename descclassname">crud.</code><code class="sig-name descname">update_parent</code><span class="sig-paren">(</span><em class="sig-param">api_url</em>, <em class="sig-param">headers</em>, <em class="sig-param">row</em>, <em class="sig-param">dirpath</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.update_parent" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">crud.</code><code class="descname">update_parent</code><span class="sig-paren">(</span><em>api_url</em>, <em>headers</em>, <em>row</em>, <em>dirpath</em><span class="sig-paren">)</span><a class="headerlink" href="#crud.update_parent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the archival object parent and position of an archival object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -667,13 +788,11 @@ of an archival object and updating the position of an enumeration value, among o
 </dd></dl>
 
 </div>
-<div class="section" id="id9">
-<h2>json_data.py<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-json_data"></span><p>JSON data structures for ArchivesSpace record creation, update, etc. Called by CRUD functions in
-crud.py</p>
-<dl class="function">
+<div class="section" id="id6">
+<h2>json_data.py<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-json_data"></span><dl class="function">
 <dt id="json_data.create_access_notes">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_access_notes</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_access_notes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_access_notes</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_access_notes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an accessrestrict note for HM microfilm surrogates and
 links it to a descriptive record.</p>
 <dl class="field-list simple">
@@ -695,7 +814,7 @@ links it to a descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_accessions">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_accessions</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_accessions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_accessions</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_accessions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an accession record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -717,7 +836,7 @@ links it to a descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_archival_objects">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_archival_objects</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_archival_objects" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_archival_objects</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_archival_objects" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an archival object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -750,7 +869,7 @@ links it to a descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_child">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_child</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_child" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_child</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_child" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a minimal child archival object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -773,7 +892,7 @@ links it to a descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_classification">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_classification</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_classification" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_classification</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_classification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a classification record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -795,7 +914,7 @@ links it to a descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_classification_scheme">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_classification_scheme</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_classification_scheme" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_classification_scheme</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_classification_scheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combines the create_classification and create_classification_term functions to create a multi-level
 classifcation scheme.</p>
 <dl class="field-list simple">
@@ -807,7 +926,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_classification_term">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_classification_term</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_classification_term" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_classification_term</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_classification_term" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a classification term with or without a classification term parent.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -832,7 +951,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_container_profiles">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_container_profiles</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_container_profiles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_container_profiles</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_container_profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a container profile record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -856,7 +975,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_digital_object_component">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_digital_object_component</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_digital_object_component" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_digital_object_component</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_digital_object_component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a digital object component record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -878,7 +997,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_digital_object_instances">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_digital_object_instances</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_digital_object_instances" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_digital_object_instances</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_digital_object_instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a instance of a digital object linked to an archival object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -899,7 +1018,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_digital_objects">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_digital_objects</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_digital_objects" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_digital_objects</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_digital_objects" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a digital object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -923,7 +1042,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_events">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_events</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_events" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_events</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_events" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an event record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -953,7 +1072,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_file_version">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_file_version</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_file_version" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_file_version</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_file_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a single file version record and adds it to a digital object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -975,7 +1094,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_file_versions">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_file_versions</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_file_versions" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_file_versions</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_file_versions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates multiple file versions and adds them to a digital object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -998,7 +1117,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_hm_external_ids">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_hm_external_ids</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_hm_external_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_hm_external_ids</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_hm_external_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an external ID subrecord and links it to a descriptive record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1019,7 +1138,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_instances">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_instances</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_instances" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_instances</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an instance of a top container and links to an archival object record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1049,7 +1168,7 @@ classifcation scheme.</p>
 
 <dl class="function">
 <dt id="json_data.create_local_access_restriction">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_local_access_restriction</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_local_access_restriction" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_local_access_restriction</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_local_access_restriction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a local access restriction type and links it to an existing note in a
 descriptive record.</p>
 <dl class="field-list simple">
@@ -1072,7 +1191,7 @@ descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_location_profiles">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_location_profiles</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_location_profiles" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_location_profiles</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_location_profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a location profile record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1095,7 +1214,7 @@ descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_locations">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_locations</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_locations" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_locations</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_locations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a full location record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1124,7 +1243,7 @@ descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_multipart_note">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_multipart_note</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_multipart_note" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_multipart_note</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_multipart_note" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a multipart note and links it to a descriptive record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1146,7 +1265,7 @@ descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_repositories">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_repositories</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_repositories" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_repositories</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_repositories" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a repository record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1163,7 +1282,7 @@ descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_resources">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_resources</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_resources" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_resources</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_resources" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a resource record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1194,7 +1313,7 @@ descriptive record.</p>
 
 <dl class="function">
 <dt id="json_data.create_timebound_restriction">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_timebound_restriction</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_timebound_restriction" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_timebound_restriction</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_timebound_restriction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a timebound restriction type and links it to a note in a descriptive
 record.</p>
 <dl class="field-list simple">
@@ -1218,7 +1337,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.create_top_containers">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">create_top_containers</code><span class="sig-paren">(</span><em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_top_containers" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">create_top_containers</code><span class="sig-paren">(</span><em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.create_top_containers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a top container record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1246,7 +1365,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.delete_instances">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">delete_instances</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_instances" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">delete_instances</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_instances" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes an instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1266,7 +1385,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.delete_notes">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">delete_notes</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_notes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">delete_notes</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_notes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a note subrecord in a descriptive record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1287,7 +1406,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.delete_rights_restriction">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">delete_rights_restriction</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_rights_restriction" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">delete_rights_restriction</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_rights_restriction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a local access restriction in an accessrestrict note.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1308,7 +1427,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.delete_subcontainers">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">delete_subcontainers</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_subcontainers" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">delete_subcontainers</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.delete_subcontainers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a sub_container subrecord in an instance subrecord.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1328,7 +1447,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.get_agents">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">get_agents</code><span class="sig-paren">(</span><em class="sig-param">agent_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.get_agents" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">get_agents</code><span class="sig-paren">(</span><em>agent_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.get_agents" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves data about agents.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1342,7 +1461,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.get_series">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">get_series</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.get_series" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">get_series</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.get_series" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets a list of series-level ancestors for a list of URIs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1356,7 +1475,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.get_subjects">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">get_subjects</code><span class="sig-paren">(</span><em class="sig-param">subject_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.get_subjects" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">get_subjects</code><span class="sig-paren">(</span><em>subject_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.get_subjects" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieves data about subjects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1370,7 +1489,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.link_agent_to_record">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">link_agent_to_record</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.link_agent_to_record" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">link_agent_to_record</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.link_agent_to_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Links an agent record to a descriptive record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1391,7 +1510,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.link_event_to_record">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">link_event_to_record</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.link_event_to_record" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">link_event_to_record</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.link_event_to_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Links an event record to a descriptive record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1412,7 +1531,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.link_record_to_classification">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">link_record_to_classification</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.link_record_to_classification" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">link_record_to_classification</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.link_record_to_classification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Links a record to a classification or classification term.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1433,7 +1552,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.update_access_notes">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_access_notes</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_access_notes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_access_notes</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_access_notes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates existing accessrestrict notes for HM films.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1455,7 +1574,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.update_container_type">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_container_type</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_container_type" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_container_type</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_container_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates the container type of a top container record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1476,7 +1595,7 @@ record.</p>
 
 <dl class="function">
 <dt id="json_data.update_date_type">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_date_type</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_date_type" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_date_type</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_date_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks whether a date lacks end value, or whether the begin and end values
 and if either are true changes the date type to ‘single’</p>
 <dl class="field-list simple">
@@ -1492,7 +1611,7 @@ and if either are true changes the date type to ‘single’</p>
 
 <dl class="function">
 <dt id="json_data.update_dates">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_dates</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_dates" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_dates</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_dates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates date subrecords.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1509,7 +1628,7 @@ and if either are true changes the date type to ‘single’</p>
 
 <dl class="function">
 <dt id="json_data.update_folder_numbers">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_folder_numbers</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_folder_numbers" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_folder_numbers</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_folder_numbers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates indicator numbers in instance subrecords.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1531,7 +1650,7 @@ and if either are true changes the date type to ‘single’</p>
 
 <dl class="function">
 <dt id="json_data.update_identifiers">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_identifiers</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_identifiers" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_identifiers</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_identifiers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves resource identifiers which are split across multiple fields into a
 single field.</p>
 <dl class="field-list simple">
@@ -1553,7 +1672,7 @@ single field.</p>
 
 <dl class="function">
 <dt id="json_data.update_location_coordinates">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_location_coordinates</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_location_coordinates" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_location_coordinates</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_location_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates location labels and indicators.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1579,7 +1698,7 @@ single field.</p>
 
 <dl class="function">
 <dt id="json_data.update_locations">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_locations</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_locations" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_locations</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_locations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates location records with barcodes, location profiles, repositories,
 and, optionally, coordinate 1 indicator.</p>
 <dl class="field-list simple">
@@ -1606,7 +1725,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_names">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_names</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_names" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_names</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates name records to fix improper field usages.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1635,7 +1754,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_note_pub_status">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_note_pub_status</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_note_pub_status" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_note_pub_status</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_note_pub_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates publication status of a note.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1657,7 +1776,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_notes">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_notes</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_notes" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_notes</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_notes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates singlepart or multipart notes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1679,7 +1798,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_record_component">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_record_component</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_record_component" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_record_component</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_record_component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates a non-nested field in a top-level record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1701,7 +1820,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_record_components">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_record_components</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_record_components" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_record_components</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_record_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates non-nested fields in a top-level record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1727,7 +1846,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_record_pub_status">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_record_pub_status</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_record_pub_status" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_record_pub_status</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_record_pub_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates publication status of top-level record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1748,7 +1867,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_revision_statements">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_revision_statements</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_revision_statements" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_revision_statements</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_revision_statements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates a revision statement.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1771,7 +1890,7 @@ and, optionally, coordinate 1 indicator.</p>
 
 <dl class="function">
 <dt id="json_data.update_sources_auth_ids">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_sources_auth_ids</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_sources_auth_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_sources_auth_ids</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_sources_auth_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates an agent record with a source value of ‘local’ and removes vendor-added
 authority ID codes. Used for agents and subjects remediation project.</p>
 <dl class="field-list simple">
@@ -1792,7 +1911,7 @@ authority ID codes. Used for agents and subjects remediation project.</p>
 
 <dl class="function">
 <dt id="json_data.update_subrecord_component">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_subrecord_component</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_subrecord_component" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_subrecord_component</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_subrecord_component" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates a nested field in a top-level record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1815,7 +1934,7 @@ authority ID codes. Used for agents and subjects remediation project.</p>
 
 <dl class="function">
 <dt id="json_data.update_subrecord_components">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_subrecord_components</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_subrecord_components" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_subrecord_components</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_subrecord_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates nested fields in a top-level record.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1841,7 +1960,7 @@ authority ID codes. Used for agents and subjects remediation project.</p>
 
 <dl class="function">
 <dt id="json_data.update_subrecord_pub_status">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_subrecord_pub_status</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_subrecord_pub_status" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_subrecord_pub_status</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_subrecord_pub_status" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates publication status of subrecord.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1858,7 +1977,7 @@ authority ID codes. Used for agents and subjects remediation project.</p>
 
 <dl class="function">
 <dt id="json_data.update_top_containers">
-<code class="sig-prename descclassname">json_data.</code><code class="sig-name descname">update_top_containers</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_top_containers" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">json_data.</code><code class="descname">update_top_containers</code><span class="sig-paren">(</span><em>record_json</em>, <em>csv_row</em><span class="sig-paren">)</span><a class="headerlink" href="#json_data.update_top_containers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Updates a top container record with barcode and adds a type value of ‘Box’
 to the record.</p>
 <dl class="field-list simple">
@@ -1879,53 +1998,52 @@ to the record.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id22">
-<h2>queries.py<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>queries.py<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-queries"></span><p>Query strings for getting data out of ArchivesSpace. These are imported by process_data.py and run by the DB query functions.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To run a single query string from the queries.py file, just use the DBConn class in utilities.dbssh.</p>
 </div>
 </div>
-<div class="section" id="id23">
-<h2>templates.py<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-templates"></span><p>A class for creating JSON and CSV templates from the ArchivesSpace schema.</p>
-</div>
-<div class="section" id="module-data_processing">
-<span id="data-processing-py"></span><h2>data_processing.py<a class="headerlink" href="#module-data_processing" title="Permalink to this headline">¶</a></h2>
-<p>Assorted data processing functions used on ArchivesSpace outputs.</p>
+<div class="section" id="id8">
+<h2>templates.py<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-templates"></span></div>
+<div class="section" id="id9">
+<h2>data_processing.py<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-data_processing"></span><p>Assorted data processing functions used on ArchivesSpace outputs.</p>
 <dl class="function">
 <dt id="data_processing.find_dupes_csv">
-<code class="sig-prename descclassname">data_processing.</code><code class="sig-name descname">find_dupes_csv</code><span class="sig-paren">(</span><em class="sig-param">csvfile</em>, <em class="sig-param">fileobject</em>, <em class="sig-param">csvoutfile</em><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.find_dupes_csv" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">data_processing.</code><code class="descname">find_dupes_csv</code><span class="sig-paren">(</span><em>csvfile</em>, <em>fileobject</em>, <em>csvoutfile</em><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.find_dupes_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>This actually might be a duplicate function. Check utilities</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="data_processing.get_note_content">
-<code class="sig-prename descclassname">data_processing.</code><code class="sig-name descname">get_note_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.get_note_content" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">data_processing.</code><code class="descname">get_note_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.get_note_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Also want to be able to get URIs (??? - what is the extract_uris script?),
 labels, note text, etc.; persistent IDs</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="data_processing.get_reorder_results">
-<code class="sig-prename descclassname">data_processing.</code><code class="sig-name descname">get_reorder_results</code><span class="sig-paren">(</span><em class="sig-param">record_json</em>, <em class="sig-param">row</em><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.get_reorder_results" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">data_processing.</code><code class="descname">get_reorder_results</code><span class="sig-paren">(</span><em>record_json</em>, <em>row</em><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.get_reorder_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>This would be run in a loop over a CSV file which contains a URI</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="data_processing.voyager_agent_matching_with_as">
-<code class="sig-prename descclassname">data_processing.</code><code class="sig-name descname">voyager_agent_matching_with_as</code><span class="sig-paren">(</span><em class="sig-param">markslist</em>, <em class="sig-param">aslist</em>, <em class="sig-param">fileobject</em>, <em class="sig-param">csvoutfile</em><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.voyager_agent_matching_with_as" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">data_processing.</code><code class="descname">voyager_agent_matching_with_as</code><span class="sig-paren">(</span><em>markslist</em>, <em>aslist</em>, <em>fileobject</em>, <em>csvoutfile</em><span class="sig-paren">)</span><a class="headerlink" href="#data_processing.voyager_agent_matching_with_as" title="Permalink to this definition">¶</a></dt>
 <dd><p>This needs to be edited but should get the idea</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-aspace_tools_logging">
-<span id="aspace-tools-logging-py"></span><h2>aspace_tools_logging.py<a class="headerlink" href="#module-aspace_tools_logging" title="Permalink to this headline">¶</a></h2>
-<p>This file sets up logging for the aspace-tools package. All of the other files import this file and then call the getLogger method to get their own custom loggers.</p>
+<div class="section" id="id10">
+<h2>aspace_tools_logging.py<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-aspace_tools_logging"></span><p>This file sets up logging for the aspace-tools package. All of the other files import this file and then call the getLogger method to get their own custom loggers.</p>
 <dl class="function">
 <dt id="aspace_tools_logging.as_tools_logger">
-<code class="sig-prename descclassname">aspace_tools_logging.</code><code class="sig-name descname">as_tools_logger</code><span class="sig-paren">(</span><em class="sig-param">logger_object</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_tools_logging.as_tools_logger" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_tools_logging.</code><code class="descname">as_tools_logger</code><span class="sig-paren">(</span><em>logger_object</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_tools_logging.as_tools_logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a decorator function which takes a logger object as an argument
 and logs the start and end/runtime of each function called during program
 execution. This decorator is applied to almost every function in the
@@ -1938,7 +2056,7 @@ decorator for the queries.py and json_data functions??</p>
 
 <dl class="function">
 <dt id="aspace_tools_logging.setup_logging">
-<code class="sig-prename descclassname">aspace_tools_logging.</code><code class="sig-name descname">setup_logging</code><span class="sig-paren">(</span><em class="sig-param">default_path='logs/logging_config.yml'</em>, <em class="sig-param">default_level=10</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_tools_logging.setup_logging" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">aspace_tools_logging.</code><code class="descname">setup_logging</code><span class="sig-paren">(</span><em>default_path='logs/logging_config.yml'</em>, <em>default_level=10</em><span class="sig-paren">)</span><a class="headerlink" href="#aspace_tools_logging.setup_logging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets up logging configuration</p>
 </dd></dl>
 

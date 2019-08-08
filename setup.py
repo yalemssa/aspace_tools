@@ -25,7 +25,7 @@ setup(name='aspace_tools',
           'Operating System :: OS Independent'
           ],
 	  packages=['aspace_tools'],
-	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4', 'yaml'],
+	  install_requires=['requests', 'paramiko', 'pymysql', 'sshtunnel', 'pandas', 'bs4', 'pyyaml'],
 	  include_package_data=True,
 	  zip_safe=False)
 

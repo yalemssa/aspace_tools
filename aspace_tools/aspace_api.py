@@ -51,7 +51,7 @@ def get_crud(arg1):
 
 @atl.as_tools_logger(logger)
 def main(result=None):
-    '''This is the primary interface for interacting with the ArchivesSpace API via aspace-tools'''
+    '''This is the primary command-line interface for interacting with the ArchivesSpace API via aspace_tools'''
     home_dir = str(Path.home())
     config_file = u.get_config(cfg=home_dir + '/as_tools_config.yml')
     dirpath = u.setdirectory(config_file['backup_directory'])

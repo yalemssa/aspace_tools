@@ -17,7 +17,7 @@ logger = atl.logging.getLogger(__name__)
 
 @atl.as_tools_logger(logger)
 def main(result=None):
-    '''This is the primary interface for interacting with the ArchivesSpace database via
+    '''This is the primary command-line interface for interacting with the ArchivesSpace database via
        aspace_tools.
 
        Todo:

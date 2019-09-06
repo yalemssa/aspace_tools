@@ -31,7 +31,7 @@ logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():
     def __init__(self):
-        self.api_url, self.headers = u.login(url="https://devarchivesspace.library.yale.edu/api", username="amd243", password="FFmIjc5xLw")
+        self.api_url, self.headers = u.login(url="", username="", password="")
         self.schemas = self.get_schemas()
         self.all_enumerations = self.get_dynamic_enums()
         self.schema_exclusions = [line.strip('\n') for line in open('/files/schema_exclusions.csv', encoding='utf-8')]

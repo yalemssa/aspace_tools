@@ -3,7 +3,6 @@
 
 import json
 import traceback
-import requests
 import pprint
 from pathlib import Path
 import subprocess
@@ -12,7 +11,7 @@ from io import StringIO
 import sys
 
 #import pandas as pd
-#from asnake.client import ASnakeClient
+from asnake.client import ASnakeClient
 
 from utilities import utilities as u #, dbssh
 import aspace_tools_logging as atl

@@ -27,7 +27,6 @@ digital_object_browse_column_5
 display_name
 display_string
 editable
-from
 has_children
 has_classification_terms
 has_unpublished_ancestor
@@ -80,7 +79,6 @@ system_generated
 system_mtime
 timestamp
 title_inherited
-to
 tree
 used_within_published_repositories
 used_within_repositories

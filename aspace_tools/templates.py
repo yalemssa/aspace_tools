@@ -33,7 +33,6 @@ Todo:
 #logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():
-
     def __init__(self, *sesh):
         self.config_file = u.get_config(cfg=str(Path.home()) + '/as_tools_config.yml')
         self.api_url = self.config_file['api_url']

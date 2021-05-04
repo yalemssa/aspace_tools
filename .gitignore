@@ -4,6 +4,12 @@
 # Setuptools distribution folder.
 /dist/
 
+aspace_tools/scripts/
+
+aspace_tools/scripts/sql
+
+aspace_tools/implementations
+
 #pycache folder
 /__pycache__/
 

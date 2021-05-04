@@ -2,17 +2,18 @@
 #~/anaconda3/bin/python
 
 import sys
+import argparse
 from pathlib import Path
 
 #local package import
 from utilities import utilities as u
 
 #imports from aspace-tools
-from . import json_data as jd
-from . import crud as c
-from . import aspace_run
+import json_data as jd
+import crud as c
+from aspace_run import ASpaceRun, as_session
 
-from . import aspace_tools_logging as atl
+import aspace_tools_logging as atl
 
 '''This is the main interface for setting program parameters and running functions that act on the ArchivesSpace API.
 
@@ -42,6 +43,7 @@ Todo:
 
 logger = atl.logging.getLogger(__name__)
 
+#this doesn't actually work right now
 def get_crud(arg1):
     if arg1.startswith('update_'):
         pass
@@ -52,21 +54,35 @@ def get_crud(arg1):
 @atl.as_tools_logger(logger)
 def main(result=None):
     '''This is the primary command-line interface for interacting with the ArchivesSpace API via aspace_tools'''
-    home_dir = str(Path.home())
-    config_file = u.get_config(cfg=home_dir + '/as_tools_config.yml')
-    dirpath = u.setdirectory(config_file['backup_directory'])
-    csvfile = u.opencsvdict(config_file['input_csv'])
-    api_url, headers = u.login(url=config_file['api_url'], username=config_file['api_username'], password=config_file['api_password'])
-    print(f'Connected to: {api_url}')
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 'merge_data':
+    parser = argparse.ArgumentParser(description='Run ArchivesSpace API scripts from the command line')
+    parser.add_argument('crud_func')
+    parser.add_argument('--j', '--json_data')
+    parser.add_argument('--s', '--session')
+    parser.add_argument('--a', '--agent-type')
+    options = parser.parse_args()
+    if options.session is not None:
+        as_run = ASpaceRun(sesh=options.session)
+    else:
+        as_run = ASpaceRun()
+    print(f'Connected to: {as_run.api_url}')
+    if options.agent_type is not None:
+        if options.crud_func == 'merge_data':
+            #need to change this so it will accept a record type as an argument.
+            #result = as_run.call_api_looper()
             pass
         else:
-            result = aspace_run.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=getattr(c, sys.argv[1]))
-    if len(sys.argv) == 3:
-        result = aspace_run.call_api(api_url, headers, csvfile, dirpath=dirpath, crud=getattr(c, sys.argv[1]), json_data=getattr(jd, sys.argv[2]))
+            result = as_run.call_api_looper(crud_func=options.crud_func)
+    #is this right?
+    if options.json_data:
+        #may need to instantiate json_data in aspace_run, and then pass it
+        result = as_run.call_api_looper(crud_func=options.crud_func, json_func=options.json_data)
     else:
+        #so for some reason main still ends up here at the end of the process. Not sure what I should do here...
         print(f"Error! Expected 1 or 2 arguments and got {len(sys.argv)}")
+        print(sys.argv)
+        print(len(sys.argv))
+        #what to do here - this is masking errors and causing some problems - like when it finishes...
+    print('Finished')
     return result
 
 if __name__ == "__main__":

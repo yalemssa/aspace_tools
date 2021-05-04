@@ -5,6 +5,10 @@
 
    Todo:
     Would these be better in the utilities module?
+
+   Add: get note content, add date expressions, mach aos with tcs; others?
+
+
 '''
 
 import itertools
@@ -13,22 +17,71 @@ import string
 import ast
 #from fuzzywuzzy import fuzz
 import pandas as pd
+import traceback
+from collections import Counter
+#from aspace_tools import aspace_tools_logging as atl
+from utilities import utilities as u
+from utilities import db as dbssh
 
-from . import aspace_tools_logging as atl
+#logger = atl.logging.getLogger(__name__)
 
-logger = atl.logging.getLogger(__name__)
+def get_type(s):
+    if type(s) is dict:
+        if 'type' in s:
+            s = s['type']
+        else:
+            print(s)
+    return s
 
-@atl.as_tools_logger(logger)
+def get_restriction(s):
+    if type(s) is dict:
+        if 'rights_restriction' in s:
+            s = s['rights_restriction']['local_access_restriction_type']
+    return s
+
+def remove_newlines(s):
+    if s != '':
+        s = s.replace('\n', '')
+    return s
+
+def process_json(s):
+    if s != '':
+        try:
+            s = json.loads(s)
+        #this is bad
+        except Exception:
+            print(traceback.format_exc())
+            s = 'ERROR'
+    return s
+
+def get_content(s):
+    if type(s) is dict:
+        if (s['jsonmodel_type'] == 'note_multipart' and 'content' in s['subnotes'][0]):
+            s = remove_newlines(s['subnotes'][0]['content'])
+        elif s['jsonmodel_type'] == 'note_singlepart':
+            s = remove_newlines(s['content'])
+    return s
+
+def extract_note_content(query_string, filepath, dbconn):
+    '''this is a better way to extract text from notes than looping through them individually'''
+    query_data = dbconn.run_query_df(query_string)
+    query_data['note_json'] = query_data['note_json'].apply(process_json)
+    query_data['type'] = query_data['note_json'].apply(get_type)
+    query_data['note_json'] = query_data['note_json'].apply(get_content)
+    query_data.to_csv(filepath, header=True, index=False)
+    return query_data
+
+#@atl.as_tools_logger(logger)
 def merged_helper(df_1, df_2):
     merged = df_1.merge(df_2, indicator=True, how='outer')
     return merged[merged['_merge'] == 'right_only']
 
-@atl.as_tools_logger(logger)
-def merged():
+#@atl.as_tools_logger(logger)
+def merged(csv_1, csv_2):
     #fp1 = input('Please enter path to CSV1: ')
-    df1 = pd.read_csv('test_csv1.csv')
+    df1 = pd.read_csv(csv_1)
     #fp2 = input('Please enter path to CSV2: ')
-    df2 = pd.read_csv('test_csv2.csv')
+    df2 = pd.read_csv(csv_2)
     merge_1 = merged_helper(df1, df2)
     merge_2 = merged_helper(df2, df1)
     return (merge_1['uri'].values.tolist(), merge_2['uri'].values.tolist())
@@ -41,7 +94,7 @@ def merged():
 #             matchlist.append([ratio] + a + b)
 #     return matchlist
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def strip_punctuation(csvlist):
     for row in csvlist:
         #or whatever row...
@@ -54,7 +107,7 @@ def strip_punctuation(csvlist):
     return csvlist
 
 #where did this come from fp_data.append([i['resource']['ref'], i['uri'], instance['sub_container']['top_container']['ref']])
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def get_reorder_results(record_json, row):
     '''This would be run in a loop over a CSV file which contains a URI'''
     do_list = [[instance['digital_object']['ref'], i] for i, instance in enumerate(record_json['instances'])
@@ -62,7 +115,7 @@ def get_reorder_results(record_json, row):
     row.append(do_list)
     return row
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def check_instances(record_json):
     fp_data = []
     if record_json['instances']:
@@ -71,7 +124,7 @@ def check_instances(record_json):
                 fp_data.append([i['resource']['ref'], i['uri'], instance['sub_container']['top_container']['ref']])
     return fp_data
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def filter_contact_info_helper(json_bit):
     exclusions = ['create_time', 'created_by', 'last_modified_by', 'lock_version', 'system_mtime', 'user_mtime', 'uri']
     contact = []
@@ -96,7 +149,7 @@ def filter_contact_info_helper(json_bit):
         contact.append(new_item)
     return contact
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def filter_contact_info(csvfile, fileobject, csvoutfile):
     for row in csvfile:
             agent_type = row[0]
@@ -108,13 +161,13 @@ def filter_contact_info(csvfile, fileobject, csvoutfile):
             csvoutfile.writerow(row)
     fileobject.close()
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def get_note_content():
     '''Also want to be able to get URIs (??? - what is the extract_uris script?),
     labels, note text, etc.; persistent IDs'''
     pass
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def join_csvs_on_match(csv_1, csv2, fileobject, csvoutfile):
     for row in csv_1:
         match_item = row[0]
@@ -125,7 +178,7 @@ def join_csvs_on_match(csv_1, csv2, fileobject, csvoutfile):
                 csvoutfile.writerow(combined_row)
     fileobject.close()
 
-@atl.as_tools_logger(logger)
+#@atl.as_tools_logger(logger)
 def find_dupes_csv(csvfile, fileobject, csvoutfile):
     '''This actually might be a duplicate function. Check utilities'''
     seen = set()
@@ -151,3 +204,91 @@ def voyager_agent_matching_with_as(markslist, aslist, fileobject, csvoutfile):
         og_as_diff = int(headings_original_count) - int(headings_as_count)
         row = [bib, headings_dynamic_count, headings_original_count, headings_as_count, dynamic_as_diff, og_as_diff]
         csvoutfile.writerow(row)
+
+def match_ao_uris_w_tc_uris(csv1, csv2, fileobject, csvoutfile):
+    '''This doesn't work. First split out the box numbers into separate rows
+    Don't think that I saved the thing I used to actually do this but should
+    be headings_dynamic_count_voyager'''
+    header_row = ['ao_uri', 'tc_uri', 'box_number']
+    csvoutfile.writerow(header_row)
+    data = []
+    for i, row in enumerate(csv1):
+        try:
+            ao_uri = row[0]
+            box_numbers = row[1]
+            for r in csv2:
+                tc_uri = r[0]
+                box_num = r[1]
+                if ',' in box_numbers:
+                    box_numbers = box_numbers.split(',')
+                    for box in box_numbers:
+                        if box == box_num:
+                            data.append([ao_uri, tc_uri, box_num])
+                else:
+                    if box_numbers == box_num:
+                        data.append([ao_uri, tc_uri, box_num])
+        except Exception as exc:
+            print(row)
+            print(traceback.format_exc())
+    csvoutfile.writerows(data)
+    fileobject.close()
+
+    #         tc_uri = row[0]
+    #         box_number = row[1]
+    #         print(f'Box number: {box_number}')
+    #         for r in csv2:
+    #             ao_uri = r[0]
+    #             box_numbers = r[1]
+    #             if ',' in box_numbers:
+    #                 box_numbers = box_numbers.split(',')
+    #                 print(box_numbers)
+    #                 for box in box_numbers:
+    #                     print(f'Box: {box}')
+    #                     if box == box_number:
+    #                         data.append([ao_uri, tc_uri, box_number])
+    #             else:
+    #                 print(f'Single box: {box_numbers}')
+    #                 if box_numbers == box_number:
+    #                     data.append([ao_uri, tc_uri, box_number])
+    #     except Exception as exc:
+    #         print(row)
+    #         print(traceback.format_exc())
+    # csvoutfile.writerows(data)
+    # fileobject.close()
+
+def process_date_list():
+    pass
+
+def add_date_expressions(csvlist):
+    for row in csvlist:
+        pass
+
+def main():
+    h1, c1 = u.opencsv('/Users/amd243/Downloads/glad_aos_still_need_dates_boxes.csv')
+    h2, c2 = u.opencsv('/Users/amd243/Desktop/glad_top_containers_created.csv')
+    fileobject, csvoutfile = u.opencsvout('/Users/amd243/Desktop/matched_top_containers.csv')
+    match_ao_uris_w_tc_uris(c1, c2, fileobject, csvoutfile)
+
+if __name__ == "__main__":
+    main()
+
+    #
+    #
+    # for row in csv1:
+    #     ao_uri = row[0]
+    #     box_numbers = row[1]
+    #     for row in csv2:
+    #         tc_uri = row[0]
+    #         box_number = row[1]
+    #         if ',' in box_numbers:
+    #             split_box_numbers = box_numbers.split(',')
+    #             print(split_box_numbers)
+    #             for box in split_box_numbers:
+    #                 if box == box_number:
+    #                     data.append([ao_uri, tc_uri, box_number])
+    #         else:
+    #             print(box_numbers)
+    #             if box_numbers == box_number:
+    #                 data.append([ao_uri, tc_uri, box_number])
+    # csvoutfile.writerows(data)
+    # fileobject.close()

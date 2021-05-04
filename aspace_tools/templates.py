@@ -7,8 +7,11 @@ import pprint
 import csv
 import requests
 from utilities import utilities as u
+from pathlib import Path
 
-from . import aspace_tools_logging as atl
+from aspace_run import as_session
+
+#from . import aspace_tools_logging as atl
 
 '''
 A class for creating JSON and CSV templates from the ArchivesSpace schema.
@@ -27,27 +30,35 @@ Todo:
     -DONE: Reorganize functions
 '''
 
-logger = atl.logging.getLogger(__name__)
+#logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():
-    def __init__(self):
-        self.api_url, self.headers = u.login(url="https://devarchivesspace.library.yale.edu/api", username="amd243", password="FFmIjc5xLw")
+
+    def __init__(self, *sesh):
+        self.config_file = u.get_config(cfg=str(Path.home()) + '/as_tools_config.yml')
+        self.api_url = self.config_file['api_url']
+        self.username = self.config_file['api_username']
+        self.password = self.config_file['api_password']
+        if not sesh:
+            self.sesh = as_session(api_url=self.api_url, username=self.username, password=self.password)
+        else:
+            self.sesh = sesh
         self.schemas = self.get_schemas()
         self.all_enumerations = self.get_dynamic_enums()
-        self.schema_exclusions = [line.strip('\n') for line in open('/files/schema_exclusions.csv', encoding='utf-8')]
-        self.property_exclusions = [line.strip('\n') for line in open('/files/property_exclusions.csv', encoding='utf-8')]
+        self.schema_exclusions = [line.strip('\n') for line in open('fixtures/schema_exclusions.csv', encoding='utf-8')]
+        self.property_exclusions = [line.strip('\n') for line in open('fixtures/property_exclusions.csv', encoding='utf-8')]
         self.jsonmodel_pattern = re.compile('(JSONModel)(\(:.*?\)\s)(uri|object|uri_or_object)')
 
     def get_schemas(self):
-        schemas = requests.get(self.api_url + '/schemas', headers=self.headers).json()
+        schemas = self.sesh.get(self.api_url + '/schemas').json()
         return schemas
 
     def get_schema(self, schema):
-        schema = requests.get(self.api_url + '/schemas/' + schema, headers=self.headers).json()
+        schema = self.sesh.get(self.api_url + '/schemas/' + schema).json()
         return schema
 
     def get_dynamic_enums(self):
-        enums = requests.get(self.api_url + '/config/enumerations', headers=self.headers).json()
+        enums = self.sesh.get(self.api_url + '/config/enumerations').json()
         return enums
 
     #be careful with the is vs == thing here...
@@ -60,11 +71,11 @@ class ASTemplates():
         'note_outline_level: create_time', 'note_outline_level: created_by', 'note_outline_level: items']
         for property_name, property_value in schema_definition['properties'].items():
             if property_name not in self.property_exclusions:
-                #print('Working on: ' + str(schema_name + ': ' + str(property_name)))
+                ##print('Working on: ' + str(schema_name + ': ' + str(property_name)))
                 schema_name_field_name = schema_name + ': ' + property_name
                 if schema_name_field_name in recursion_exclusions:
-                    print(property_name)
-                    print('In exclusion list')
+                    #print(property_name)
+                    #print('In exclusion list')
                     continue
                 if type(property_value['type']) is list:
                     #there are a few weird types here...deal with them later...these have more
@@ -86,9 +97,11 @@ class ASTemplates():
                     elif property_value['type'] in ['integer', 'boolean', 'date', 'date-time', 'number']:
                         template_dict = self.process_others(property_name, property_value, template_dict)
                     else:
-                        print('Error! Value is not a recognized type.')
+                        pass
+                        #print('Error! Value is not a recognized type.')
             else:
-                print(schema_name, property_name)
+                pass
+                #print(schema_name, property_name)
         return template_dict
 
     def parse_schemas(self):
@@ -194,7 +207,7 @@ class ASTemplates():
                     template_dict[property_name] = self.parse_enumerations(property_value['dynamic_enum'])
                 else:
                     #these will be just regular top-level stringfields
-                    template_dict[property_name] = None
+                    template_dict[property_name] = 'string'
         return template_dict
 
     def process_others(self, property_name, property_value, template_dict):
@@ -204,7 +217,16 @@ class ASTemplates():
         if 'readonly' not in property_value:
             if property_value['type'] == 'boolean':
                 template_dict[property_name] = (True, False)
+            elif property_value['type'] == 'number':
+                template_dict[property_name] = 'number'
+            elif property_value['type'] == 'integer':
+                template_dict[property_name] = 'integer'
+            elif property_value['type'] == 'date':
+                template_dict[property_name] = 'date'
+            elif property_value['type'] == 'date-time':
+                template_dict[property_name] = 'date-time'
             else:
+                print(property_value['type'])
                 template_dict[property_name] = None
         return template_dict
 
@@ -231,8 +253,9 @@ class ASTemplates():
                 ref_list = []
                 for ref in property_value['properties']['ref']['type']:
                     if type(ref) is str:
-                        print('STRING CHECK')
-                        print(ref)
+                        #print('STRING CHECK')
+                        #print(ref)
+                        pass
                     else:
                         parsed_ref = self.parse_jsonmodel(ref['type'])
                         ref_list.append(parsed_ref)
@@ -256,61 +279,20 @@ class ASTemplates():
                     enumeration_list.append(enumeration_value['value'])
         return enumeration_list
 
-    def download_csv_template(self, jsontemplatedict):
-        '''
-        Goal is to create the JSON templates, and then convert those to CSV file that can
-        be used to create either full finding aids/top level records, or to update subrecords
-        in bulk
-
-        Should really re-do this
-        '''
-        fileob = open('templates/' + jsontemplatedict['jsonmodel_type'] + '.csv', 'a', encoding='utf-8', newline='')
-        csvout = csv.writer(fileob)
-        subfield_list = []
-        for key, value in jsontemplatedict.items():
-            if type(value) is list:
-                if len(value) > 0:
-                    #should I just check the first one instead of looping through all?
-                    if type(value[0]) is dict:
-                        for item in value:
-                            for k in item.keys():
-                                subfield_list.append(key + '-' + k)
-                    #only two options for lists, correct?
-                    if type(value[0]) is not dict:
-                        #this means that it's just a list of enums probably - right?? No other list formats
-                        #do I need the check now that I removed the loop?
-                        #check = jsontemplatedict['jsonmodel_type'] + '_' + key
-                        if key not in subfield_list:
-                            subfield_list.append(key)
-                else:
-                    print(key, value)
-            else:
-                subfield_list.append(key)
-        csvout.writerow(subfield_list)
-        fileob.close()
-        return subfield_list
-
-    #Wrapper loop to create all templates
-    #Want to remove the schema name from the template header
-    #also remove the jsonmodel type
-    def download_csv_templates(self, jsontemplates):
-        for template_key, template_value in jsontemplates.items():
-            self.download_csv_template(template_value)
-
     #this downloads the JSON version of the template
     def download_json_templates(self, jsontemplates):
         for template_key, template_value in jsontemplates.items():
             outfile = open(str(template_key) + '.json', 'w', encoding='utf-8')
             json.dump(template_value, outfile, sort_keys = True, indent = 4)
 
-@atl.as_tools_logger(logger)
-def main():
-    t = ASTemplates()
-    as_templates = t.parse_schemas()
-    #template_func = t.parse_schema('archival_object', t.schemas['archival_object'])
-    #pprint.pprint(template_func)
-    #pprint.pprint(as_templates)
-    t.download_csv_templates(as_templates)
+#@atl.as_tools_logger(logger)
+# def main():
+#     t = ASTemplates()
+#     as_templates = t.parse_schemas()
+#     #template_func = t.parse_schema('archival_object', t.schemas['archival_object'])
+#     #p#print.p#print(template_func)
+#     #p#print.p#print(as_templates)
+#     t.download_csv_templates(as_templates)
 
 # if __name__ == "__main__":
 #     main()

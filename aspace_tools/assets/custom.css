@@ -1,0 +1,313 @@
+.app_container {
+  height: 100%;
+}
+
+.body_div {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.tab_div_container {
+  max-width: 80%;
+  min-width: 80%;
+  min-height: 40%;
+  min-height: 40%;
+  margin: 45px auto;
+  background-color: #f9f9f9;
+  color: black;
+  border-style: solid;
+  border-color: #978d85;
+  border-width: 2px;
+}
+
+.tab_container {
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: #dddddd;
+}
+
+.custom-tab {
+  font-size: 22px;
+  color: #212120;
+  font-family: 'Mallory-Light';
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: #dddddd !Important;
+ }
+
+ .custom-tab--selected {
+  font-size: 22px;
+  color: #212120;
+  font-family: 'Mallory-Book';
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: #f9f9f9 !Important;
+ }
+
+.footer_style {
+  position: absolute;
+  margin-top: auto;
+  /* height: 75px; */
+  margin-top: -75px;
+  bottom: 0;
+  width: 100%;
+  color: #212120;
+  font-family: 'Mallory-Book';
+  background-color: #f9f9f9;
+  display: inline-block;
+  border-top: solid #978d85 5px;
+}
+
+.footer_div_style {
+  display: inline-block;
+  color: black;
+  width: 100%;
+}
+
+.footer_links {
+  display: inline-block;
+  color: black;
+  padding: 15px;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.yale_footer {
+  font-family: 'YaleNew-Roman';
+  font-size: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: black;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.divider {
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
+
+.border_span {
+  border-bottom: 1px solid;
+  padding-bottom': 1px;
+}
+
+.header-label {
+  text-align: left;
+  font-weight: 550px;
+  /* font-weight: bolder; */
+  max-width: 100%;
+  font-size: 50px;
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  background-color: #f9f9f9;
+  color: #222222;
+  border-bottom: solid #978d85 5px;
+}
+
+.drop {
+  color: black !Important;
+}
+
+.dropdown_container {
+  padding-bottom: 10px;
+}
+
+.dropdown {
+  padding: 7px;
+  /* padding-bottom: 10px; */
+  color: #222222 !Important;
+  max-width: 500px;
+  min-width: 250px;
+  margin: 0px auto;
+  font-size: 18px;
+  font-family: 'Mallory-Light';
+  background-color: #f9f9f9;
+}
+
+.parent_input {
+  margin: auto;
+  text-align: center;
+  padding: 5px;
+}
+
+.input_div_style {
+   margin: auto;
+   font-family: 'Mallory-Light';
+   font-size: 18px;
+   text-align: left;
+   max-width: 500px;
+   min-width: 247px;
+   color: black;
+}
+
+.input_style {
+  text-align: center;
+  margin: auto;
+  width: 500px;
+  padding-bottom: 5px;
+}
+
+.download-button {
+  text-align: center;
+  font-family: 'Mallory-Book';
+  padding: 15px;
+  color: #222222;
+}
+
+.query-desc {
+   min-width:100px;
+   max-width:750px;
+   text-align:center;
+   margin:0 auto;
+   font-weight: 0px;
+   padding-top: 20px;
+   font-family: 'Mallory-Light';
+}
+
+.query_table_div {
+  /* text-align: center;
+  min-width: 60%;
+  max-width: 60%; */
+}
+
+/* Add more styling to this... */
+.query-table {
+  margin: 20px auto;
+  font-family: 'Mallory-Light';
+  padding-bottom: 15px;
+  text-align: center;
+  border-style: groove;
+  border-color: inherit;
+  min-width: 60%;
+}
+
+.table-cell {
+  padding-left: 10px;
+}
+
+.button-div {
+   /* padding': 15px; */
+   margin: auto;
+   display: inline-block;
+   text-align: center;
+   width: 100%;
+}
+
+/* NEEDS WORK */
+ .api-button {
+   color: #ECEEF0;
+   background-color: #00356b;
+   display: inline-block;
+   line-height: 32px;
+   width: 75px;
+}
+
+.input_options {
+  margin: auto;
+  font-size: 16px;
+  text-align: center;
+  font-family: 'Mallory-Light';
+}
+
+.template-display {
+  min-width:100px;
+  max-width:475px;
+  font-size: 20px;
+  font-weight: 0px;
+  text-align: left;
+  margin:0 auto;
+  padding-top: 15px;
+  font-family: 'Mallory-Light';
+}
+
+.doc-table {
+  min-width:100px;
+  max-width:750px;
+  text-align:left;
+  margin:0 auto;
+  font-size: 20px;
+  font-weight: 0px;
+  font-family: 'Mallory-Light';
+  padding-top: 10px;
+}
+
+.directions {
+  min-width:100px;
+  max-width:750px;
+  text-align:center;
+  margin:0 auto;
+  font-size: 20px;
+  font-weight: 0px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  font-family: 'Mallory-Light';
+}
+
+.direction_list {
+  min-width:100px;
+  max-width:700px;
+  text-align:left;
+  margin:0 auto;
+  font-size: 19px;
+  font-weight: 0px;
+  list-style-type: square;
+  list-style-position: outside;
+  padding-bottom: 10px;
+  font-family: 'Mallory-Light';
+}
+
+/* .list_item
+{
+  line-height: 1em;
+} */
+
+.result-total {
+  min-width:100px;
+  max-width:750px;
+  text-align:center;
+  margin:0 auto;
+  font-size: 16px;
+  font-weight: 0px;
+  padding-bottom: 5px;
+  font-family: 'Mallory-Book';
+}
+
+.api_checklist {
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Mallory-Light';
+  padding-bottom: 5px;
+}
+
+.display-log {
+  min-width:100px;
+  max-width:800px;
+  text-align:justify;
+  margin:0 auto;
+  font-size: 16px;
+  font-weight: 0px;
+  padding-bottom: 5px;
+  padding-top: 15px;
+  font-family: 'Mallory-Light';
+}
+
+.login_input {
+  max-width: 250px;
+  min-width: 100px;
+  font-size: 16px !Important;
+  font-family: 'Mallory-Light' !Important;
+}
+
+/* .login_div {
+  right: 20px;
+  max-width: 40%; */
+  /* How to get this effect but without the overlapping problem */
+  /* position: absolute;
+} */
+
+
+/* https://stackoverflow.com/questions/13194692/align-h1-header-and-normal-text-in-same-line */

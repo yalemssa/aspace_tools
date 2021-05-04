@@ -1,15 +1,36 @@
-path_to_key:
-sql_hostname:
-sql_username:
-sql_password:
-sql_database:
-sql_port:
-ssh_host:
-ssh_user:
-ssh_port:
-api_url:
-api_username:
-api_password:
-input_csv:
-output_csv:
-backup_directory:
+agent_authorizer: ''
+api_input_csv: /Users/aliciadetelich/Desktop/extents_to_create.csv
+api_output_csv: /Users/aliciadetelich/Desktop/series_05.csv
+api_password: Fluffernutter27
+api_url: https://archivesspace.library.yale.edu/api
+api_username: amd243
+backup_directory: /Users/aliciadetelich/Desktop/prod_access_types
+ead_3_schema: /Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools/data/ead3.xsd
+ead_3_transformation: /Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools/data/yale.aspace_v2_to_yale_ead3.xsl
+ead_log_path: /Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools/data/ead_exports/ead_log.log
+exclusions:
+- create_datetemp_table.sql
+- update_dates.sql
+input_csv: /Users/aliciadetelich/Desktop/need_local_access_restrictions.csv
+input_dir: /Users/aliciadetelich/Dropbox/git/yams_data_auditing
+local_sql_database: archivesspace
+local_sql_hostname: 127.0.0.1
+local_sql_password: as123
+local_sql_port: 3306
+local_sql_username: as
+manifest_path: /Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools/data/in_github.txt
+output_dir: /Users/aliciadetelich/Google Drive/Yale Archival Management Systems Committee/Data
+  Normalization And Improvement/Data Auditing Subgroup FY 2019/reports_fy19_q3
+output_file: pass
+path_to_key: /Users/aliciadetelich/.ssh/aspacedb_prod.privatekey
+saxon_path: /usr/local/Cellar/saxon/9.9.1.6/libexec/saxon9he.jar
+sql_database: yale_prod
+sql_hostname: as-prod-yale-db.lyrtech.org
+sql_password: eafb46fe4b6252f9Mc
+sql_port: 3306
+sql_username: yale_prod-reader
+ssh_host: as-prod-yale-bastion.lyrtech.org
+ssh_port: 22
+ssh_user: yaleprod
+transformation_errors: /Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools/data/ead_exports/transformation_errors.txt
+validation_errors: /Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools/data/ead_exports/validation_errors.txt

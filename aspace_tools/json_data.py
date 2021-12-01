@@ -457,6 +457,9 @@ class ASJsonData():
             csv_row['event_type']: The event type.
             csv_row['outcome']: The event outcome.
             csv_row['date_begin']: The begin date of the event.
+            csv_row['date_end']: The end date of the event.
+            csv_row['date_type']: The date type (inclusive, single)
+            csv_row['date_label']: The date label (digitization)
             csv_row['repo_uri']: The URI of the parent repository
             csv_row['record_link']: The URI of the record to link.
             csv_row['agent']: The URI of the agent authorizer.
@@ -471,12 +474,14 @@ class ASJsonData():
            Todo:
             check if this works'''
         new_event = {'jsonmodel_type': 'event', 'event_type': csv_row['event_type'], 'outcome': csv_row['outcome'],
-                    'date': {'begin': csv_row['date_begin'], 'date_type': 'single',
+                    'date': {'begin': csv_row['date_begin'], 'date_type': csv_row['date_type'],
                             'jsonmodel_type': 'date', 'label': csv_row['date_label']},
                     'repository': {'ref': csv_row['repo_uri']},
                     'linked_records': [{'ref': csv_row['record_link'], 'role': csv_row['record_role']}],
                     'linked_agents': [{'role': csv_row['agent_role'], 'ref': csv_row['agent_uri']}],
                     'external_documents': []}
+        if csv_row.get('date_end') not in ('', None):
+        	new_event['date']['end'] = csv_row['date_end']
         # if csv_row.get('external_doc_title') != '':
         #     external_document = {'jsonmodel_type': 'external_document', 'location': csv_row['external_doc_location'],
         #                             'title': csv_row['external_doc_title']}
@@ -507,15 +512,15 @@ class ASJsonData():
         '''
         new_top_container = {'jsonmodel_type': 'top_container', 'indicator': csv_row['indicator'],
                              'repository': {'ref': csv_row['repo_uri']}}
-        if csv_row['type'] != '':
+        if csv_row.get('type') not in ('', None):
             new_top_container['type'] = csv_row['type']
-        if csv_row['barcode'] != '':
+        if csv_row.get('barcode') not in ('', None):
             new_top_container['barcode'] = csv_row['barcode']
-        if csv_row['container_profile_uri'] != '':
+        if csv_row.get('container_profile_uri') not in ('', None):
             #eventually add way to search by container profile name
             #container_profile_uri = crud.search_container_profiles()
             new_top_container['container_profile'] = {'ref': csv_row['container_profile_uri']}
-        if csv_row['location_uri'] != '':
+        if csv_row.get('location_uri') not in ('', None):
             new_location = [{'jsonmodel_type': 'container_location',
                                      'status': 'current', 'ref': csv_row['location_uri'],
                                      'start_date': csv_row['start_date']}]
@@ -559,6 +564,43 @@ class ASJsonData():
                     instance['sub_container']['indicator_2'] = csv_row['indicator_2']
         return record_json
 
+    def create_subcontainer(self, record_json, csv_row):
+        '''Updates the first instance subrecord with a new type_2 and indicator_2.
+
+           Parameters:
+            record_json: The JSON representation of the archival object
+            csv_row['uri']: The URI of the archival object record
+            csv_row['type_2']: The child type
+            csv_row['indicator_2']: The child indicator
+
+           Returns:
+            dict: The JSON structure
+        '''
+        if record_json.get('instances'):
+            record_json['instances'][0]['sub_container']['type_2'] = csv_row['type_2']
+            record_json['instances'][0]['sub_container']['indicator_2'] = csv_row['indicator_2']
+        return record_json
+
+    def update_subcontainer(self, record_json, csv_row):
+        '''Updates the top container ref, indicator 2, and type 2 fields of a subcontainer record.
+           Assumes that there is just a single instance.
+
+           Parameters:
+            record_json: The JSON representation of the archival_object
+            csv_row['uri']: The URI of the archival object record
+            csv_row['type_2']: The child type
+            csv_row['indicator_2']: The child indicator
+            csv_row['tc_uri']: The top container URI
+
+           Returns:
+            dict: The JSON structure
+        '''
+        if record_json.get('instances'):
+            record_json['instances'][0]['sub_container']['type_2'] = csv_row['type_2']
+            record_json['instances'][0]['sub_container']['indicator_2'] = csv_row['indicator_2']
+            record_json['instances'][0]['sub_container']['top_container']['ref'] = csv_row['tc_uri']
+        return record_json
+
     #@atl.as_tools_logger(logger)
     def create_instances(self, record_json, csv_row):
         '''Creates an instance of a top container and links to an archival object record.
@@ -581,11 +623,10 @@ class ASJsonData():
         new_instance = {'jsonmodel_type': 'instance', 'instance_type': csv_row['instance_type'],
                         'sub_container': {'jsonmodel_type': 'sub_container',
                                           'top_container': {'ref': csv_row['tc_uri']}}}
-        #CHANGE THIS TO if 'child_type' in csv_row!!!!!!!!! Change for others too
-        if csv_row['child_type'] != '':
+        if csv_row.get('child_type') not in ('', None):
             new_instance['sub_container']['type_2'] = csv_row['child_type']
             new_instance['sub_container']['indicator_2'] = csv_row['child_indicator']
-        if csv_row['grandchild_type'] != '':
+        if csv_row.get('grandchild_type') not in ('', None):
             new_instance['sub_container']['type_3'] = csv_row['grandchild_type']
             new_instance['sub_container']['indicator_3'] = csv_row['grandchild_indicator']
         record_json['instances'].append(new_instance)
@@ -1151,7 +1192,7 @@ class ASJsonData():
         return record_json
 
     #@atl.as_tools_logger(logger)
-    def update_dates(self, record_json, csv_row):
+    def update_date_begin(self, record_json, csv_row):
         '''Updates date subrecords.
 
            Parameters:
@@ -1162,6 +1203,28 @@ class ASJsonData():
         '''
         for date in record_json['dates']:
             date['begin'] = csv_row['begin']
+        return record_json
+
+    def update_event_date(self, record_json, csv_row):
+        '''Updates a date subrecord with new begin date, an end
+            date if present, and a label
+
+           Parameters:
+            record_json: The JSON representation of the parent record.
+            csv_row['uri']: The URI of the parent record
+            csv_row['begin']: The begin date
+            csv_row['end']: The end date
+            csv_row['label']: The date label
+
+           Returns:
+            dict: The JSON structure
+
+        '''
+        record_json['date']['begin'] = csv_row['begin']
+        if csv_row.get('date_type') != '':
+            record_json['date']['date_type'] = csv_row['date_type']
+        if csv_row.get('end') != '':
+            record_json['date']['end'] = csv_row['end']
         return record_json
 
     #@atl.as_tools_logger(logger)

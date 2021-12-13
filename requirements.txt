@@ -4,7 +4,7 @@ decorator==4.4.0
 dill==0.3.2
 pandas==1.2.0
 tqdm==4.51.0
-lxml==4.6.2
+lxml==4.6.5
 requests==2.25.1
 pymssql==2.1.5
 dash_table==4.6.2

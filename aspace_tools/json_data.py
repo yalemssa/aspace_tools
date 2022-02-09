@@ -5,6 +5,7 @@
 
 
 import json
+import pprint
 #this is useless right now
 #from utilities.decorators import register, PLUGINS
 
@@ -564,6 +565,25 @@ class ASJsonData():
                     instance['sub_container']['indicator_2'] = csv_row['indicator_2']
         return record_json
 
+    def update_instance_ref(self, record_json, csv_row):
+        '''Updates an instance subrecord with a new top container URI. 
+            Searches for and replaces a top container reference.
+
+           Parameters:
+            record_json: The JSON representation of the archival_object
+            csv_row['uri']: The URI of the archival object record
+            csv_row['old_top_container']: The URI of the top container to replace
+            csv_row['new_top_container']: The URI of the new top container
+
+           Returns
+            dict: The updated JSON record.
+        '''
+        for instance in record_json['instances']:
+            if instance.get('sub_container'):
+                if instance['sub_container']['top_container']['ref'] == csv_row['old_top_container']:
+                    instance['sub_container']['top_container']['ref'] = csv_row['new_top_container']
+        return record_json
+
     def create_subcontainer(self, record_json, csv_row):
         '''Updates the first instance subrecord with a new type_2 and indicator_2.
 
@@ -811,7 +831,8 @@ class ASJsonData():
             record_json: The JSON representation of the digital object record.
             csv_row['uri']: The URI of the digital object record.
             csv_row['file_version_url']: The URL of the file version subrecord.
-            csv_row['xlink_show_attribute']: The xlink show attribute of the file version, i.e. embed
+            csv_row['file_format_name']: The file format name (i.e. pdf)
+            csv_row['file_size_bytes']: File size in bytes. Sometimes it is too big. Version 3 of AS corrects this 
 
            Returns:
             dict: The JSON structure.

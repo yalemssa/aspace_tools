@@ -11,7 +11,7 @@ from pathlib import Path
 
 from aspace_run import as_session
 
-#from . import aspace_tools_logging as atl
+import aspace_tools_logging as atl
 
 '''
 A class for creating JSON and CSV templates from the ArchivesSpace schema.
@@ -30,7 +30,7 @@ Todo:
     -DONE: Reorganize functions
 '''
 
-#logger = atl.logging.getLogger(__name__)
+logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():
     def __init__(self, *sesh):
@@ -39,7 +39,7 @@ class ASTemplates():
         self.username = self.config_file['api_username']
         self.password = self.config_file['api_password']
         if not sesh:
-            self.sesh = as_session(api_url=self.api_url, username=self.username, password=self.password)
+            self.sesh, self.sesh_file = as_session(api_url=self.api_url, username=self.username, password=self.password)
         else:
             self.sesh = sesh
         self.schemas = self.get_schemas()
@@ -49,6 +49,7 @@ class ASTemplates():
         self.jsonmodel_pattern = re.compile('(JSONModel)(\(:.*?\)\s)(uri|object|uri_or_object)')
 
     def get_schemas(self):
+        print(self.api_url)
         schemas = self.sesh.get(self.api_url + '/schemas').json()
         return schemas
 
@@ -284,14 +285,15 @@ class ASTemplates():
             outfile = open(str(template_key) + '.json', 'w', encoding='utf-8')
             json.dump(template_value, outfile, sort_keys = True, indent = 4)
 
-#@atl.as_tools_logger(logger)
-# def main():
-#     t = ASTemplates()
-#     as_templates = t.parse_schemas()
-#     #template_func = t.parse_schema('archival_object', t.schemas['archival_object'])
-#     #p#print.p#print(template_func)
-#     #p#print.p#print(as_templates)
-#     t.download_csv_templates(as_templates)
+@atl.as_tools_logger(logger)
+def main():
+    t = ASTemplates()
+    as_templates = t.parse_schemas()
+    template_func = t.parse_schema('agent_corporate_entity', t.schemas['agent_corporate_entity'])
+    pprint.pprint(template_func)
+    #p#print.p#print(template_func)
+    #p#print.p#print(as_templates)
+   # t.download_csv_templates(as_templates)
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

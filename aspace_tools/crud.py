@@ -17,8 +17,7 @@ import sys
 from utilities import utilities as u #, dbssh
 import aspace_tools_logging as atl
 
-from json_data import ASJsonData
-
+import json_data
 
 # client = ASnakeClient()
 # auth = client.authorize()
@@ -61,12 +60,6 @@ class ASCrud():
 #        self.json_data = json_data
         self.sesh = sesh
 
-    def prep_schema_for_validation(self):
-        #will validate against this xsd file - can do that using lxml since it's not a schematron
-        ead_3_schema = requests.get("https://raw.githubusercontent.com/SAA-SDT/EAD3/master/ead3.xsd").text
-        ead_3_schema_encoded = etree.fromstring(bytes(ead_3_schema, encoding='utf8'))
-        return etree.XMLSchema(ead_3_schema_encoded)
-
     #@atl.as_tools_logger(logger)
     def update_data(self, row, json_func):
         '''Updates data via the ArchivesSpace API.
@@ -89,99 +82,6 @@ class ASCrud():
         record_post = self.sesh.post(self.api_url + row['uri'], json=record_json).json()
         print(record_post)
         return record_post
-
-    #@atl.as_tools_logger(logger)
-    def set_parent_reposition_archival_object(self, row):
-        '''Updates the archival object parent and position of an archival object record.
-
-           Parameters:
-            row['child_uri']: The URI of the record to update.
-            row['parent_uri']: The URI of the new parent.
-            row['position']: The new position value.
-            dirpath: Path to the backup directory. Defined in as_tools_config.yml
-
-           Returns:
-            dict: The JSON response from the ArchivesSpace API.
-        '''
-        record_json = self.sesh.get(self.api_url + row['child_uri']).json()
-        u.create_backups(self.dirpath, row['child_uri'], record_json)
-        record_post = self.sesh.post(self.api_url + row['child_uri'] + '/parent?parent=' + row['parent_uri'] + '&position=' + str(row['position'])).json()
-        return record_post
-
-    #double check this - not sure if I need to GET first - I didn't think so; also need to make sure that 'config' is part of the enum uri
-    #@atl.as_tools_logger(logger)
-    def reposition_enumeration(self, row):
-        '''Updates the position of an enumeration value.
-
-           Parameters:
-            row['enum_uri']: The URI of the enumeration value to update.
-            row['position']: The new position value.
-
-           Returns:
-            dict: The JSON response from the ArchivesSpace API.
-        '''
-        record_post = self.sesh.post(self.api_url + row['enum_uri'] + '/position?position=' + row['position']).json()
-        return record_post
-
-    def migrate_enumerations(self, row):
-        '''Merges controlled values.
-
-           Parameters:
-            row['enum_uri']: The URI of the parent enumeration
-            row['enum_val_uri']: The URI of the enumeration value to merge
-            row['from']: The name of the enumeration value to merge
-            row['to']: The name of the enumeration value to merge into
-
-        '''
-        #print(row)
-        #record_json = requests.get(api_url + '/config/enumeration_values/' + row['from'], headers=headers).json()
-        #print(record_json)
-        #u.create_backups(dirpath, row['from'], record_json)
-        record_json = self.sesh.get(self.api_url + row['enum_val_uri']).json()
-        u.create_backups(self.dirpath, row['enum_val_uri'], record_json)
-        merge_json = {'enum_uri': row['enum_uri'], #the URI of the parent enumeration - i.e. /config/enumerations/14
-                        'from': row['from'], #the actual NAME of the enumeration value - i.e. photographs
-                        'to': row['to'], #the actual NAME of the enumertion value - i.e. photographs
-                        'jsonmodel_type': 'enumeration_migration'}
-        record_post = self.sesh.post(self.api_url + '/config/enumerations/migration', json=merge_json)
-        print(record_post.status_code)
-        return record_post.json()
-
-    def suppress_data(self, row):
-        '''Suppresses a record
-
-           Parameters:
-            row['uri']: The URI of the record to suppress
-
-           Returns:
-            dict: The JSON response from the ArchivesSpace API.
-        '''
-        record_post = self.sesh.post(self.api_url + row['uri'] + '/suppressed?suppressed=true').json()
-        print(record_post)
-        return record_post
-
-    #@atl.as_tools_logger(logger)
-    def merge_data(self, row, record_type):
-        '''Merges two records.
-
-           NOTE: need to add another sys.argv value for this so can specify record type outside of CSV
-
-           Parameters:
-            row['target_uri']: The URI of the record to keep.
-            row['victim_uri']: The URI of the record to merge.
-            record_type: The type of record to be merged.
-
-           Returns:
-            dict: The JSON response from the ArchivesSpace API.
-        '''
-        victim_backup = self.sesh.get(self.api_url + row['victim_uri']).json()
-        u.create_backups(self.dirpath, row['victim_uri'], victim_backup)
-        #I want to add a check here to make sure contact info, etc. is not present...check merge_records.py for ex
-        merge_json = {'target': {'ref': row['target_uri']},
-                      'victims': [{'ref': row['victim_uri']}],
-                      'jsonmodel_type': 'merge_request'}
-        merge_request = self.sesh.post(self.api_url + '/merge_requests/' + str(record_type), json=merge_json).json()
-        return merge_request
 
     #@atl.as_tools_logger(logger)
     def search_data(self, row):
@@ -352,6 +252,9 @@ class ASCrud():
         '''
         pass
 
+
+    ### EVERYTHING BELOW THIS IS EAD RELATED
+
     def export_ead(self, row, ead3=False, get_ead=None):
         '''Exports EAD files using a list of resource IDs as input.
 
@@ -441,6 +344,12 @@ class ASCrud():
         ead_file_path = self.export_ead_3(row)
         transformed_ead_path = self.transform_ead_3(ead_file_path)
         validated_ead = self.validate_ead_3(transformed_ead_path)
+
+    def prep_schema_for_validation(self):
+        #will validate against this xsd file - can do that using lxml since it's not a schematron
+        ead_3_schema = requests.get("https://raw.githubusercontent.com/SAA-SDT/EAD3/master/ead3.xsd").text
+        ead_3_schema_encoded = etree.fromstring(bytes(ead_3_schema, encoding='utf8'))
+        return etree.XMLSchema(ead_3_schema_encoded)
 
 # def validate_ead_2002(ead_file):
 #     '''Validates EAD files using a user-defined schema file. Only for EAD 2002'''

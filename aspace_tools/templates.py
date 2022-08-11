@@ -9,7 +9,10 @@ import requests
 from utilities import utilities as u
 from pathlib import Path
 
-from aspace_run import as_session
+
+import yaml
+
+import script_tools
 
 import aspace_tools_logging as atl
 
@@ -33,15 +36,13 @@ Todo:
 logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():
-    def __init__(self, *sesh):
-        self.config_file = u.get_config(cfg=str(Path.home()) + '/as_tools_config.yml')
+    def __init__(self):
+        with open('as_tools_config.yml', 'r', encoding='utf8') as file_path:
+            self.config_file = yaml.safe_load(file_path.read())
         self.api_url = self.config_file['api_url']
         self.username = self.config_file['api_username']
         self.password = self.config_file['api_password']
-        if not sesh:
-            self.sesh, self.sesh_file = as_session(api_url=self.api_url, username=self.username, password=self.password)
-        else:
-            self.sesh = sesh
+        _, self.sesh = script_tools.start_session(self.api_url, self.username, self.password)
         self.schemas = self.get_schemas()
         self.all_enumerations = self.get_dynamic_enums()
         self.schema_exclusions = [line.strip('\n') for line in open('fixtures/schema_exclusions.csv', encoding='utf-8')]
@@ -289,11 +290,12 @@ class ASTemplates():
 def main():
     t = ASTemplates()
     as_templates = t.parse_schemas()
-    template_func = t.parse_schema('agent_corporate_entity', t.schemas['agent_corporate_entity'])
-    pprint.pprint(template_func)
-    #p#print.p#print(template_func)
-    #p#print.p#print(as_templates)
-   # t.download_csv_templates(as_templates)
+    # template_func = t.parse_schema('agent_corporate_entity', t.schemas['agent_corporate_entity'])
+    # pprint.pprint(template_func)
+    #pprint.pprint(template_func)
+    pprint.pprint(as_templates)
+    t.download_json_templates(as_templates)
+    t.download_csv_templates(as_templates)
 
 if __name__ == "__main__":
     main()

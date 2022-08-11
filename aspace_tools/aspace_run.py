@@ -7,15 +7,15 @@ import requests
 import json
 from pathlib import Path
 
-import dill as pickle
 
 #from utilities import db as dbssh
 from utilities import dbssh
 from utilities import utilities as u
 
 
+import script_tools
 from crud import ASCrud
-from json_data import ASJsonData
+import json_data
 from queries import ASQueries
 
 import aspace_tools_logging as atl
@@ -44,43 +44,9 @@ Todo:
 
 logger = atl.logging.getLogger(__name__)
 
-#@atl.as_tools_logger(logger)
-def api_login(url=None, username=None, password=None):
-    '''Logs into the ArchivesSpace API.
 
-       Parameters:
-        url: The URL to the ArchivesSpace API.
-        username: The user's username.
-        password: The user's password.
-
-       Returns:
-        dict: The JSON response from the ArchivesSpace API.
-    '''
-    try:
-        if url is None and username is None and password is None:
-            url = input('Please enter the ArchivesSpace API URL: ')
-            username = input('Please enter your username: ')
-            password = input('Please enter your password: ')
-        auth = requests.post(url+'/users/'+username+'/login?password='+password).json()
-        #if session object is returned then login was successful; if not it failed.
-        if 'session' in auth:
-            session = auth["session"]
-            h = {'X-ArchivesSpace-Session':session, 'Content_Type': 'application/json'}
-            print('Login successful!')
-            logger.debug('Success!')
-            return (url, h)
-        else:
-            print('Login failed! Check credentials and try again.')
-            logger.debug('Login failed')
-            logger.debug(auth.get('error'))
-            #try again
-            u, heads = login()
-            return u, heads
-    except:
-        print('Login failed! Check credentials and try again!')
-        logger.exception('Error: ')
-        u, heads = login()
-        return u, heads
+## FIX ALL THE LOGIN STUFF, IT'S NO GOOD, HAVE BETTER
+# api_url, sesh = script_tools.start_session()
 
 
 class ASpaceDB():
@@ -147,68 +113,11 @@ class ASpaceDB():
         return (self.dbconn.run_query_list(query_func(row)) for row in self.csvfile)
 
 
-def save_session(session, api_url):
-    '''Saves a session that is not yet in the session folder'''
-    if 'archivesspace' in api_url:
-        fpname = api_url[8:-21]
-    elif 'local' in api_url:
-        fpname = 'local'
-    with open(f'sessions/{fpname}.pkl', 'wb') as out_strm:
-        pickle.dump(session, out_strm)
-        return f'sessions/{fpname}.pkl'
-
-def load_session(api_url, session_list, session=None, session_file=None):
-    '''Loads a session that is already in the session folder'''
-    if ('local' in api_url and 'local.pkg' in session_list):
-        session_file = 'sessions/local.pkl'
-        session = pickle.load(open(session_file, 'rb'))
-    else:
-        sessions = [(pickle.load(open(f'sessions/{sesh}', 'rb')), f'sessions/{sesh}') for sesh in session_list if api_url[8:-21] == sesh[:-4]]
-        if sessions:
-            session = sessions[0][0]
-            session_file = sessions[0][1]
-    return session, session_file
-
-def as_session(api_url, username, password, session=None):
-    '''Session handler function'''
-    #Searches the session folder to get a list of sessions
-    session_list = os.listdir('sessions')
-    #run the load session function - if there isn't any session the return values will both be None; if there is a session
-    #that value will be returned along with the session filepath
-    session, session_file = load_session(api_url, session_list)
-    #if there isn't already a session for the API URL, create one and save it
-    if (session == [] or session == None):
-        try:
-            session = requests.Session()
-            session.headers.update({'Content_Type': 'application/json'})
-            response = session.post(api_url + '/users/' + username + '/login',
-                         params={"password": password, "expiring": False})
-            if response.status_code != 200:
-                print(f"Error could not connect: {response.status_code}")
-            else:
-                session_toke = json.loads(response.text)['session']
-                session.headers['X-ArchivesSpace-Session'] = session_toke
-                session_file = save_session(session, api_url)
-        except Exception:
-            print(traceback.format_exc())
-    print(session)
-    return session, session_file
-
-def config_file_helper():
-    config_file = u.get_config(cfg='as_tools_config.yml')
-
-    with open('as_tools_config.yml', 'r', encoding='utf-8') as config_file:
-        cfg = json.load(config_file)
-    cfg[config_type] = value
-    with open('data/config.json', 'w', encoding='utf-8') as config_file:
-        json.dump(cfg, config_file)
-    return value
-
 class ASpaceRun():
 
     def __init__(self):
-        '''Need to test what happens if I change a value in the config file...'''
-        self.config_file = u.get_config(cfg='as_tools_config.yml')
+        with open('as_tools_config.yml', 'r', encoding='utf8') as file_path:
+            self.config_file = yaml.safe_load(file_path.read())
         self.api_url = self.config_file['api_url']
         self.username = self.config_file['api_username']
         self.password = self.config_file['api_password']
@@ -216,8 +125,7 @@ class ASpaceRun():
         self.dirpath = u.setdirectory(self.config_file['backup_directory'])
         #this can be changed, the csvdict function will need to be called again
         self.csvfile = u.opencsvdict(self.config_file['input_csv'])
-        self.sesh, self.sesh_file = as_session(self.api_url, self.username, self.password)
-        self.json_data = ASJsonData()
+        _, self.sesh = script_tools.start_session(self.api_url, self.username, self.password)
         self.crud = ASCrud(self.config_file, self.sesh)
 
     def append_uris_to_record_set(self, record_json, row):
@@ -292,7 +200,7 @@ class ASpaceRun():
         success_counter = 0
         crud_func = getattr(self.crud, crud_func)
         if json_func is not None:
-            json_func = getattr(self.json_data, json_func)
+            json_func = getattr(json_data, json_func)
         for row_count, row in enumerate(self.csvfile, 1):
             record_set, success_counter = self.call_api(row, row_count, record_set, success_counter, crud_func, json_func)
         if record_set:

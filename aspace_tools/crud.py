@@ -11,50 +11,26 @@ from lxml import etree
 from io import StringIO
 import sys
 
-#import pandas as pd
-#from asnake.client import ASnakeClient
 
-from utilities import utilities as u #, dbssh
-import aspace_tools_logging as atl
+import script_tools
 
 import json_data
-
-# client = ASnakeClient()
-# auth = client.authorize()
-
-#LOGGING
-#INTERFACE TO SET VARIABLES FOR MAIN PROGRAM
-#FOLDER FOR IMPLEMENTATIONS
-
-
-# def write_output(result_data, output_file):
-#     pass
-
-'''
-
-Todo:
-    also need to make sure that merge_data variables like record type are accounted for in the main interface; right now it
-    might be interpreted as a json_data variable which it is not; implement asnake.
-'''
-
-logger = atl.logging.getLogger(__name__)
 
 
 class ASCrud():
 
     def __init__(self, config_file, sesh):
 
-        #need to pull in the config here...could make optional also, as Dave did.
-        #self.config_file = u.get_config(cfg=str(Path.home()) + '/as_tools_config.yml')
+        #self.config_file = get_config(cfg=str(Path.home()) + '/as_tools_config.yml')
         self.config_file = config_file
-        #may not need this, but keep for the time being
         self.api_url = self.config_file['api_url']
         self.username = self.config_file['api_username']
         self.password = config_file['api_password']
         self.dirpath = config_file['backup_directory']
         #use this to transform the original XML. Need to call Saxon 9 because lxml does not support XSLT 2.0 transformations
         self.ead_3_transformation = 'data/yale.aspace_v2_to_yale_ead3.xsl'
-        self.output_file = u.openoutfile(config_file['output_file'])
+        #context manager?
+        self.output_file = open(config_file['output_file'].strip(). 'a', encoding='utf8')
         #self.ead_3_transformation = requests.get("https://raw.githubusercontent.com/YaleArchivesSpace/EAD3-to-PDF-UA/master/xslt-to-update-the-ASpace-export/yale.aspace_v2_to_yale_ead3.xsl").text
         self.ead_3_schema = self.prep_schema_for_validation()
 #        self.json_data = json_data
@@ -75,7 +51,7 @@ class ASCrud():
         #gets the JSON to update
         record_json = self.sesh.get(self.api_url + row['uri']).json()
         #creates a backup of the original file
-        u.create_backups(self.dirpath, row['uri'], record_json)
+        script_tools.create_backups(self.dirpath, row['uri'], record_json)
         #this modifies the JSON based on a particular JSON data structure defined by the user
         record_json = json_func(record_json, row)
         #this posts the JSON
@@ -135,7 +111,7 @@ class ASCrud():
             dict: The JSON response from the ArchivesSpace API.
         '''
         record_json = self.sesh.get(self.api_url + row['uri']).json()
-        u.create_backups(self.dirpath, row['uri'], record_json)
+        script_tools.create_backups(self.dirpath, row['uri'], record_json)
         record_delete = self.sesh.delete(self.api_url + row['uri']).json()
         return record_delete
 
@@ -286,7 +262,7 @@ class ASCrud():
         return self.export_ead(row, ead3=True)
 
     def transform_ead_2002(self, ead_file):
-        outfile = u.openoutfile(filepath=f"{self.dirpath}/{ead_file[:-4]}_out.xml")
+        outfile = open(f"{self.dirpath}/{ead_file[:-4]}_out.xml", 'a', encoding='utf8')
         subprocess.Popen(["java", "-cp", "/usr/local/Cellar/saxon/9.9.1.3/libexec/saxon9he.jar", "net.sf.saxon.Transform",
                         "-s:" + self.dirpath + '/' + ead_file,
                         "-xsl:" + "transformations/yale.aspace_v112_to_yalebpgs.xsl",
@@ -300,11 +276,6 @@ class ASCrud():
                using {self.ead_3_transformation}
                writing to {ead_file_path[:-4]}_out.xml
                ''')
-        #maybe this actually needs to be created first?
-        #outfile = u.openoutfile(filepath=f"{ead_file_path[:-4]}_out.xml")
-        #outfile.close()
-        #not sure if it actually needs an open file as input...
-        #also not sure if I should maybe just save the transformation files. They don't change very much...
         subprocess.run(["java", "-cp", "/usr/local/Cellar/saxon/9.9.1.3/libexec/saxon9he.jar", "net.sf.saxon.Transform",
                         f"-s:{ead_file_path}",
                         f"-xsl:{self.ead_3_transformation}",

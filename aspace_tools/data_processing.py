@@ -19,9 +19,6 @@ import ast
 import pandas as pd
 import traceback
 from collections import Counter
-#from aspace_tools import aspace_tools_logging as atl
-from utilities import utilities as u
-from utilities import db as dbssh
 
 #logger = atl.logging.getLogger(__name__)
 
@@ -264,10 +261,11 @@ def add_date_expressions(csvlist):
         pass
 
 def main():
-    h1, c1 = u.opencsv('/Users/amd243/Downloads/glad_aos_still_need_dates_boxes.csv')
-    h2, c2 = u.opencsv('/Users/amd243/Desktop/glad_top_containers_created.csv')
-    fileobject, csvoutfile = u.opencsvout('/Users/amd243/Desktop/matched_top_containers.csv')
-    match_ao_uris_w_tc_uris(c1, c2, fileobject, csvoutfile)
+    pass
+    # h1, c1 = u.opencsv('/Users/amd243/Downloads/glad_aos_still_need_dates_boxes.csv')
+    # h2, c2 = u.opencsv('/Users/amd243/Desktop/glad_top_containers_created.csv')
+    # fileobject, csvoutfile = u.opencsvout('/Users/amd243/Desktop/matched_top_containers.csv')
+    # match_ao_uris_w_tc_uris(c1, c2, fileobject, csvoutfile)
 
 if __name__ == "__main__":
     main()

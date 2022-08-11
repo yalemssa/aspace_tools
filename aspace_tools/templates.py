@@ -6,7 +6,6 @@ import json
 import pprint
 import csv
 import requests
-from utilities import utilities as u
 from pathlib import Path
 
 

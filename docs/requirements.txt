@@ -6,4 +6,5 @@ decorator==4.4.0
 pandas==1.2.0
 PyYAML==6.0
 rich==12.5.1
-m2r
+mistune==0.8.4
+m2r==0.2.1

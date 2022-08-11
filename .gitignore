@@ -49,7 +49,7 @@ aspace_tools/.DS_Store
 
 aspace_tools/__pycache__
 
-aspace_tools/implementations/
+aspace_tools/implementations
 
 aspace_tools/as_tools_config.yml
 

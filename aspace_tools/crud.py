@@ -30,7 +30,7 @@ class ASCrud():
         #use this to transform the original XML. Need to call Saxon 9 because lxml does not support XSLT 2.0 transformations
         self.ead_3_transformation = 'data/yale.aspace_v2_to_yale_ead3.xsl'
         #context manager?
-        self.output_file = open(config_file['output_file'].strip(). 'a', encoding='utf8')
+        self.output_file = open(config_file['output_file'].strip(), 'a', encoding='utf8')
         #self.ead_3_transformation = requests.get("https://raw.githubusercontent.com/YaleArchivesSpace/EAD3-to-PDF-UA/master/xslt-to-update-the-ASpace-export/yale.aspace_v2_to_yale_ead3.xsl").text
         self.ead_3_schema = self.prep_schema_for_validation()
 #        self.json_data = json_data

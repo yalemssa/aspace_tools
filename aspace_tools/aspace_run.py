@@ -9,8 +9,8 @@ from pathlib import Path
 
 
 #from utilities import db as dbssh
-from utilities import dbssh
-from utilities import utilities as u
+# from utilities import dbssh
+# from utilities import utilities as u
 
 
 import script_tools
@@ -33,10 +33,10 @@ class ASpaceDB():
     '''Class for handling database queries'''
 
     def __init__(self):
-        self.config_file = u.get_config(cfg='as_tools_config.yml')
-        self.dirpath = u.setdirectory(self.config_file['backup_directory'])
-        self.csvfile = u.opencsvdict(self.config_file['input_csv'])
-        self.dbconn = dbssh.DBConn(config_file=self.config_path)
+        #self.config_file = u.get_config(cfg='as_tools_config.yml')
+        #self.dirpath = u.setdirectory(self.config_file['backup_directory'])
+        #self.csvfile = u.opencsvdict(self.config_file['input_csv'])
+        #self.dbconn = dbssh.DBConn(config_file=self.config_path)
         self.query_data = ASQueries()
 
     def extract_note_query(self):

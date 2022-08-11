@@ -4,21 +4,6 @@ aspace\_tools package
 Submodules
 ----------
 
-aspace\_tools.aspace\_api module
---------------------------------
-
-.. automodule:: aspace_tools.aspace_api
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-aspace\_tools.aspace\_db module
--------------------------------
-
-.. automodule:: aspace_tools.aspace_db
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 aspace\_tools.aspace\_run module
 --------------------------------
@@ -32,14 +17,6 @@ aspace\_tools.aspace\_tools\_logging module
 -------------------------------------------
 
 .. automodule:: aspace_tools.aspace_tools_logging
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-aspace\_tools.aspace\_tools\_tests module
------------------------------------------
-
-.. automodule:: aspace_tools.aspace_tools_tests
     :members:
     :undoc-members:
     :show-inheritance:
@@ -83,6 +60,23 @@ aspace\_tools.templates module
     :members:
     :undoc-members:
     :show-inheritance:
+
+aspace\_tools.generate\_script module
+------------------------------
+
+.. automodule:: aspace_tools.generate_script
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+aspace\_tools.script\_tools module
+------------------------------
+
+.. automodule:: aspace_tools.script_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 
 Module contents

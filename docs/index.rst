@@ -7,18 +7,6 @@
 API Documentation
 ========================================
 
-aspace_api.py
-----------------------------------------
-
-.. automodule:: aspace_tools.aspace_api
-    :members:
-
-aspace_db.py
-----------------------------------------
-
-.. automodule:: aspace_tools.aspace_db
-    :members:
-
 aspace_run.py
 ----------------------------------------
 
@@ -42,6 +30,18 @@ queries.py
 
 .. automodule:: aspace_tools.queries
     :members:
+
+generate_script.py
+----------------------------------------
+
+.. automodule:: aspace_tools.generate_script
+        :members:
+
+script_tools.py
+----------------------------------------
+
+.. automodule:: aspace_tools.script_tools
+        :members:
 
 templates.py
 ----------------------------------------

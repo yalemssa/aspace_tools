@@ -77,8 +77,6 @@ aspace\_tools.script\_tools module
     :undoc-members:
     :show-inheritance:
 
-
-
 Module contents
 ---------------
 

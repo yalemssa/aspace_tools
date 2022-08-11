@@ -19,6 +19,7 @@ import sphinx_rtd_theme
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 print(sys.executable)
 sys.path.append('/Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools')
+sys.path.insert(0, os.path.abspath('../../..'))
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../..'))

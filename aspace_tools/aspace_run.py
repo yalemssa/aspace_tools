@@ -27,29 +27,10 @@ with the ArchivesSpace API and MySQL database.
 
 CRUD actions which are called by the call_api function are stored in the crud.py
 file. CRUD functions include create_data, update_data, etc.
-
-Todo:
-
-    Add options for database query outputs - outfile, generator, list, DF, etc.
-
-    Command line interface in main.py (rename??) - in progress
-    Add variables to doc sctrings in json data, queries, etc. - in progress
-    Do I need to import the login function here. Can I just import that function?
-    I have been thinking about using the .apply function in conjunction with
-    the json functionality of pandas for this
-    use something to flatten the nested JSON
-    use an error logging function to wrap the try/except
-    -integrate update_microfilm.py into this process
 '''
 
-logger = atl.logging.getLogger(__name__)
-
-
-## FIX ALL THE LOGIN STUFF, IT'S NO GOOD, HAVE BETTER
-# api_url, sesh = script_tools.start_session()
-
-
 class ASpaceDB():
+    '''Class for handling database queries'''
 
     def __init__(self):
         self.config_file = u.get_config(cfg='as_tools_config.yml')
@@ -60,9 +41,6 @@ class ASpaceDB():
 
     def extract_note_query(self):
         '''Runs a query to get all notes and then extracts the note content and note type
-
-           This is a different format than the others; I want to be able to get a count of
-           this but I'm not sure how to work it into everything else...
         '''
         try:
             query_func = self.query_data.all_notes()
@@ -75,7 +53,6 @@ class ASpaceDB():
             self.dbconn.close_conn()
         return query_data
 
-    #@atl.as_tools_logger(logger)
     def run_db_query(self, query_func, outfile=None):
         '''Runs a single query against the ArchivesSpace database.
 
@@ -92,10 +69,6 @@ class ASpaceDB():
         #query_func = getattr(self.query_data, query_func)
         return (self.dbconn.run_query_list(query_func()))
 
-    #This probably won't work for Dash since it returns a generator
-    #Either can create another function just for the dash queries, which is actually probably better
-    #since then I can specify optional arguments...
-    #@atl.as_tools_logger(logger)
     def run_db_queries(self, query_func):
         '''Runs multiple queries against the ArchivesSpace database.
 
@@ -114,6 +87,7 @@ class ASpaceDB():
 
 
 class ASpaceRun():
+    '''Class for handling API calls'''
 
     def __init__(self):
         with open('as_tools_config.yml', 'r', encoding='utf8') as file_path:

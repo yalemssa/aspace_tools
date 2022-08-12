@@ -34,7 +34,7 @@ Todo:
     -DONE: Reorganize functions
 '''
 
-logger = atl.logging.getLogger(__name__)
+#logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():
     def __init__(self):

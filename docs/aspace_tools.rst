@@ -1,10 +1,7 @@
-aspace\_tools package
+API Documentation
 =====================
 
-Submodules
-----------
-
-aspace\_tools.aspace\_run module
+aspace_run.py
 --------------------------------
 
 .. automodule:: aspace_tools.aspace_run
@@ -12,7 +9,7 @@ aspace\_tools.aspace\_run module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.aspace\_tools\_logging module
+aspace_tools_logging.py
 -------------------------------------------
 
 .. automodule:: aspace_tools.aspace_tools_logging
@@ -20,7 +17,7 @@ aspace\_tools.aspace\_tools\_logging module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.crud module
+crud.py
 -------------------------
 
 .. automodule:: aspace_tools.crud
@@ -28,7 +25,7 @@ aspace\_tools.crud module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.data\_processing module
+data_processing.py
 -------------------------------------
 
 .. automodule:: aspace_tools.data_processing
@@ -36,7 +33,7 @@ aspace\_tools.data\_processing module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.generate\_script module
+generate_script.py
 -------------------------------------
 
 .. automodule:: aspace_tools.generate_script
@@ -44,7 +41,7 @@ aspace\_tools.generate\_script module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.json\_data module
+json_data.py
 -------------------------------
 
 .. automodule:: aspace_tools.json_data
@@ -52,7 +49,7 @@ aspace\_tools.json\_data module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.queries module
+queries.py
 ----------------------------
 
 .. automodule:: aspace_tools.queries
@@ -60,7 +57,7 @@ aspace\_tools.queries module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.script\_tools module
+script_tools.py
 ----------------------------------
 
 .. automodule:: aspace_tools.script_tools
@@ -68,18 +65,10 @@ aspace\_tools.script\_tools module
    :undoc-members:
    :show-inheritance:
 
-aspace\_tools.templates module
+templates.py
 ------------------------------
 
 .. automodule:: aspace_tools.templates
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: aspace_tools
    :members:
    :undoc-members:
    :show-inheritance:

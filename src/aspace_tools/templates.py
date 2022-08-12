@@ -287,7 +287,7 @@ class ASTemplates():
             outfile = open(str(template_key) + '.json', 'w', encoding='utf-8')
             json.dump(template_value, outfile, sort_keys = True, indent = 4)
 
-@atl.as_tools_logger(logger)
+# @atl.as_tools_logger(logger)
 def main():
     t = ASTemplates()
     as_templates = t.parse_schemas()

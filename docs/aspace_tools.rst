@@ -7,7 +7,7 @@ aspace_run.py
 .. automodule:: aspace_tools.aspace_run
    :members:
    :undoc-members:
-   :show-inheritance
+   :show-inheritance:
 
 crud.py
 -------------------------

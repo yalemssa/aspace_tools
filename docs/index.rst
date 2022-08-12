@@ -4,9 +4,6 @@
 
 .. mdinclude:: ./README.md
 
-API Documentation
-========================================
-
    modules
 
 Indices and tables

@@ -57,3 +57,12 @@ aspace_tools/as_tools_config.yml
 
 /interfaces/
 
+/data/
+
+/fixtures/
+
+/logs/
+
+/scripts/
+
+/tests/

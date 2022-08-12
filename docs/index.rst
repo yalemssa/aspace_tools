@@ -7,7 +7,7 @@
 API Documentation
 ========================================
 
-   aspace_tools
+   modules
 
 Indices and tables
 ==================

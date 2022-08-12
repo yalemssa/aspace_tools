@@ -11,25 +11,19 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
-import os
+import sys, os
 import sphinx_rtd_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, '/Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools')
-# print(os.path.abspath('../../..'))
+print(sys.executable)
+sys.path.append('/Users/aliciadetelich/Dropbox/git/aspace_tools/aspace_tools')
 sys.path.insert(0, os.path.abspath('../../..'))
-# print(os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('.'))
-# print(os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../'))
-# print(os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../..'))
-# print(os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('..'))
-print(sys.path)
 
 
 # -- General configuration -----------------------------------------------------
@@ -56,7 +50,7 @@ source_suffix = ['.rst','.md']
 master_doc = 'index'
 
 # General information about the project.
-project = 'aspace_tools'
+project = u'aspace_tools'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

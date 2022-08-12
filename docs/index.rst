@@ -23,7 +23,7 @@ crud.py
     :undoc-members:
     :show-inheritance:
 
-json_data.py
+aspace\_tools.json\_data module
 ----------------------------------------
 
 .. automodule:: aspace_tools.json_data

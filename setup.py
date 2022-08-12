@@ -2,7 +2,7 @@
 Look up packaging instructions from Serious Python to see if anything has changed for Python 3
 '''
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 #this should be pretty detailed; generate from function definitions (i.e. Serious Python)
 def readme():
@@ -24,10 +24,7 @@ setup(name='aspace_tools',
           'Natural Language :: English',
           'Operating System :: OS Independent'
           ],
-	  packages=['aspace_tools'],
+	  packages=find_packages(),
 	  install_requires=['requests', 'lxml', 'tqdm', 'pymssql', 'pandas', 'decorator', 'pyyaml', 'rich'],
 	  include_package_data=True,
 	  zip_safe=False)
-
-
-#NEED TO ADD A REQUIREMENT TO INSTALL UTILITIES

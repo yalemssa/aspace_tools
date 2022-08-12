@@ -7,58 +7,10 @@
 API Documentation
 ========================================
 
-aspace_run.py
-----------------------------------------
-
-.. autoclass:: aspace_tools.aspace_run
+.. automodule:: aspace_tools
     :members:
-
-crud.py
-----------------------------------------
-
-.. autoclass:: aspace_tools.crud
-    :members:
-
-json_data.py
-----------------------------------------
-
-.. automodule:: aspace_tools.json_data
-    :members:
-
-queries.py
-----------------------------------------
-
-.. automodule:: aspace_tools.queries
-    :members:
-
-generate_script.py
-----------------------------------------
-
-.. automodule:: aspace_tools.generate_script
-    :members:
-
-script_tools.py
-----------------------------------------
-
-.. automodule:: aspace_tools.script_tools
-    :members:
-
-templates.py
-----------------------------------------
-
-.. autoclass:: aspace_tools.templates
-    :members:
-
-data_processing.py
-----------------------------------------
-
-.. automodule:: aspace_tools.data_processing
-    :members:
-
-aspace_tools_logging.py
-----------------------------------------
-.. automodule:: aspace_tools.aspace_tools_logging
-    :members:
+    :undoc-members:
+    :show-inheritance:
 
 Indices and tables
 ==================

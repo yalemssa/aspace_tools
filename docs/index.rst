@@ -7,7 +7,7 @@
 API Documentation
 ========================================
 
-.. automodule:: json_data
+.. automodule:: aspace_tools.json_data
     :members:
     :undoc-members:
     :show-inheritance:

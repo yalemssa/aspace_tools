@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
+'''Not sure what this is really'''
+
 import json
 import traceback
 import requests
@@ -12,9 +14,8 @@ from io import StringIO
 import sys
 
 
-import script_tools
-
-import json_data
+from . import script_tools
+from . import json_data
 
 
 class ASCrud():

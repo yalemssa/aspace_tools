@@ -10,8 +10,8 @@ import re
 
 from rich import print
 
-import json_data
-import script_tools
+from . import json_data
+from . import script_tools
 
 
 def generate_config(config_file_path):

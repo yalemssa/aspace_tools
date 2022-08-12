@@ -12,11 +12,11 @@ from pathlib import Path
 # from utilities import dbssh
 # from utilities import utilities as u
 
-import crud
-import script_tools
-import json_data
-import queries
-import data_processing as dp
+from . import crud
+from . import script_tools
+from . import json_data
+from . import queries
+from . import data_processing as dp
 
 '''
 This file contains three functions which provide the scaffolding for interacting

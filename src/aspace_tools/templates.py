@@ -14,9 +14,9 @@ from pathlib import Path
 
 import yaml
 
-import script_tools
+from . import script_tools
 
-import aspace_tools_logging as atl
+#import aspace_tools_logging as atl
 
 
 '''

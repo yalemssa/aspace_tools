@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''NOTE - LOGGING CURRENTLY TURNED OFF'''
 
+'''
+JSON data structures for creating or updating ArchivesSpace records
+'''
 
 import json
 import pprint
@@ -10,9 +12,6 @@ import pprint
 #from aspace_tools import aspace_tools_logging as atl
 
 '''
-JSON data structures for ArchivesSpace record creation, update, etc. Called by CRUD functions in
-crud.py
-
 Todo:
     register functions and their variables with a decorator; latter doesn't seem very easy; seems like the only way that the arguments get registered is when the function actually gets called???
     change parameter names - have all URIs which are used to call the API just called 'uri'; like, all the ones in csv_row[0]

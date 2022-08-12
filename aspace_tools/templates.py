@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
+'''
+A class for creating JSON and CSV templates from the ArchivesSpace schema.
+'''
+
 import re
 import json
 import pprint
@@ -8,16 +12,14 @@ import csv
 import requests
 from pathlib import Path
 
-
 import yaml
 
 import script_tools
 
 import aspace_tools_logging as atl
 
-'''
-A class for creating JSON and CSV templates from the ArchivesSpace schema.
 
+'''
 Todo:
     -Go back through the few weird types that I skipped
     -What about the abstract stuff, inheritance, and the collection management fields?? ALSO double check notes

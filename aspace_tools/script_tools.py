@@ -1,5 +1,12 @@
 #!/usr/bin/python3
 
+'''
+
+Utility functions and custom exceptions for aspace_tools
+
+'''
+
+
 import csv
 import json
 import logging
@@ -7,12 +14,6 @@ import sys
 
 import requests
 from rich import print
-
-'''
-
-Admin tools
-
-'''
 
 class LoginError(Exception):
     '''Custom exception to catch ArchivesSpace login errors'''

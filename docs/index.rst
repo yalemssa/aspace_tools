@@ -7,7 +7,10 @@
 API Documentation
 ========================================
 
-   modules
+.. automodule:: aspace_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 Indices and tables
 ==================

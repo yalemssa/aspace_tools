@@ -13,13 +13,11 @@ from pathlib import Path
 # from utilities import utilities as u
 
 
-import script_tools
-from crud import ASCrud
-import json_data
-from queries import ASQueries
-
-import aspace_tools_logging as atl
-import data_processing as dp
+from . import script_tools
+from . import crud
+from . import json_data
+from . import queries
+from . import data_processing as dp
 
 '''
 This file contains three functions which provide the scaffolding for interacting
@@ -33,25 +31,27 @@ class ASpaceDB():
     '''Class for handling database queries'''
 
     def __init__(self):
+        pass
         #self.config_file = u.get_config(cfg='as_tools_config.yml')
         #self.dirpath = u.setdirectory(self.config_file['backup_directory'])
         #self.csvfile = u.opencsvdict(self.config_file['input_csv'])
         #self.dbconn = dbssh.DBConn(config_file=self.config_path)
-        self.query_data = ASQueries()
+        #self.query_data = ASQueries()
 
     def extract_note_query(self):
         '''Runs a query to get all notes and then extracts the note content and note type
         '''
-        try:
-            query_func = self.query_data.all_notes()
-            query_data = dp.extract_note_content(query_func, 'extract_notes.csv', self.dbconn)
+        pass
+        #try:
+            #query_func = self.query_data.all_notes()
+            #query_data = dp.extract_note_content(query_func, 'extract_notes.csv', self.dbconn)
             #not this - want a count of the individual things...
-            counter = query_data['type'].count()
-            print(counter)
-        finally:
+           # counter = query_data['type'].count()
+            #print(counter)
+        #finally:
             #yes? or do I want this to stay open?
-            self.dbconn.close_conn()
-        return query_data
+            #self.dbconn.close_conn()
+        #return query_data
 
     def run_db_query(self, query_func, outfile=None):
         '''Runs a single query against the ArchivesSpace database.
@@ -65,9 +65,10 @@ class ASpaceDB():
             Have the outfile be a default arg that can set if don't want to just return
             a generator or whatever.
         '''
+        pass
         #should not need this - should already be passing in a function
         #query_func = getattr(self.query_data, query_func)
-        return (self.dbconn.run_query_list(query_func()))
+        #return (self.dbconn.run_query_list(query_func()))
 
     def run_db_queries(self, query_func):
         '''Runs multiple queries against the ArchivesSpace database.
@@ -82,8 +83,9 @@ class ASpaceDB():
             of lists (right?). From here can process the output in any way you like - can write to output file or do any additional processing
             MUST CLOSE THE DB CONNECTION!
         '''
+        pass
         #query_func = getattr(self.query_data, query_func)
-        return (self.dbconn.run_query_list(query_func(row)) for row in self.csvfile)
+       # return (self.dbconn.run_query_list(query_func(row)) for row in self.csvfile)
 
 
 class ASpaceRun():
@@ -96,11 +98,11 @@ class ASpaceRun():
         self.username = self.config_file['api_username']
         self.password = self.config_file['api_password']
         #is this what I want?
-        self.dirpath = u.setdirectory(self.config_file['backup_directory'])
+        #self.dirpath = u.setdirectory(self.config_file['backup_directory'])
         #this can be changed, the csvdict function will need to be called again
-        self.csvfile = u.opencsvdict(self.config_file['input_csv'])
+        #self.csvfile = u.opencsvdict(self.config_file['input_csv'])
         _, self.sesh = script_tools.start_session(self.api_url, self.username, self.password)
-        self.crud = ASCrud(self.config_file, self.sesh)
+        self.crud = crud.ASCrud(self.config_file, self.sesh)
 
     def append_uris_to_record_set(self, record_json, row):
         #Need to fix the CSV dict business now that everything is one...

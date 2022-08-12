@@ -1,7 +1,10 @@
-API Documentation
+aspace\_tools package
 =====================
 
-aspace_run.py
+Submodules
+----------
+
+aspace\_tools.aspace\_run module
 --------------------------------
 
 .. automodule:: aspace_tools.aspace_run
@@ -9,7 +12,7 @@ aspace_run.py
    :undoc-members:
    :show-inheritance:
 
-aspace_tools_logging.py
+aspace\_tools.aspace\_tools\_logging module
 -------------------------------------------
 
 .. automodule:: aspace_tools.aspace_tools_logging
@@ -17,7 +20,7 @@ aspace_tools_logging.py
    :undoc-members:
    :show-inheritance:
 
-crud.py
+aspace\_tools.crud module
 -------------------------
 
 .. automodule:: aspace_tools.crud
@@ -25,7 +28,7 @@ crud.py
    :undoc-members:
    :show-inheritance:
 
-data_processing.py
+aspace\_tools.data\_processing module
 -------------------------------------
 
 .. automodule:: aspace_tools.data_processing
@@ -33,7 +36,7 @@ data_processing.py
    :undoc-members:
    :show-inheritance:
 
-generate_script.py
+aspace\_tools.generate\_script module
 -------------------------------------
 
 .. automodule:: aspace_tools.generate_script
@@ -41,7 +44,7 @@ generate_script.py
    :undoc-members:
    :show-inheritance:
 
-json_data.py
+aspace\_tools.json\_data module
 -------------------------------
 
 .. automodule:: aspace_tools.json_data
@@ -49,7 +52,7 @@ json_data.py
    :undoc-members:
    :show-inheritance:
 
-queries.py
+aspace\_tools.queries module
 ----------------------------
 
 .. automodule:: aspace_tools.queries
@@ -57,7 +60,7 @@ queries.py
    :undoc-members:
    :show-inheritance:
 
-script_tools.py
+aspace\_tools.script\_tools module
 ----------------------------------
 
 .. automodule:: aspace_tools.script_tools
@@ -65,10 +68,18 @@ script_tools.py
    :undoc-members:
    :show-inheritance:
 
-templates.py
+aspace\_tools.templates module
 ------------------------------
 
 .. automodule:: aspace_tools.templates
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: aspace_tools
    :members:
    :undoc-members:
    :show-inheritance:

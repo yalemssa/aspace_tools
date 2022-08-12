@@ -4,13 +4,7 @@
 
 .. mdinclude:: ./README.md
 
-API Documentation
-========================================
-
-.. automodule:: aspace_tools
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   modules
 
 Indices and tables
 ==================

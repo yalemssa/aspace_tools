@@ -10,13 +10,13 @@ API Documentation
 aspace_run.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.aspace_run
+.. autoclass:: aspace_tools.aspace_run
     :members:
 
 crud.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.crud
+.. autoclass:: aspace_tools.crud
     :members:
 
 json_data.py
@@ -46,7 +46,7 @@ script_tools.py
 templates.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.templates
+.. autoclass:: aspace_tools.templates
     :members:
 
 data_processing.py

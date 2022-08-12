@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 #this should be pretty detailed; generate from function definitions (i.e. Serious Python)
 def readme():
-	with open('README.md') as f:
+	with open('docs/README.md') as f:
 		return f.read()
 
 setup(name='aspace_tools',

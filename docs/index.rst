@@ -35,19 +35,19 @@ generate_script.py
 ----------------------------------------
 
 .. automodule:: aspace_tools.generate_script
-        :members:
+    :members:
 
 script_tools.py
 ----------------------------------------
 
 .. automodule:: aspace_tools.script_tools
-        :members:
+    :members:
 
 templates.py
 ----------------------------------------
 
 .. automodule:: aspace_tools.templates
-        :members:
+    :members:
 
 data_processing.py
 ----------------------------------------

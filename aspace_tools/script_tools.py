@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 
 '''
-
 Utility functions and custom exceptions for aspace_tools
 
 '''
-
 
 import csv
 import json

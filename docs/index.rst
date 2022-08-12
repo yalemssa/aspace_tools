@@ -7,6 +7,11 @@
 API Documentation
 ========================================
 
+.. automodule:: aspace_tools.aspace_run
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 .. automodule:: aspace_tools.json_data
     :members:
     :undoc-members:

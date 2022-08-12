@@ -10,56 +10,57 @@ API Documentation
 aspace_run.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.aspace_run
+.. automodule:: aspace_run
     :members:
 
 crud.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.crud
+.. automodule:: crud
     :members:
 
 json_data.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.json_data
+.. automodule:: json_data
     :members:
 
 queries.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.queries
+.. automodule:: queries
     :members:
 
 
 generate_script.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.generate_script
+.. automodule:: generate_script
     :members:
 
 
 script_tools.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.script_tools
+.. automodule:: script_tools
     :members:
 
 templates.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.templates
+.. automodule:: templates
     :members:
 
 data_processing.py
 ----------------------------------------
 
-.. automodule:: aspace_tools.data_processing
+.. automodule:: data_processing
     :members:
 
 aspace_tools_logging.py
 ----------------------------------------
-.. automodule:: aspace_tools.aspace_tools_logging
+
+.. automodule:: aspace_tools_logging
     :members:
 
 Indices and tables

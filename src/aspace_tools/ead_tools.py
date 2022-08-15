@@ -25,7 +25,7 @@ def export_ead(api_url, dirpath, sesh, csv_row, ead3=False, get_ead=None):
         get_ead = sesh.get(f"{self.api_url}/repositories/{csv_row['repo_id']}/resource_descriptions/{csv_row['resource_id'].strip()}.xml?include_unpublished=true&ead3=true", stream=True).text
     elif ead3 == False:
         get_ead = sesh.get(f"{api_url}/repositories/{csv_row['repo_id']}/resource_descriptions/{csv_row['resource_id'].strip()}.xml?include_unpublished=true", stream=True).text
-    print(f'{csv_row['resource_id']} exported. Writing to file.')
+    print(f"{csv_row['resource_id']} exported. Writing to file.")
     ead_file_path = f"{dirpath}/{resource_id}.xml"
     with open(ead_file_path, 'a', encoding='utf-8') as outfile:
         outfile.write(get_ead)

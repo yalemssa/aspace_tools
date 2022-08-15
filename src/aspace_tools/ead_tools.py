@@ -62,7 +62,7 @@ def transform_ead_3(ead_file_path, output_file, ead_3_transformation):
     #return open(f"{ead_file_path[:-4]}_out.xml", 'r', encoding='utf-8').read()
 
 def validate_ead_3(ead_3_schema, ead_file_path):
-	'''Validates an EAD file against the EAD3 schema'''
+    '''Validates an EAD file against the EAD3 schema'''
     print(f'Validating file: {ead_file_path}')
     try:
         doc = etree.parse(ead_file_path)
@@ -94,7 +94,7 @@ def export_transform_validate_ead3(row):
     validated_ead = validate_ead_3(transformed_ead_path)
 
 def prep_schema_for_validation():
-	'''Retrieves EAD3 schema from Github and returns as an etree Schema object'''
+    '''Retrieves EAD3 schema from Github and returns as an etree Schema object'''
     ead_3_schema = requests.get("https://raw.githubusercontent.com/SAA-SDT/EAD3/master/ead3.xsd").text
     ead_3_schema_encoded = etree.fromstring(bytes(ead_3_schema, encoding='utf8'))
     return etree.XMLSchema(ead_3_schema_encoded)

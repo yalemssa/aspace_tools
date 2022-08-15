@@ -47,7 +47,7 @@ def transform_ead_2002(ead_file, dirpath, output_file):
                    encoding='utf-8')
 
 def transform_ead_3(ead_file_path, output_file, ead_3_transformation):
-     '''Transforms EAD files using a user-defined XSLT file.'''
+    '''Transforms EAD files using a user-defined XSLT file.'''
     print(f'''Transforming file: {ead_file_path}
            using {ead_3_transformation}
            writing to {ead_file_path[:-4]}_out.xml

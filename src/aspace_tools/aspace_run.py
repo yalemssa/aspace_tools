@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
+'''Classes for handling API and database connections and requests.'''
+
 import os
 import traceback
 import requests
@@ -17,14 +19,6 @@ from . import script_tools
 from . import json_data
 from . import queries
 from . import data_processing as dp
-
-'''
-This file contains three functions which provide the scaffolding for interacting
-with the ArchivesSpace API and MySQL database.
-
-CRUD actions which are called by the call_api function are stored in the crud.py
-file. CRUD functions include create_data, update_data, etc.
-'''
 
 class ASpaceDB():
     '''Class for handling database queries'''

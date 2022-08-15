@@ -17,23 +17,6 @@ import yaml
 from . import script_tools
 
 #import aspace_tools_logging as atl
-
-
-'''
-Todo:
-    -Go back through the few weird types that I skipped
-    -What about the abstract stuff, inheritance, and the collection management fields?? ALSO double check notes
-    -Also want to check in about the duplicate fields - i.e external id in the external id schema
-    -Want to remove certain subrecords from top-level records which cannot be edited within the top level record - i.e. collection management
-    -DONE: Make sure all editable fields are there and all read-only fields are not
-    -DONE: Exclude the _ things
-    -DONE: Maybe add True/False as the option for booleans
-    -DONE: Put all of this back into a class so that I can re-use the variables without having to pass them to every single function
-    -DONE: Isolate all the things that would cause infinite recursion (this is in the 'exclusions' list)
-    -DONE: Make sure to add a proper type for the 'jsonmodel_type' field
-    -DONE: Reorganize functions
-'''
-
 #logger = atl.logging.getLogger(__name__)
 
 class ASTemplates():

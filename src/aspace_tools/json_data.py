@@ -3,23 +3,12 @@
 
 
 '''
-JSON data structures for creating or updating ArchivesSpace records
-'''
+JSON data structures for creating or updating ArchivesSpace records.'''
 
 import json
 import pprint
 
 #from aspace_tools import aspace_tools_logging as atl
-
-'''
-Todo:
-    register functions and their variables with a decorator; latter doesn't seem very easy; seems like the only way that the arguments get registered is when the function actually gets called???
-    change parameter names - have all URIs which are used to call the API just called 'uri'; like, all the ones in csv_row[0]
-    Add another argument for update_subrecord_component, etc. to define the subrecord and the component.
-    Continue adding stuff from remaining .py files
-    also need to work on the templates
-    would like to be able to set options - i.e. if something is empty don't add it. Or look for indexing error
-'''
 
 #double check this - not sure if I need to GET first - I didn't think so; also need to make sure that 'config' is part of the enum uri
 def reposition_enumeration(csv_row) -> str:

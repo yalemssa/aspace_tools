@@ -2,11 +2,7 @@
 # ~/anaconda3/bin/python
 
 '''
-Query strings for getting data out of ArchivesSpace.
-
-Note:
-    These queries should be added the the YAMS Data Auditing repository
-'''
+Query strings for getting data out of ArchivesSpace.'''
 
 #############################################
 ############ User Input Queries #############

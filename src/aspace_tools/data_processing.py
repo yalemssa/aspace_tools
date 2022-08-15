@@ -1,15 +1,7 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''Assorted data processing functions used on ArchivesSpace outputs.
-
-   Todo:
-    Would these be better in the utilities module?
-
-   Add: get note content, add date expressions, mach aos with tcs; others?
-
-
-'''
+'''Assorted data processing functions used on ArchivesSpace outputs.'''
 
 import itertools
 import string
@@ -19,8 +11,6 @@ import ast
 import pandas as pd
 import traceback
 from collections import Counter
-
-#logger = atl.logging.getLogger(__name__)
 
 def get_type(s):
     if type(s) is dict:

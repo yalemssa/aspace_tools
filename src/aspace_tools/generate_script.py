@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+'''
+A script to generate standalone Python scripts from aspace_tools code. Facilitates distribution of code without requiring use as a package.
+'''
+
+
 import csv
 import inspect
 import json
@@ -15,22 +20,26 @@ from . import script_tools
 
 
 def generate_config(config_file_path):
+    '''Generates an empty configuration file for use with generated script file.'''
     with open(config_file_path, 'w', encoding='utf8') as cfg_path:
         json_template = {"api_url": "","username": "", "password": "", "input_csv": "", "backup_directory": ""}
         json.dump(json_template, cfg_path, indent=4)
 
 def get_csv_headers(docstring):
+    '''Generates CSV headers for a CSV template.'''
     string_lines = docstring.split('\n')
     headers = [line[line.find("'")+1:line.rfind("'")].strip() for line in string_lines if 'csv' in line]
     return headers
 
 def generate_csv_template(csv_template_file_path, docstring):
+    '''Generates a CSV template for use with generated script file.'''
     with open(csv_template_file_path, 'w', encoding='utf8') as template:
         writer = csv.writer(template)
         headers = get_csv_headers(docstring)
         writer.writerow(headers)
 
 def get_func_data(module_name, func_string=None):
+    '''Retrieves the source code and documentation for the specified JSON function.'''
     if func_string is None:
         functions = get_func_list(module_name)
         print(functions)
@@ -42,9 +51,11 @@ def get_func_data(module_name, func_string=None):
     return source_code, func_string, func_object, docstring, signa
 
 def get_func_list(module):
+    '''Retrieves a list of possible JSON templates.'''
     return [function for function in dir(module) if function[0] != '_']
 
 def get_crud(signa):
+    '''Retrieves the source code for CRUD functions.'''
     if 'record_json' in str(signa):
         get_func = inspect.getsource(getattr(script_tools, 'get_record'))
         post_func = inspect.getsource(getattr(script_tools, 'post_record'))
@@ -54,12 +65,14 @@ def get_crud(signa):
         return inspect.getsource(getattr(script_tools, 'post_record'))
 
 def get_params(signa):
+    '''Retrieves the JSON function parameters.'''
     if 'record_json' in str(signa):
         return 'record_json, row'
     else:
         return 'row'
 
 def get_record_template(signa):
+    '''If the record is being updated, generated the GET request to retrieve the existing record JSON.'''
     if 'record_json' in str(signa):
         return f"""
                     record_json = get_record(api_url, row['uri'], sesh)
@@ -68,6 +81,7 @@ def get_record_template(signa):
         return '\r'
 
 def func_template(return_value, func_name, params):
+    '''Retrieves the specified JSON function.'''
     template = f"""record_json, uri = {func_name.__name__}({params})"""
     if return_value == 'tuple':
         return template
@@ -75,6 +89,7 @@ def func_template(return_value, func_name, params):
         return template.replace('record_json, ', '')
 
 def post_record_template(return_value, post_type='post_record'):
+    '''Retrieves the specified CRUD function depending on whether the record is being created or updated.'''
     template = f"""{post_type}(api_url, uri, sesh, record_json, row, writer)"""
     if return_value == 'tuple':
         return template
@@ -82,6 +97,7 @@ def post_record_template(return_value, post_type='post_record'):
         return template.replace(', record_json', '')
     
 def boilerplate(json_source_code, func_name, signa, params, return_value):
+    '''Defines a template for standalone script files based on user input.'''
     return f"""#!/usr/bin/python3
 
 import csv
@@ -158,6 +174,7 @@ if __name__ == '__main__':
     main()"""
 
 def generate_data():
+    '''Run this in main() to generate standlone scripts.'''
     #fp = input('Enter base file path: ')
     fp = "/Users/aliciadetelich/Desktop/script_generator"
     os.chdir(fp)

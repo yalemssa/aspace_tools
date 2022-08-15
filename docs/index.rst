@@ -71,6 +71,14 @@ templates.py
    :undoc-members:
    :show-inheritance:
 
+ead_tools.py
+----------------------------------
+
+.. automodule:: aspace_tools.ead_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 aspace_tools_logging.py
 -------------------------------------------
 

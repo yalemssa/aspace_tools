@@ -33,8 +33,10 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'm2r2', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage', 'sphinx.ext.autosummary']
+extensions = ['m2r2', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage']
 
+# ['sphinx.ext.autodoc',
+# 'sphinx.ext.autosummary']
 
 extensions.append('autoapi.extension')
 autoapi_type = 'python'
@@ -50,16 +52,15 @@ autoapi_options = [
 
 add_module_names = False
 
-autodoc_member_order = "bysource"
+# autodoc_member_order = "bysource"
 
-autodoc_default_options = {
-    "members": True,
-    "undoc-members": True,
-    "show-inheritance": True,
-}
+# autodoc_default_options = {
+#     "members": True,
+#     "undoc-members": True,
+#     "show-inheritance": True,
+# }
 
-autosummary_generate = True
-
+#autosummary_generate = True
 
 napoleon_google_docstring = True
 

@@ -88,9 +88,11 @@ def func_template(return_value, func_name, params):
     elif return_value == 'str':
         return template.replace('record_json, ', '')
 
+# MAKE SURE FORMATTING IS CORRECT AFTER UPDATE
 def post_record_template(return_value, post_type='post_record'):
     '''Retrieves the specified CRUD function depending on whether the record is being created or updated.'''
-    template = f"""{post_type}(api_url, uri, sesh, record_json, row, writer)"""
+    template = f"""row = {post_type}(api_url, uri, sesh, record_json, row, writer)
+                   writer.writerow(row)"""
     if return_value == 'tuple':
         return template
     elif return_value == 'str':
@@ -143,10 +145,8 @@ def main():
         row_count = get_rowcount(input_file_path)
         with open(input_file_path, 'r', encoding='utf8') as infile, open(output_file_path, 'a', encoding='utf8') as outfile, open(error_file_path, 'a', encoding='utf8') as errfile:
             reader = csv.DictReader(infile)
-            writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info'])
-            writer.writeheader()
-            err_writer = csv.DictWriter(errfile, fieldnames=reader.fieldnames + ['info'])
-            err_writer.writeheader()
+            writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info']).writeheader()
+            err_writer = csv.DictWriter(errfile, fieldnames=reader.fieldnames + ['info']).writeheader()
             for row in progress_bar(reader, count=row_count):
                 try:{get_record_template(signa)}
                     {func_template(return_value, func_name, params)}
@@ -175,7 +175,7 @@ if __name__ == '__main__':
 
 def generate_data():
     '''Run this in main() to generate standlone scripts.'''
-    #fp = input('Enter base file path: ')
+    #fp = input('Enter base output file path: ')
     fp = "/Users/aliciadetelich/Desktop/script_generator"
     os.chdir(fp)
     config_file_path = os.path.join(fp, 'config.json')

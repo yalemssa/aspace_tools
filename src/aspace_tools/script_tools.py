@@ -10,6 +10,8 @@ import json
 import logging
 import sys
 
+import yaml
+
 import requests
 from rich import print
 
@@ -65,7 +67,7 @@ def get_record(api_url, uri, sesh):
     else:
         raise ArchivesSpaceError(uri, record.status_code, json.loads(record.text))
 
-def post_record(api_url, uri, sesh, record_json, row, writer):
+def post_record(api_url, uri, sesh, record_json, row):
     '''Makes an HTTP POST request and attempts to return a JSON response'''
     record = sesh.post(f"{api_url}{uri}", json=record_json)
     # what if the text cannot be converted to json? need to make sure it works
@@ -73,7 +75,7 @@ def post_record(api_url, uri, sesh, record_json, row, writer):
         result = json.loads(record.text)
         if result.get('status') == 'Created':
             row['info'] = result['uri']
-        writer.writerow(row)
+        return row
     else:
         raise ArchivesSpaceError(uri, record.status_code, json.loads(record.text))
 
@@ -91,13 +93,16 @@ def create_backups(dirpath, uri, record_json):
     with open(f"{dirpath}/{uri[1:].replace('/','_')}.json", 'a', encoding='utf8') as outfile:
         json.dump(record_json, outfile, sort_keys=True, indent=4)
 
-def check_config():
+def check_config(file_name='config', file_type='json'):
     '''Checks whether a configration file exists'''
     path_to_this_file = os.path.dirname(os.path.realpath(sys.argv[0]))
-    config_path = os.path.join(path_to_this_file, 'config.json')
+    config_path = os.path.join(path_to_this_file, f"{file_name}.{file_type}")
     if os.path.exists(config_path):
         with open(config_path, encoding='utf8') as config_file:
-            return json.load(config_file)
+            if file_type == 'yml':
+                return yaml.safe_load(config_file)
+            elif file_type == 'json':
+                return json.load(config_file)
 
 def get_data_path(config, data_type):
     '''Checks the location of a CSV file. Asks for a path if file is not found.'''

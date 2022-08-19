@@ -411,6 +411,28 @@ def create_dates(record_json, csv_row) -> tuple:
     record_json['dates'].append(new_date)
     return record_json, csv_row['uri']
 
+def create_extent_remove_physdesc(record_json, csv_row) -> tuple:
+    '''Creates an extent record, removes a physdesc record.
+
+       Parameters:
+        csv_row['extent_type']: The extent type (i.e. linear_feet)
+        csv_row['extent_portion']: Whole or part
+        csv_row['extent_number']: The quantity
+        csv_row['container_summary']: The container summary
+        csv_row['persistent_id']: The persistent ID of the physdesc record
+    '''
+    if len(record_json['extents']) == 0:
+        new_extent = {'jsonmodel_type': 'extent', 'portion': csv_row['extent_portion'], 'number': csv_row['number'],
+                                'extent_type': csv_row['extent_type']}
+        if container_summary != '':
+            new_extent['container_summary'] = container_summary
+        record_json['extents'].append(new_extent)
+        for note in record_json['notes']:
+            if note['persistent_id'] == persistent_id:
+                note.clear()
+    return record_json, csv_row['uri']
+
+
 def create_extents(record_json, csv_row) -> tuple:
     '''Creates an extent record.
 

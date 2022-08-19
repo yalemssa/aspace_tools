@@ -15,14 +15,6 @@ aspace_run.py
    :undoc-members:
    :show-inheritance:
 
-crud.py
--------------------------
-
-.. automodule:: aspace_tools.crud
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 json_data.py
 -------------------------------
 
@@ -72,6 +64,14 @@ templates.py
    :show-inheritance:
 
 ead_tools.py
+----------------------------------
+
+.. automodule:: aspace_tools.ead_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+db.py
 ----------------------------------
 
 .. automodule:: aspace_tools.ead_tools

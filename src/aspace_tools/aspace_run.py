@@ -3,38 +3,30 @@
 
 '''Classes for handling API and database connections and requests.'''
 
-import os
+import csv
 import traceback
+
 import requests
-import json
-from pathlib import Path
 
-
-#from utilities import db as dbssh
-# from utilities import dbssh
-# from utilities import utilities as u
-
-from . import crud
+from . import db
 from . import script_tools
 from . import json_data
-from . import queries
-from . import data_processing as dp
+# from . import queries
+# from . import data_processing as dp
 
 class ASpaceDB():
     '''Class for handling database queries'''
 
     def __init__(self):
-        pass
-        #self.config_file = u.get_config(cfg='as_tools_config.yml')
-        #self.dirpath = u.setdirectory(self.config_file['backup_directory'])
-        #self.csvfile = u.opencsvdict(self.config_file['input_csv'])
-        #self.dbconn = dbssh.DBConn(config_file=self.config_path)
+        self.config_file = script_tools.check_config('as_tools_config', 'yml')
+        self.dirpath = self.config_file.get('backup_directory')
+        self.csvfile = self.config_file.get('input_csv')
+        self.dbconn = db.DBConn(config_file=self.config_path)
         #self.query_data = ASQueries()
 
     def extract_note_query(self):
         '''Runs a query to get all notes and then extracts the note content and note type
         '''
-        pass
         #try:
             #query_func = self.query_data.all_notes()
             #query_data = dp.extract_note_content(query_func, 'extract_notes.csv', self.dbconn)
@@ -58,7 +50,6 @@ class ASpaceDB():
             Have the outfile be a default arg that can set if don't want to just return
             a generator or whatever.
         '''
-        pass
         #should not need this - should already be passing in a function
         #query_func = getattr(self.query_data, query_func)
         #return (self.dbconn.run_query_list(query_func()))
@@ -76,7 +67,6 @@ class ASpaceDB():
             of lists (right?). From here can process the output in any way you like - can write to output file or do any additional processing
             MUST CLOSE THE DB CONNECTION!
         '''
-        pass
         #query_func = getattr(self.query_data, query_func)
        # return (self.dbconn.run_query_list(query_func(row)) for row in self.csvfile)
 
@@ -85,94 +75,91 @@ class ASpaceRun():
     '''Class for handling API calls'''
 
     def __init__(self):
-        with open('as_tools_config.yml', 'r', encoding='utf8') as file_path:
-            self.config_file = yaml.safe_load(file_path.read())
-        self.api_url = self.config_file['api_url']
-        self.username = self.config_file['api_username']
-        self.password = self.config_file['api_password']
-        #is this what I want?
-        #self.dirpath = u.setdirectory(self.config_file['backup_directory'])
-        #this can be changed, the csvdict function will need to be called again
-        #self.csvfile = u.opencsvdict(self.config_file['input_csv'])
-        _, self.sesh = script_tools.start_session(self.api_url, self.username, self.password)
-        self.crud = crud.ASCrud(self.config_file, self.sesh)
+        self.config_file = script_tools.check_config('as_tools_config', 'yml')
+        self.api_url = self.config_file.get('api_url')
+        self.username = self.config_file.get('api_username')
+        self.password = self.config_file.get('api_password')
+        self.dirpath = self.config_file.get('backup_directory')
+        self.csvfile = self.config_file.get('input_csv')
+        self.output_file = f"{self.csvfile.replace('.csv', '')}_success.csv"
+        self.error_file = f"{self.csvfile.replace('.csv', '')}_errors.csv"
+        self.row_count = script_tools.get_rowcount(self.csvfile)
+        try:
+            _, self.sesh = script_tools.start_session(self.config_file)
+        except script_tools.LoginError:
+            # what here?
+            pass
 
-    def append_uris_to_record_set(self, record_json, row):
-        #Need to fix the CSV dict business now that everything is one...
-        if 'uri' in record_json:
-            row.update({'uri': record_json['uri']})
-        else:
-            row.update({'uri': 'NONE'})
-        new_row = [v for k, v in row.items()]
-        return new_row
-    #        this don't work - UPDATE, I THINK I DID FIX IT. MAKE SURE.
-    #        Will also need to make sure that what's happening in this func is passed to record set - or do i need to return these things??
-    #        row.append(record_json['uri'])
-    #        record_set.append(row)
-
-    #@atl.as_tools_logger(logger)
-    def exception_handler(self, msg, type, i):
-        print(f'Error on row {i}')
-        logger.error(f'Error on row {i}')
-        if type == 'error':
-            logger.error(msg)
-        if type == 'exception':
-            logger.exception('Error')
-
-    def result_handler(self, record_json, success_counter, i):
-        if 'status' in record_json:
-            success_counter += 1
-            if success_counter in range(0, 50000, 100):
-                #DO SOMETHING HERE TO FACILITATE UPDATING THE DASH DASHBOARD.
-                pass
-        if 'error' in record_json:
-            self.exception_handler(record_json.get('error'), 'error', i)
-        return success_counter
-
-    #@atl.as_tools_logger(logger)
-    def call_api(self, row, row_count, record_set, success_counter, crud_func, json_func):
-        '''This is the basic boilerplate loop structure for processing CSV files for use
-           in ArchivesSpace API calls. Both the crud and json_data variables should be
-           populated by functions from the json_data.py and crud.py files.
+    def create_data(self, csv_row, json_func):
+        '''Creates new records via the ArchivesSpace API.
 
            Parameters:
-            crud: The CRUD action to take. Populated by crud.py
-            json_data: The JSON structure to formulate. Populated by json_data.py
+            csv_row: A row of a CSV file containing record creation data.
+            json_data: The json structure to use in the record creation process.
 
-           Todo:
-            implement factory method?
+           Returns:
+            list: The CSV row with the URI of the newly-created record attached
         '''
-        try:
-            if json_func is not None:
-                #this will return the JSON response when a record is created or updated
-                record_json = crud_func(row, json_func)
-                success_counter = self.result_handler(record_json, success_counter, row_count)
-                if crud_func.__name__ == 'create_data':
-                    new_row = self.append_uris_to_record_set(record_json, row)
-                    record_set.append(new_row)
-                logger.debug(record_json)
-                #print(record_json)
-            else:
-                record_json = crud_func(row)
-                logger.debug(record_json)
-                #print(record_json)
-                if crud_func.__name__ == 'get_data':
-                    record_set.append(record_json)
-        except Exception as exc:
-            #this isn't right - actually didn't i fix it and just forget to take out this comment...
-            self.exception_handler(traceback.format_exc(), 'exception', row_count)
-        return (record_set, success_counter)
+        record_json, uri = json_func(csv_row)
+        return script_tools.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
 
-    def call_api_looper(self, crud_func, json_func=None):
-        '''Moving the loop out of the call_api function so the latter can be used elsewhere'''
-        record_set = []
-        success_counter = 0
-        crud_func = getattr(self.crud, crud_func)
-        if json_func is not None:
+    def read_data(self, csv_row):
+        '''Retrieves data via the ArchivesSpace API.
+
+           Parameters:
+            csv_row['uri']: The URI of the record to retrieve
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+        return script_tools.get_record(self.api_url, csv_row['uri'], self.sesh)
+
+    def update_data(self, csv_row, json_func):
+        '''Updates data via the ArchivesSpace API.
+
+           Parameters:
+            csv_row['uri']: The URI of the record to update.
+            json_func: The json structure to use in the update.
+
+           Returns:
+            list: The CSV row with the URI of the update record appended to the end.
+        '''
+        record_json = script_tools.get_record(self.api_url, csv_row['uri']. self.sesh)
+        script_tools.create_backups(self.dirpath, csv_row['uri'], record_json)
+        record_json, uri = json_func(record_json, csv_row)
+        return script_tools.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
+
+    def delete_data(self, csv_row):
+        '''Deletes data via the ArchivesSpace API.
+
+           Parameters:
+            csv_row['uri']: The URI of the record to delete.
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+        return script_tools.delete_record(csv_row['uri'], self.sesh, self.dirpath)
+
+    def call_api(self, crud_func, json_func=None):
+        '''Loops through a CSV file and runs the user-selected CRUD functions'''
+        if json_func:
             json_func = getattr(json_data, json_func)
-        for row_count, row in enumerate(self.csvfile, 1):
-            record_set, success_counter = self.call_api(row, row_count, record_set, success_counter, crud_func, json_func)
-        if record_set:
-            return (record_set, row_count, success_counter)
-        else:
-            return (row_count, success_counter)
+        with open(self.csvfile, 'r', encoding='utf8') as infile, open(self.output_file, 'a', encoding='utf8') as outfile, open(self.error_file, 'a', encoding='utf8') as err_file:
+            reader = csv.DictReader(infile)
+            writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info']).writeheader()
+            err_writer = csv.DictWriter(err_file. fieldnames=reader.fieldnames + ['info']).writeheader()
+            for row in progress_bar(reader, count=self.row_count):
+                try:
+                    row = self.crud_func(row, json_func)
+                    writer.writerow(row)
+                except (script_tools.ArchivesSpaceError, requests.exceptions.RequestException) as err:
+                    instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
+                    if instructions == 'R':
+                        row = self.crud_func(row, json_func)
+                        writer.writerow(row)
+                    elif instructions == 'S':
+                        row = script_tools.handle_error(err, row)
+                        err_writer.writerow(row)
+                        continue
+                    elif instructions == 'Q':
+                        break

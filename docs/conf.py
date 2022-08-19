@@ -38,7 +38,7 @@ extensions = ['sphinx.ext.autodoc', 'm2r2', 'sphinx_rtd_theme', 'sphinx.ext.napo
 
 extensions.append('autoapi.extension')
 autoapi_type = 'python'
-autoapi_dirs = [os.path.abspath('../src')]
+autoapi_dirs = [os.path.abspath('../src/aspace_tools')]
 autoapi_keep_files = True
 autoapi_options = [
     "members",

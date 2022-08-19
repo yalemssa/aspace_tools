@@ -77,11 +77,13 @@ def post_record(api_url, uri, sesh, record_json, row):
             row['info'] = result['uri']
         return row
     else:
+        # do something with the row here?
         raise ArchivesSpaceError(uri, record.status_code, json.loads(record.text))
 
-def delete_record(uri, sesh, record_json):
+def delete_record(uri, sesh, dirpath):
     '''Makes an HTTP DELETE request and attempts to return a JSON response'''
     record_json = get_record(uri, sesh)
+    create_backups(dirpath, uri, record_json)
     delete = sesh.delete(uri, json=record_json)
     if delete.status_code == 200:
         return json.loads(delete.text)

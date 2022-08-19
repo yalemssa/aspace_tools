@@ -147,7 +147,7 @@ class ASpaceRun():
         with open(self.csvfile, 'r', encoding='utf8') as infile, open(self.output_file, 'a', encoding='utf8') as outfile, open(self.error_file, 'a', encoding='utf8') as err_file:
             reader = csv.DictReader(infile)
             writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info']).writeheader()
-            err_writer = csv.DictWriter(err_file. fieldnames=reader.fieldnames + ['info']).writeheader()
+            err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info']).writeheader()
             for row in progress_bar(reader, count=self.row_count):
                 try:
                     row = self.crud_func(row, json_func)

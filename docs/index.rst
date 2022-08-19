@@ -23,6 +23,9 @@ json_data.py
    :undoc-members:
    :show-inheritance:
 
+.. literalinclude:: aspace_tools.json_data.py
+   :language: python
+
 script_tools.py
 ----------------------------------
 

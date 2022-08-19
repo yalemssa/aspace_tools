@@ -36,9 +36,9 @@ sys.path.insert(0, os.path.abspath('../src'))
 extensions = ['sphinx.ext.autodoc', 'm2r2', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage']
 
 
-extensions.append('autoapi.extension')
-autoapi_type = 'python'
-autoapi_dirs = ['/Users/aliciadetelich/Dropbox/git/aspace_tools/src/aspace_tools']
+#extensions.append('autoapi.extension')
+#autoapi_type = 'python'
+#autoapi_dirs = ['/Users/aliciadetelich/Dropbox/git/aspace_tools/src/aspace_tools']
 
 napoleon_google_docstring = True
 

@@ -38,7 +38,7 @@ extensions = ['sphinx.ext.autodoc', 'm2r2', 'sphinx_rtd_theme', 'sphinx.ext.napo
 
 extensions.append('autoapi.extension')
 autoapi_type = 'python'
-autoapi_dirs = ['/Users/aliciadetelich/Dropbox/git/aspace_tools', 'src']
+autoapi_dirs = ['/Users/aliciadetelich/Dropbox/git/aspace_tools/src', 'aspace_tools']
 
 napoleon_google_docstring = True
 

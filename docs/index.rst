@@ -2,6 +2,6 @@
    :maxdepth: 4
    :caption: Contents:
 
-   readme
+   .. include:: README.md
 
    autoapi/index

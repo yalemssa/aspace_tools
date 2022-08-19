@@ -2,6 +2,10 @@
    :maxdepth: 4
    :caption: Contents:
 
+.. autosummary::
+   :toctree: _autosummary
+   :recursive:
+
 .. mdinclude:: ./README.md
 
 API Documentation

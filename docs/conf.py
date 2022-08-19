@@ -40,6 +40,8 @@ extensions = ['sphinx.ext.autodoc', 'm2r2', 'sphinx_rtd_theme', 'sphinx.ext.napo
 #autoapi_type = 'python'
 #autoapi_dirs = ['/Users/aliciadetelich/Dropbox/git/aspace_tools/src/aspace_tools']
 
+add_module_names = False
+
 autodoc_member_order = "bysource"
 
 autodoc_default_options = {

@@ -13,6 +13,7 @@
 
 import sys, os
 import sphinx_rtd_theme
+import sphinx_mdinclude
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -33,7 +34,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'm2r', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage']
+extensions = ['sphinx.ext.autodoc', 'sphinx_mdinclude', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage']
 
 # [,
 # 'sphinx.ext.autosummary']

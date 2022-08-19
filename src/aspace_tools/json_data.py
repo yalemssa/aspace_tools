@@ -3,12 +3,144 @@
 
 
 '''
-JSON data structures for creating or updating ArchivesSpace records.'''
+JSON data structures for creating or updating ArchivesSpace records. These templates
+are passed into the aspace_run class.'''
 
 import json
 import pprint
 
 #from aspace_tools import aspace_tools_logging as atl
+
+
+
+    #@atl.as_tools_logger(logger)
+    def search_data(self, csv_row):
+        '''Performs a search via the ArchivesSpace API
+
+           Parameters:
+            search_string: The search to perform.
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+
+    #@atl.as_tools_logger(logger)
+    def search_container_profiles(self, csv_row):
+        '''Searches container profiles by name.
+
+           NOTE:
+            make sure that I added the container lookup function that stores all containers.
+
+           Parameters:
+            csv_row['container_profile']: The name of the container profile to search.
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+        endpt = "/search?page=1&page_size=500&type[]=container_profile&q=title:"
+        search = self.sesh.get(f"{self.api_url}{endpt}{csv_row.get('container_profile')}").json()
+        return search
+
+    #@atl.as_tools_logger(logger)
+    def get_nodes(self, row):
+        '''Gets a list of child URIs for an archival object record
+
+           Parameters:
+            row['uri']: The URI of the parent resource
+            row['node_uri']: The URI of the parent archival object
+
+           Returns:
+            list: A list of child URIs, titles, and parent IDs.
+
+           Note:
+            this only retrieves the immediate children of the parent, not any of their children.
+        '''
+        node = "/tree/node?node_uri="
+        children = self.sesh.get(f"{self.api_url}{row['uri']}{node}{row['node_uri']}").json()
+        pprint.pprint(children)
+        #this will return a list of child dicts - move this out to make more modules
+        child_list = children['precomputed_waypoints'][row['ao_node_uri']]['0']
+        filtered = [[child['uri'], child['title'], child['parent_id']]
+                      for child in child_list]
+        pprint.pprint(filtered)
+        return filtered
+
+    #flatten the output into a list
+    #also maybe create a callback where you can input a sigle resource id?
+    #@atl.as_tools_logger(logger)
+    def get_tree(self, row):
+        '''Gets a tree for a record.
+
+           Parameters:
+            row['uri']: The URI of the record.
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+        tree = self.sesh.get(self.api_url + row['uri'] + '/tree').json()
+        pprint.pprint(tree)
+        return tree
+
+    #THIS ISN"T RIGHT - NEEDS A NODE ID
+    def get_node_from_root(self, row):
+        '''Gets a tree path from the root record to archival objects.
+
+           NOTE: find out how this is different from the regular get tree endpoint
+
+           Parameters:
+            row['uri']: The URI of the resource record.
+            row['node_id']: The id of the archival object node
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+        node_id = int(row['node_id'])
+        node = "/tree/node_from_root?node_ids="
+        tree_from_node = self.sesh.get(f"{self.api_url}{row['uri']}{node}{node_id}").json()
+        pprint.pprint(tree_from_node)
+        return tree_from_node
+
+    #@atl.as_tools_logger(logger)
+    def get_extents(self, csv_row):
+        '''Calculates extents for a set of resource records.
+
+           Parameters:
+            row['uri']: The URI of the resource to calculate.
+
+           Returns:
+            list: A list of record URIs, total extents, and extent units.
+        '''
+        e_query = "/extent_calculator?record_uri="
+        extent_calc = self.sesh.get(f"{self.api_url}{e_query}{csv_row['uri']}").json()
+        extent_data = [csv_row['uri'], extent_calc['total_extent'], extent_calc['units']]
+        return extent_data
+
+    def get_required_fields(self, row):
+        '''Retrieves required fields for a record type from the ArchivesSpace API.
+
+           Parameters:
+            row['uri']: The URI of the repository
+            row['record_type']: The type of the record to retrieve
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+        endpt = "/required_fields/"
+        req_fields = self.sesh.get(f"{self.api_url}{row['uri']}{endpt}{row['record_type']}").json()
+        pprint.pprint(req_fields)
+        return req_fields
+
+    def get_linked_top_containers(self, row):
+        '''Retrieves containers linked to a given resource from the ArchivesSpace API.
+
+           Parameters:
+            row['uri']: The URI of the record to retrieve
+
+           Returns:
+            dict: The JSON response from the ArchivesSpace API.
+        '''
+
+
 
 #double check this - not sure if I need to GET first - I didn't think so; also need to make sure that 'config' is part of the enum uri
 def reposition_enumeration(csv_row) -> str:

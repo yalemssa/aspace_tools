@@ -23,7 +23,7 @@ json_data.py
    :undoc-members:
    :show-inheritance:
 
-.. literalinclude:: aspace_tools.json_data
+.. literalinclude:: /Users/aliciadetelich/Dropbox/git/aspace_tools/src/aspace_tools/json_data.py
    :language: python
 
 script_tools.py
@@ -77,7 +77,7 @@ ead_tools.py
 db.py
 ----------------------------------
 
-.. automodule:: aspace_tools.ead_tools
+.. automodule:: aspace_tools.db
    :members:
    :undoc-members:
    :show-inheritance:

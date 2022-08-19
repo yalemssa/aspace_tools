@@ -33,7 +33,10 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'm2r', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'm2r', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage', 'autoapi.extension']
+
+autoapi_type = 'python'
+autoapi_dir = '../src'
 
 napoleon_google_docstring = True
 

@@ -36,9 +36,17 @@ sys.path.insert(0, os.path.abspath('../src'))
 extensions = ['sphinx.ext.autodoc', 'm2r2', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage', 'sphinx.ext.autosummary']
 
 
-# extensions.append('autoapi.extension')
-# autoapi_type = 'python'
-# autoapi_dirs = [os.path.abspath('../src')]
+extensions.append('autoapi.extension')
+autoapi_type = 'python'
+autoapi_dirs = [os.path.abspath('../src')]
+autoapi_keep_files = True
+autoapi_options = [
+    "members",
+    "undoc-members",
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+]
 
 add_module_names = False
 

@@ -23,9 +23,6 @@ json_data.py
    :undoc-members:
    :show-inheritance:
 
-.. literalinclude:: /Users/aliciadetelich/Dropbox/git/aspace_tools/src/aspace_tools/json_data.py
-   :language: python
-
 script_tools.py
 ----------------------------------
 

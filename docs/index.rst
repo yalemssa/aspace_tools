@@ -2,6 +2,6 @@
    :maxdepth: 4
    :caption: Contents:
 
-   .. mdinclude:: .docs/README.md
+   .. mdinclude:: ./README.md
 
    autoapi/index

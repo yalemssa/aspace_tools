@@ -15,7 +15,20 @@ from . import json_data
 # from . import data_processing as dp
 
 class ASpaceDB():
-    '''Class for handling database queries'''
+    """Class for handling database queries
+
+    Usage:
+
+    .. code-block:: python
+
+       from aspace_tools import ASpaceDB
+       from aspace_tools import queries
+
+       as_db = ASpaceDB()
+       data = as_db.run_query(queries.box_list)
+       print(data)
+
+    """
 
     def __init__(self):
         self.config_file = script_tools.check_config('as_tools_config', 'yml')
@@ -24,7 +37,7 @@ class ASpaceDB():
         self.dbconn = db.DBConn(config_file=self.config_path)
         #self.query_data = ASQueries()
 
-    def extract_note_query(self):
+    #def extract_note_query(self):
         '''Runs a query to get all notes and then extracts the note content and note type
         '''
         #try:
@@ -38,7 +51,7 @@ class ASpaceDB():
             #self.dbconn.close_conn()
         #return query_data
 
-    def run_db_query(self, query_func, outfile=None):
+    def run_query(self, query_func, outfile=None):
         '''Runs a single query against the ArchivesSpace database.
 
            Parameters:
@@ -54,7 +67,7 @@ class ASpaceDB():
         #query_func = getattr(self.query_data, query_func)
         #return (self.dbconn.run_query_list(query_func()))
 
-    def run_db_queries(self, query_func):
+    def run_queries(self, query_func):
         '''Runs multiple queries against the ArchivesSpace database.
 
            Parameters:

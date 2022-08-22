@@ -1,5 +1,5 @@
-ArchivesSpace Tools Documentation
-=================================
+ArchivesSpace Tools Documentation Index
+=======================================
 
 .. toctree::
 

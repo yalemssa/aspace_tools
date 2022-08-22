@@ -7,13 +7,13 @@ JSON data structures for creating or updating ArchivesSpace records. These templ
 import json
 import pprint
 
-def search_all(csv_row) -> str:
+def search_all(csv_row: dict) -> str:
     '''Search all published records across repositories.
 
        Parameters:
         csv_row['search_string']: The search to perform.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'search_string': 'MS 150'}
@@ -23,13 +23,13 @@ def search_all(csv_row) -> str:
     '''
     return f"/search?q={csv_row.get('search_string')}"
 
-def search_linked_top_containers(csv_row) -> str:
+def search_linked_top_containers(csv_row: dict) -> str:
     '''Search containers linked to a published resource and its children.
 
        Parameters:
         row['uri']: The URI of the record to retrieve
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/resources/5'}
@@ -39,13 +39,13 @@ def search_linked_top_containers(csv_row) -> str:
     '''
     return f"{csv_row.get('uri')}/top_containers"
 
-def search_container_profiles(csv_row) -> str:
+def search_container_profiles(csv_row: dict) -> str:
     '''Search container profiles by name.
 
        Parameters:
         csv_row['container_profile']: The name of the container profile to search.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'container_profile': 'archive_letter'}
@@ -55,14 +55,14 @@ def search_container_profiles(csv_row) -> str:
     '''
     return f"/search?page=1&page_size=500&type[]=container_profile&q=title:{csv_row.get('container_profile')}"
 
-def get_nodes(csv_row) -> str:
+def get_nodes(csv_row: dict) -> str:
     '''Gets a list of child URIs for an archival object record
 
        Parameters:
         row['uri']: The URI of the parent resource
         row['node_uri']: The URI of the parent archival object
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/resources/1', 'node_uri': '/repositories/2/archival_objects/5'}
@@ -73,13 +73,13 @@ def get_nodes(csv_row) -> str:
     return f"{csv_row.get('uri')}/tree/node?node_uri={csv_row.get('node_uri')}"
 
 
-def get_tree(csv_row) -> str:
+def get_tree(csv_row: dict) -> str:
     '''Gets a tree for a record.
 
        Parameters:
         row['uri']: The URI of the record.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/resources/1'}
@@ -89,14 +89,14 @@ def get_tree(csv_row) -> str:
     '''
     return f"{csv_row.get('uri')}/tree"
 
-def get_node_from_root(csv_row) -> str:
+def get_node_from_root(csv_row: dict) -> str:
     '''Gets a tree path from the root record to archival objects.
 
        Parameters:
         row['uri']: The URI of the resource record.
         row['node_id']: The id of the archival object node
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/resources/1', 'note_id' = '5'}
@@ -106,13 +106,13 @@ def get_node_from_root(csv_row) -> str:
     '''
     return f"{csv_row.get('uri')}/tree/node_from_root?node_ids={int(csv_row.get('node_id'))}"
 
-def get_extents(csv_row) -> str:
+def get_extents(csv_row: dict) -> str:
     '''Calculates the total extent for a resource record and its children. Uses container profile measurements to make the calculation.
 
        Parameters:
         row['uri']: The URI of the resource to calculate.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/resources/1'}
@@ -122,14 +122,14 @@ def get_extents(csv_row) -> str:
     '''
     return f"/extent_calculator?record_uri={csv_row.get('uri')}"
 
-def get_required_fields(csv_row) -> str:
+def get_required_fields(csv_row: dict) -> str:
     '''Retrieves required fields for a record type.
 
        Parameters:
         row['uri']: The URI of the repository
         row['record_type']: The type of the record to retrieve
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2', 'record_type': 'archival_object'}
@@ -140,14 +140,14 @@ def get_required_fields(csv_row) -> str:
     return f"{csv_row.get('uri')}/required_fields/{csv_row.get('record_type')}"
 
 #double check this - not sure if I need to GET first - I didn't think so; also need to make sure that 'config' is part of the enum uri
-def reposition_enumeration(csv_row) -> str:
+def reposition_enumeration(csv_row: dict) -> str:
     '''Updates the position of an enumeration value.
 
        Parameters:
         csv_row['uri']: The URI of the enumeration value to update.
         csv_row['position']: The new position value.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/archival_objects/5' 'position': '14'}
@@ -157,13 +157,13 @@ def reposition_enumeration(csv_row) -> str:
     '''
     return f"{csv_row.get('uri')}/position?position={csv_row.get('position')}"
 
-def suppress_record(csv_row) -> str:
+def suppress_record(csv_row: dict) -> str:
     '''Suppresses a record.
 
        Parameters:
         csv_row['uri']: The URI of the record to suppress
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/archival_objects/5'}
@@ -173,7 +173,7 @@ def suppress_record(csv_row) -> str:
     '''
     return f"{csv_row.get('uri')}/suppressed?suppressed=true"
 
-def set_parent_reposition_archival_object(csv_row) -> str:
+def set_parent_reposition_archival_object(csv_row: dict) -> str:
     '''Updates the archival object parent and position of an archival object record.
 
        Parameters:
@@ -181,7 +181,7 @@ def set_parent_reposition_archival_object(csv_row) -> str:
         csv_row['parent_uri']: The URI of the new parent.
         csv_row['position']: The new position value.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'child_uri': '/repositories/2/archival_objects/5', 'parent_uri': '/repositories/2/archival_objects/6', 'position': '14'}
@@ -191,7 +191,7 @@ def set_parent_reposition_archival_object(csv_row) -> str:
     '''
     return f"{csv_row.get('child_uri')}/parent?parent={csv_row.get('parent_uri')}&position={csv_row.get('position')}"
 
-def merge_data(csv_row) -> tuple[dict, str]:
+def merge_data(csv_row: dict) -> tuple[dict, str]:
     '''Merges two records.
 
        Parameters:
@@ -199,7 +199,7 @@ def merge_data(csv_row) -> tuple[dict, str]:
         csv_row['victim_uri']: The URI of the record to merge.
         csv_row['record_type']: The type of record to be merged.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'target_uri': '/agents/people/402', 'victim_uri': '/agents/people/3153', 'record_type': 'agent_person'}
@@ -216,7 +216,7 @@ def merge_data(csv_row) -> tuple[dict, str]:
                   'jsonmodel_type': 'merge_request'}
     return merge_json, f"/merge_requests/{csv_row.get('record_type')}"
 
-def migrate_enumerations(csv_row) -> tuple[dict, str]:
+def migrate_enumerations(csv_row: dict) -> tuple[dict, str]:
     '''Merges controlled values.
 
        Parameters:
@@ -225,7 +225,7 @@ def migrate_enumerations(csv_row) -> tuple[dict, str]:
         csv_row['from']: The name of the enumeration value to merge
         csv_row['to']: The name of the enumeration value to merge into
 
-       Usage:
+       Usage
         :: 
 
           >>> csv_row = {'enum_uri': '/config/enumerations/14', 'from': 'potographs', 'to': 'photographs'}
@@ -244,13 +244,13 @@ def migrate_enumerations(csv_row) -> tuple[dict, str]:
                     'jsonmodel_type': 'enumeration_migration'}
     return merge_json, "/config/enumerations/migration"
 
-def create_repositories(csv_row) -> tuple[dict, str]:
+def create_repositories(csv_row: dict) -> tuple[dict, str]:
     '''Creates a repository record.
 
        Parameters:
         csv_row['repo_name']: The name of the repository
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'repo_name': 'New Repo'}
@@ -263,7 +263,7 @@ def create_repositories(csv_row) -> tuple[dict, str]:
     new_repo = {'jsonmodel_type': 'repository', 'name': csv_row.get('repo_name')}
     return new_repo, '/repositories'
 
-def create_archival_objects(csv_row) -> tuple[dict, str]:
+def create_archival_objects(csv_row: dict) -> tuple[dict, str]:
     '''Creates an archival object record.
 
        Parameters:
@@ -284,7 +284,7 @@ def create_archival_objects(csv_row) -> tuple[dict, str]:
        TODO: 
         - add instances
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'title': 'Correspondence', 'begin': '1958', 'end': '1999', 'date_type': 'inclusive', 'date_label': 'creation', 'extent_portion': 'whole', 'extent_number': '5', 'extent_type': 'items', 'parent': '/repositories/2/archival_objects/5', 'resource': '/repositories/2/resources/1', 'repository': '/repositories/2'}
@@ -316,7 +316,7 @@ def create_archival_objects(csv_row) -> tuple[dict, str]:
     return new_ao, f"{csv_row.get('repo_uri')}/archival_objects"
 
 
-def create_minimal_archival_objects(csv_row) -> tuple[dict, str]:
+def create_minimal_archival_objects(csv_row: dict) -> tuple[dict, str]:
     '''Creates a child archival object record with just a title and level.
 
        Parameters:
@@ -326,7 +326,7 @@ def create_minimal_archival_objects(csv_row) -> tuple[dict, str]:
         csv_row['title']: The archival object title
         csv_row['level']: The archival object level, i.e. 'file'
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'parent_uri': '/repositories/2/archival_objects/5', 'resource_uri': '/repositories/2/resources/1', 'repo_uri': '/repositories/2', 'title': 'Correspondence', 'level': 'file'}
@@ -342,7 +342,7 @@ def create_minimal_archival_objects(csv_row) -> tuple[dict, str]:
                 'repository': {'ref': csv_row.get('repo_uri')}}
     return new_ao, f"{csv_row.get('repo_uri')}/archival_objects"
 
-def create_accessions(csv_row) -> tuple[dict, str]:
+def create_accessions(csv_row: dict) -> tuple[dict, str]:
     '''Creates an accession record.
 
        Parameters:
@@ -351,7 +351,7 @@ def create_accessions(csv_row) -> tuple[dict, str]:
         csv_row['title']: The accession title.
         csv_row['accession_date']: The accession date. Format YYYY-MM-DD
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'repo_uri': '/repositories/2', 'identifier': '2022-M-0001', 'title': 'Swim team records', 'accession_date': '2022-01-02'}
@@ -365,7 +365,7 @@ def create_accessions(csv_row) -> tuple[dict, str]:
                      'jsonmodel_type': 'accession'}
     return new_accession, f"{csv_row.get('repo_uri')}/accessions"
 
-def create_resources(csv_row) -> tuple[dict, str]:
+def create_resources(csv_row: dict) -> tuple[dict, str]:
     '''Creates a resource record.
 
        Parameters:
@@ -382,7 +382,7 @@ def create_resources(csv_row) -> tuple[dict, str]:
         csv_row['extent_number']: The extent number of the resource, i.e. 1.
         csv_row['container_summary']: The container summary of the resource.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'repo_uri': '/repositories/2', 'identifier': 'MS 150', 'title': 'John Smith Papers', 'date_begin': '1958', 'date_end': '1999', 'date_type': 'inclusive', 'date_label': 'creation, 'extent_type': 'linear_feet', 'extent_portion': 'whole', 'extent_number': '6', 'container_summary': '5 boxes'
@@ -408,7 +408,7 @@ def create_resources(csv_row) -> tuple[dict, str]:
                     'repository': {'ref': csv_row.get('repo_uri')}, 'jsonmodel_type': 'resource'}
     return new_resource, f"{csv_row.get('repo_uri')}/resources"
 
-def create_classification(csv_row) -> tuple[dict, str]:
+def create_classification(csv_row: dict) -> tuple[dict, str]:
     '''Creates a classification record.
 
        Parameters:
@@ -417,7 +417,7 @@ def create_classification(csv_row) -> tuple[dict, str]:
         csv_row['title']: The title of the classification.
         csv_row['description']: The description of the classification.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'repo_uri': '/repositories/2', 'identifier', 'YRG 01', 'title': 'Yale Record Group Classification', 'description': 'Classifications for University Archives Records'}
@@ -432,7 +432,7 @@ def create_classification(csv_row) -> tuple[dict, str]:
                           'title': csv_row.get('title'), 'description': csv_row.get('description'), 'repository': {'ref': csv_row.get('repo_uri')}}
     return new_classification, f"{csv_row.get('repo_uri')}/classifications"
 
-def create_classification_term(csv_row) -> tuple[dict, str]:
+def create_classification_term(csv_row: dict) -> tuple[dict, str]:
     '''Creates a classification term with or without a classification term parent.
 
        Parameters:
@@ -444,7 +444,7 @@ def create_classification_term(csv_row) -> tuple[dict, str]:
        Other Parameters:
         csv_row['parent_classification_term_uri']: The URI of the parent classification term.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'identifier': 'YRG 001 002', 'title': 'Records of academic departments', 'description': 'Records relating to academic departments', 'parent_classification_uri': '/repositories/2/classification_terms/2', 'repo_uri': '/repositories/2'}
@@ -463,7 +463,7 @@ def create_classification_term(csv_row) -> tuple[dict, str]:
         new_classification_term['parent'] = {'ref': csv_row.get('parent_classification_term_uri')}
     return new_classification_term, f"{csv_row.get('repo_uri')}/classification_terms"
 
-def create_digital_objects(csv_row) -> tuple[dict, str]:
+def create_digital_objects(csv_row: dict) -> tuple[dict, str]:
     '''Creates a digital object record with two file versions.
 
        Parameters:
@@ -484,7 +484,7 @@ def create_digital_objects(csv_row) -> tuple[dict, str]:
                           'title': csv_row.get('dig_object_title')}
     return new_digital_object, f"{csv_row.get('repo_uri')}/digital_objects"
 
-def create_digital_object_component(csv_row) -> tuple:
+def create_digital_object_component(csv_row: dict) -> tuple[dict, str]:
     '''Creates a digital object component record.
 
        Parameters:
@@ -497,7 +497,7 @@ def create_digital_object_component(csv_row) -> tuple:
                'repository': {'ref': csv_row['repo_uri']}, 'jsonmodel_type': 'digital_object_component'}
     return new_doc, f"{csv_row['repo_uri']}/digital_object_components"
 
-def create_child(csv_row) -> tuple:
+def create_child(csv_row: dict) -> tuple[dict, str]:
     '''Creates a minimal child archival object record.
 
        Parameters:
@@ -528,7 +528,7 @@ def create_subseries(csv_row) -> tuple:
                 'publish': True}
     return new_ao, f"{csv_row['repo_uri']}/archival_objects"
 
-def create_location_profiles(csv_row) -> tuple:
+def create_location_profiles(csv_row: dict) -> tuple[dict, str]:
     '''Creates a location profile record.
 
        Parameters:
@@ -537,6 +537,19 @@ def create_location_profiles(csv_row) -> tuple:
         csv_row['depth']: The depth of the location profile.
         csv_row['height']: The height of the location profile.
         csv_row['width']: The width of the location profile.
+
+       Usage
+        ::
+
+          >>> csv_row = {'name': 'Short shelf', 'dimension_units': 'inches', 'depth': '12', 'height': '13', 'width': '14'}
+          >>> record_json, uri = create_location_profiles(csv_row)
+          >>> print(uri)
+          '/location_profiles'
+          >>> print(record_json)
+          {'jsonmodel_type': 'location_profile', 'name': 'Short shelf',
+                              'dimension_units': 'inches', 'depth': '12',
+                              'height': '13', 'width': '14'
+                            }
     '''
     new_location_profile = {'jsonmodel_type': 'location_profile', 'name': csv_row['name'],
                               'dimension_units': csv_row['dimension_units'], 'depth': csv_row['depth'],
@@ -544,20 +557,30 @@ def create_location_profiles(csv_row) -> tuple:
                             }
     return new_location_profile, '/location_profiles'
 
-def create_digital_object_instances(record_json, csv_row) -> tuple:
+def create_digital_object_instances(record_json: dict, csv_row: dict) -> tuple:
     '''Creates a instance of a digital object linked to an archival object record.
 
        Parameters:
         record_json: The JSON representation of the archival object.
         csv_row['uri']: The URI of the archival object record.
         csv_row['new_instance_uri']: The URI of the digital object to link.
+
+       Usage
+        ::
+
+          >>> csv_row = {'uri': '/repositories/2/archival_objects/5', 'new_instance_uri': '/repositories/2/digital_objects/1'}
+          >>> record_json, uri = create_digital_object_instances(record_json, csv_row)
+          >>> print(uri)
+          '/repositories/2/archival_objects/5'
+          >>> print(record_json)
+          {}
     '''
     new_ao_instance = {'jsonmodel_type': 'instance', 'instance_type': 'digital_object',
-                       'digital_object': {'ref': csv_row['new_instance_uri']}}
+                       'digital_object': {'ref': csv_row.get('new_instance_uri')}}
     record_json['instances'].append(new_ao_instance)
-    return record_json, csv_row['uri']
+    return record_json, csv_row.get('uri')
 
-def create_locations(csv_row) -> tuple:
+def create_locations(csv_row: dict) -> tuple[dict, str]:
     '''Creates a full location record.
 
        Parameters:
@@ -570,21 +593,34 @@ def create_locations(csv_row) -> tuple:
         csv_row['coordinate_2_indicator']: The indicator for coordinate_2, i.e. A.
         csv_row['coordinate_3_label']: The label for coordinate_3, i.e. shelf.
         csv_row['coordinate_3_indicator']: The indicator for coordinate_3, i.e. 4.
-        csv_row['location_profile']: The URI of the location profile.
         csv_row['repo_owner']: The URI of the parent repository.
+
+       Other Parameters:
+        csv_row['location_profile']: The URI of the location profile.
+
+       Usage
+        ::
+
+          >>> csv_row = {'barcode', '93012', 'building': 'SML', 'room': B50, 'coordinate_1_label': 'aisle', 'coordinate_1_indicator': '1', 'coordinate_2_label': 'bay', 'coordinate_2_indicator': '2', 'coordinate_3_label': 'shelf', 'coordinate_3_indicator': '3', 'location_profile': '/location_profiles/4', 'repo_owner': '/repositories/2'}
+          >>> record_json, uri = create_locations(csv_row)
+          >>> print(uri)
+          '/locations'
+          >>> print(record_json)
+          {'jsonmodel_type': 'location', 'barcode': '93102,
+                    'building': 'SML', 'room': 'B50',
+                    'coordinate_1_label': 'aisle',
+                    'coordinate_1_indicator': 1,
+                    'coordinate_2_label': 'bay',
+                    'coordinate_2_indicator': ',
+                    'coordinate_3_label': 'shelf',
+                    'coordinate_3_indicator': '3',
+                    'location_profile': {'ref': '/location_profiles/4'},
+                    'owner_repo': {'ref': '/repositories/2'}}
     '''
-    #make the location profile optional??
-    new_location = {'jsonmodel_type': 'location', 'barcode': csv_row['barcode'],
-                    'building': csv_row['building'], 'room': csv_row['room'],
-                    'coordinate_1_label': csv_row['coordinate_1_label'],
-                    'coordinate_1_indicator': csv_row['coordinate_1_indicator'],
-                    'coordinate_2_label': csv_row['coordinate_2_label'],
-                    'coordinate_2_indicator': csv_row['coordinate_2_indicator'],
-                    'coordinate_3_label': csv_row['coordinate_3_label'],
-                    'coordinate_3_indicator': csv_row['coordinate_3_indicator'],
-                    'location_profile': {'ref': csv_row['location_profile']},
-                    'owner_repo': {'ref': csv_row['repo_owner']}}
-    return new_location, '/locations'
+    csv_row['jsonmodel_type'] = 'location'
+    if csv_row.get('location_profile') in ('', None):
+        del new_location['location_profile']
+    return csv_row, '/locations'
 
 def create_dates(record_json, csv_row) -> tuple:
     '''Creates a date record.
@@ -1175,7 +1211,7 @@ def update_container_type(record_json, csv_row) -> tuple[dict, str]:
         csv_row['container_type']: The new container type
 
 
-       Usage:
+       Usage
           
     '''
     record_json['type'] = container_type
@@ -1189,7 +1225,7 @@ def link_agent_to_record(record_json, csv_row) -> tuple[dict, str]:
         csv_row['agent_uri']: The URI of the agent record.
         csv_row['uri']: The URI of the descriptive record.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'agent_uri': '/agents/people/5', 'uri': '/repositories/2/archival_objects/5'}
@@ -1210,7 +1246,7 @@ def link_event_to_record(record_json, csv_row) -> tuple[dict, str]:
         csv_row['uri']: The URI of the descriptive record.
         csv_row['event_uri']: The URI of the event record.
 
-       Usage:
+       Usage
         ::
 
            >>> csv_row = {'uri': '/repositories/2/archival_objects/5', 'event_uri': '/repositories/2/events/6'}
@@ -1523,7 +1559,7 @@ def update_location_coordinates(record_json, csv_row) -> tuple[dict, str]:
         csv_row['coordinate_3_label']: The label of location coordinate_3
         csv_row['coordinate_3_indicator']: The indicator of location coordinate_3
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/locations/5', 'coordinate_1_label': 'aisle', 'coordinate_1_indicator': '1', 'coordinate_2_label': 'bay', 'coordinate_2_indicator': 'a', 'coordinate_3_label': 'shelf', 'coordinate_3_indicator': 3}
@@ -1550,7 +1586,7 @@ def update_record_component(record_json, csv_row) -> tuple[dict, str]:
         csv_row['updated_text']: The new value.
         csv_row['component']: The component to update.
 
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/archival_objects/5', 'updated_text': 'Correspondence', 'component': 'title'}
@@ -1788,7 +1824,7 @@ def get_series(record_json, csv_row) -> tuple[dict, dict]:
         record_json: the JSON representation of the record.
         csv_row['uri']: The URI of the record to search
        
-       Usage:
+       Usage
         ::
 
           >>> csv_row = {'uri': '/repositories/2/archival_objects/5'}

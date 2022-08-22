@@ -34,7 +34,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx_mdinclude', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram', 'sphinx_mdinclude', 'sphinx_rtd_theme', 'sphinx.ext.napoleon', 'sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.coverage']
 
 # [,
 # 'sphinx.ext.autosummary']
@@ -43,6 +43,7 @@ autodoc_typehints = 'description'
 extensions.append('autoapi.extension')
 autoapi_type = 'python'
 autoapi_dirs = [os.path.abspath('../src/aspace_tools')]
+autoapi_template_dir = 'ntemplates'
 autoapi_keep_files = True
 autoapi_options = [
     "members",
@@ -76,7 +77,7 @@ source_suffix = ['.rst','.md']
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'autoapi/index'
 
 # General information about the project.
 project = u'aspace_tools'

@@ -8,6 +8,12 @@ aspace_tools/scripts/
 
 aspace_tools/scripts/sql
 
+docs/autoapitemplates
+
+docs/autoapi
+
+docs/_build
+
 #pycache folder
 /__pycache__/
 

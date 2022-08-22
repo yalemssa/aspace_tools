@@ -1279,7 +1279,7 @@ def update_title(record_json, csv_row) -> tuple:
     record_json['title'] = csv_row['title']
     return record_json, csv_row['uri']
 
-def update_container_type(record_json, csv_row) -> tuple:
+def update_container_type_to_box(record_json, csv_row) -> tuple:
     '''Updates a container record with a type value of 'Box'.
 
        Parameters:

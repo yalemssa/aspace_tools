@@ -17,7 +17,7 @@ from rich import print
 
 class LoginError(Exception):
     '''Custom exception to catch ArchivesSpace login errors'''
-    def __init__(self, status_code, url, username, message=f"Login failed!"):
+    def __init__(self, status_code, url, username, message="Login failed!"):
         self.status_code = status_code
         self.url = url
         self.username = username
@@ -29,7 +29,7 @@ class LoginError(Exception):
 
 class ArchivesSpaceError(Exception):
     '''Custom exception to catch ArchivesSpace API call errors'''
-    def __init__(self, uri, status_code, aspace_message, message=f"ArchivesSpace Error!"):
+    def __init__(self, uri, status_code, aspace_message, message="ArchivesSpace Error!"):
         self.uri = uri
         self.status_code = status_code
         self.aspace_message = aspace_message

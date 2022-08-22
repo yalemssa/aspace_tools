@@ -41,7 +41,7 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.inheritance_diagram', 'sphinx_md
 
 todo_include_todos = True
 
-autodoc_typehints = 'description'
+autodoc_typehints = 'signature'
 extensions.append('autoapi.extension')
 autoapi_member_order = 'alphabetical'
 autoapi_type = 'python'

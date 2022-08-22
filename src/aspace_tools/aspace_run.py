@@ -17,16 +17,14 @@ from . import json_data
 class ASpaceDB():
     """Class for handling database queries
 
-    Usage:
+       .. code-block:: python
 
-    .. code-block:: python
+          from aspace_tools import ASpaceDB
+          from aspace_tools import queries
 
-       from aspace_tools import ASpaceDB
-       from aspace_tools import queries
-
-       as_db = ASpaceDB()
-       data = as_db.run_query(queries.box_list)
-       print(data)
+          as_db = ASpaceDB()
+          data = as_db.run_query(queries.box_list)
+          print(data)
 
     """
 
@@ -85,7 +83,23 @@ class ASpaceDB():
 
 
 class ASpaceRun():
-    '''Class for handling API calls'''
+    '''Class for handling create, read, update, and delete requests to the ArchivesSpace API
+
+       Parameters:
+        self.config_file: The configuration file
+        self.config_file['api_url']: The ArchivesSpace base API URL
+        self.config_file['api_username']: The ArchivesSpace username
+        self.config_file['api_password']: The ArchivesSpace password
+        self.config_file['backup_directory']: The string representation of the backup directory
+        self.config_file['input_csv']: The string representation of the input CSV file path
+
+       Usage:
+        ::
+          
+          from aspace_tools import ASpaceRun
+
+          as_run = ASpaceRun()
+    '''
 
     def __init__(self):
         self.config_file = script_tools.check_config('as_tools_config', 'yml')
@@ -103,15 +117,21 @@ class ASpaceRun():
             # what here?
             pass
 
-    def create_data(self, csv_row, json_func):
+    def create_data(self, csv_row, json_func) -> dict:
         '''Creates new records via the ArchivesSpace API.
 
-           Parameters:
-            csv_row: A row of a CSV file containing record creation data.
-            json_data: The json structure to use in the record creation process.
+           :param csv_row: A row of a CSV file containing record creation data.
+           :param json_data: The json structure to use in the record creation process.
+           :return: The CSV dict with the URI of the newly-created record attached
 
-           Returns:
-            list: The CSV row with the URI of the newly-created record attached
+           Usage:
+            ::
+          
+              with open(as_run.csvfile, encoding='utf8') as infile:
+                reader = csv.DictReader(infile)
+                for row in reader:
+                    row = as_run.create_data(row, create_archival_object)
+
         '''
         record_json, uri = json_func(csv_row)
         return script_tools.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
@@ -124,6 +144,14 @@ class ASpaceRun():
 
            Returns:
             dict: The JSON response from the ArchivesSpace API.
+
+           Usage:
+            ::
+          
+              with open(as_run.csvfile, encoding='utf8') as infile:
+                reader = csv.DictReader(infile)
+                for row in reader:
+                    json_record = as_run.read_data(row)
         '''
         return script_tools.get_record(self.api_url, csv_row['uri'], self.sesh)
 
@@ -136,6 +164,14 @@ class ASpaceRun():
 
            Returns:
             list: The CSV row with the URI of the update record appended to the end.
+
+           Usage:
+            ::
+          
+              with open(as_run.csvfile, encoding='utf8') as infile:
+                reader = csv.DictReader(infile)
+                for row in reader:
+                    row = as_run.update_data(row, update_date_begin)
         '''
         record_json = script_tools.get_record(self.api_url, csv_row['uri']. self.sesh)
         script_tools.create_backups(self.dirpath, csv_row['uri'], record_json)
@@ -145,16 +181,38 @@ class ASpaceRun():
     def delete_data(self, csv_row):
         '''Deletes data via the ArchivesSpace API.
 
-           Parameters:
-            csv_row['uri']: The URI of the record to delete.
+           :param csv_row['uri']: The URI of the record to delete.
+           :return: The JSON response from the ArchivesSpace API.
+           :raises ArchivesSpaceError: if delete is unsuccessful
 
-           Returns:
-            dict: The JSON response from the ArchivesSpace API.
+           Usage:
+            ::
+          
+              with open(as_run.csvfile, encoding='utf8') as infile:
+                reader = csv.DictReader(infile)
+                for row in reader:
+                    try:
+                        row = as_run.delete_data(row)
+                    except ArchivesSpaceError:
+                        pass
         '''
         return script_tools.delete_record(csv_row['uri'], self.sesh, self.dirpath)
 
     def call_api(self, crud_func, json_func=None):
-        '''Loops through a CSV file and runs the user-selected CRUD functions'''
+        '''Loops through a CSV file and runs the user-selected CRUD functions
+
+           :param crud_func: The CRUD function to use in the update
+           :param json_func: The JSON template to use in the update
+
+           Usage:
+            ::
+          
+              from aspace_tools import ASpaceRun
+
+              as_run = ASpaceRun()
+              as_run.call_api(update_data, update_date_begin)
+
+        '''
         if json_func:
             json_func = getattr(json_data, json_func)
         with open(self.csvfile, 'r', encoding='utf8') as infile, open(self.output_file, 'a', encoding='utf8') as outfile, open(self.error_file, 'a', encoding='utf8') as err_file:

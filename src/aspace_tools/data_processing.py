@@ -12,6 +12,17 @@ import pandas as pd
 import traceback
 from collections import Counter
 
+
+def process_extents(csv_row, extent_calc):
+    '''Processes the results of the get_extents() function'''
+    return [csv_row['uri'], extent_calc['total_extent'], extent_calc['units']]
+
+def process_child_nodes(row, children):
+    '''Processes the results of the get_nodes() function'''
+    child_list = children['precomputed_waypoints'][row['ao_node_uri']]['0']
+    return [[child['uri'], child['title'], child['parent_id']]
+                  for child in child_list]
+
 def get_type(s):
     if type(s) is dict:
         if 'type' in s:

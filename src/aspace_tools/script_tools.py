@@ -8,6 +8,7 @@ Utility functions and custom exceptions for aspace_tools
 import csv
 import json
 import logging
+import os
 import sys
 
 import yaml
@@ -56,7 +57,6 @@ def get_rowcount(fp) -> int:
 
        Returns:
         The number of rows in the input file
-
     '''
     with open(fp, encoding='utf8') as input_file:
         return len(list(csv.reader(input_file))) - 1
@@ -92,6 +92,12 @@ def get_record(api_url, uri, sesh) -> dict:
         api_url: The base URL of the ArchivesSpace API
         uri: The URI of the record to retrieve
         sesh: The HTTP session object
+
+       Returns:
+        The JSON response from the ArchivesSpace API
+
+       Raises:
+        ArchivesSpaceError: if there is an error getting the record
     '''
     record = sesh.get(f"{api_url}{uri}")
     if record.status_code == 200:
@@ -108,6 +114,12 @@ def post_record(api_url, uri, sesh, record_json, csv_row) -> dict:
         sesh: The HTTP session object
         record_json: The JSON representation of the record to update
         csv_row: The CSV row containing data to update
+
+       Returns:
+        The input CSVDict row with the URI of the successfully posted record
+
+       Raises:
+        ArchivesSpaceError: if there is an error posting the record
     '''
     record = sesh.post(f"{api_url}{uri}", json=record_json)
     # what if the text cannot be converted to json? need to make sure it works
@@ -128,6 +140,12 @@ def delete_record(api_url, uri, sesh, dirpath) -> dict:
         uri: The URI of the record to delete
         sesh: The HTTP session object
         dirpath: The string representation of the backup directory
+
+       Returns:
+        The JSON response from the ArchivesSpace API
+
+       Raises:
+        ArchivesSpaceError: if there is an error deleting the record
     '''
     record_json = get_record(uri, sesh)
     create_backups(dirpath, uri, record_json)
@@ -148,25 +166,42 @@ def create_backups(dirpath, uri, record_json):
     with open(f"{dirpath}/{uri[1:].replace('/','_')}.json", 'a', encoding='utf8') as outfile:
         json.dump(record_json, outfile, sort_keys=True, indent=4)
 
-def check_config(file_name='config', file_type='json') -> dict:
+def check_config(file_name='config.json') -> dict:
     '''Checks whether a configration file exists, and if so opens and returns
        the file. Can handle either .json or .yml files.
 
        Parameters:
-        file_name: The configuration file name. Default value 'config'
-        file_type: The configuration file type. Default value 'json'
+        file_name: The configuration file name. Default value 'config.json'
+
+       Returns:
+        The loaded configuration data
+
+       Raises:
+        FileNotFoundError - if the condiguration file is not found at the specified path
     '''
+    # not sure about this - works if I run from file, doesn't work if I run from repl
     path_to_this_file = os.path.dirname(os.path.realpath(sys.argv[0]))
-    config_path = os.path.join(path_to_this_file, f"{file_name}.{file_type}")
+    config_path = os.path.join(path_to_this_file, file_name)
     if os.path.exists(config_path):
         with open(config_path, encoding='utf8') as config_file:
-            if file_type == 'yml':
+            if file_name.endswith('yml'):
                 return yaml.safe_load(config_file)
-            elif file_type == 'json':
+            elif file_name.endswith('json'):
                 return json.load(config_file)
+    else:
+        raise FileNotFoundError(f"File {config_path} not found")
 
-def get_data_path(config, data_type):
-    '''Checks the location of a CSV file. Asks for a path if file is not found.'''
+def get_data_path(config, data_type) -> str:
+    '''Checks the location of a CSV file. Asks for a path if file is not found.
+
+       Parameters:
+        config: The configuration file
+        data_type: The path to the CSV file, if not in the config file.
+
+       Returns:
+        A string representation of a user-submitted file path
+
+    '''
     if config:
         csv_path = config.get(data_type)
         if csv_path not in (None, ''):
@@ -191,18 +226,21 @@ def check_credentials(config) -> tuple:
     '''Checks the confiration file for login information, asks for user 
        input if not found.
 
+       Parameters:
+        config: The configuration file
+
        Returns:
         A tuple containing credentials from the configuration file or, if configuration data is missing, from user-submitted input
     '''
     if config:
-        if (config.get('api_url') in (None, '')) or (config.get('username') in (None, '')) or (config.get('password') in (None, '')):
+        if (config.get('api_url') in (None, '')) or (config.get('api_username') in (None, '')) or (config.get('api_password') in (None, '')):
             return get_login_inputs()
         else:
-            return config['api_url'], config['username'], config['password']
+            return config['api_url'], config['api_username'], config['api_password']
     else:
         return get_login_inputs()
 
-def start_session(config=None) -> tuple:
+def start_session(config=None, return_url=True) -> tuple:
     '''Starts an HTTP session, attempts to login to ArchivesSpace API.
 
        Parameters:
@@ -210,6 +248,9 @@ def start_session(config=None) -> tuple:
 
        Returns:
         The base API URL and session key
+
+       Raises:
+        LoginError: if the login is unsuccessful
     '''
     url, username, password = check_credentials(config)
     session = requests.Session()
@@ -219,7 +260,10 @@ def start_session(config=None) -> tuple:
         print(f'Login successful!: {url}')
         session_token = json.loads(auth_request.text)['session']
         session.headers['X-ArchivesSpace-Session'] = session_token
-        return url, session
+        if return_url:
+            return url, session
+        else:
+            return session
     else:
         raise LoginError(auth_request.status_code, url, username)
 
@@ -252,8 +296,8 @@ def handle_error(error, csv_row) -> dict:
     csv_row['info'] = error
     return csv_row
                     
-def get_endpoints():
-    pass
+# def get_endpoints():
+#     pass
 
 def main():
     fp = "/Users/aliciadetelich/Desktop/all_ru_1160_files.csv"

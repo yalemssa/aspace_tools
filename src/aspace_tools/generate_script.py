@@ -15,8 +15,8 @@ import re
 
 from rich import print
 
-from . import json_data
-from . import script_tools
+import aspace_requests
+import aspace_utils
 
 
 def generate_config(config_file_path):
@@ -57,12 +57,12 @@ def get_func_list(module):
 def get_crud(signa):
     '''Retrieves the source code for CRUD functions.'''
     if 'record_json' in str(signa):
-        get_func = inspect.getsource(getattr(script_tools, 'get_record'))
-        post_func = inspect.getsource(getattr(script_tools, 'post_record'))
+        get_func = inspect.getsource(getattr(aspace_utils, 'get_record'))
+        post_func = inspect.getsource(getattr(aspace_utils, 'post_record'))
         return f"""{get_func}
 {post_func}"""
     else:
-        return inspect.getsource(getattr(script_tools, 'post_record'))
+        return inspect.getsource(getattr(aspace_utils, 'post_record'))
 
 def get_params(signa):
     '''Retrieves the JSON function parameters.'''
@@ -121,17 +121,17 @@ logging.basicConfig(level=logging.DEBUG,
                     handlers=[logging.FileHandler("log.log", mode='a'),
                               stream_handler])
 
-{get_func_data(script_tools, 'LoginError')[0]}
-{get_func_data(script_tools, 'ArchivesSpaceError')[0]}
-{get_func_data(script_tools, 'get_rowcount')[0]}
-{get_func_data(script_tools, 'progress_bar')[0]}
-{get_func_data(script_tools, 'get_data_path')[0]}
-{get_func_data(script_tools, 'check_config')[0]}
-{get_func_data(script_tools, 'check_credentials')[0]}
-{get_func_data(script_tools, 'get_login_inputs')[0]}
-{get_func_data(script_tools, 'start_session')[0]}
-{get_func_data(script_tools, 'create_backups')[0]}
-{get_func_data(script_tools, 'handle_error')[0]}
+{get_func_data(aspace_utils, 'LoginError')[0]}
+{get_func_data(aspace_utils, 'ArchivesSpaceError')[0]}
+{get_func_data(aspace_utils, 'get_rowcount')[0]}
+{get_func_data(aspace_utils, 'progress_bar')[0]}
+{get_func_data(aspace_utils, 'get_data_path')[0]}
+{get_func_data(aspace_utils, 'check_config')[0]}
+{get_func_data(aspace_utils, 'check_credentials')[0]}
+{get_func_data(aspace_utils, 'get_login_inputs')[0]}
+{get_func_data(aspace_utils, 'start_session')[0]}
+{get_func_data(aspace_utils, 'create_backups')[0]}
+{get_func_data(aspace_utils, 'handle_error')[0]}
 {get_crud(signa)}
 {json_source_code}
 def main():
@@ -179,7 +179,7 @@ def generate_data():
     fp = "/Users/aliciadetelich/Desktop/script_generator"
     os.chdir(fp)
     config_file_path = os.path.join(fp, 'config.json')
-    source_code, func_string, func_object, docstring, signa = get_func_data(json_data)
+    source_code, func_string, func_object, docstring, signa = get_func_data(aspace_requests)
     script_file_path = os.path.join(fp, f'{func_string}.py')
     csv_template_file_path = os.path.join(fp, f'{func_string}_template.csv')
     return_value = func_object.__annotations__['return'].__name__

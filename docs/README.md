@@ -14,7 +14,7 @@ $ cd /path/to/package
 $ pip install .
 ```
 
-## What Does This Code Do?
+## What does this package do? Who is it for?
 
 The `aspace_tools` package is organized into several modules. `aspace_tools` can be imported into a Python file or used in an interactive interpreter session. Standalone scripts which can more easily be distributed to end users can be generated using the `generate_script.py` script.
 
@@ -31,9 +31,9 @@ $ python
 Python 3.8.5 (default, Sep  4 2020, 02:22:02)
 [Clang 10.0.0 ] :: Anaconda, Inc. on darwin
 Type "help", "copyright", "credits" or "license" for more information.
->>> from aspace_tools import json_data as jd
->>> aspace_conn = ASpaceConnection.from_dict()
->>> client = ASpaceRequests(aspace_conn)
+>>> from aspace_tools import aspace_requests, aspace_run
+>>> aspace_conn = aspace_run.ASpaceConnection.from_dict()
+>>> client = aspace_requests.ASpaceRequests(aspace_conn)
 >>> client.update_date_begin()
 
 ```
@@ -71,6 +71,16 @@ Within the Python interpreter, enter the following to manually update the input 
 ```
 
 The advantage of this method is that the same ArchivesSpace HTTP session is used, as the ASpaceConnection class is not re-instantiated. The disadvantage is that the CSV row count that is used for the progress bar is not automatically updated when the input CSV is changed, and so this needs to be reset as well. To do this, the user needs to import the script_tools module, which contains a variety of utility functions that are used throughout the package.
+
+### Operating on individual records
+
+This package is designed to take an input CSV file and perform actions on all rows in that CSV file. However, it is possible to run this code against a single record. To do this, do the following:
+
+```
+
+
+
+```
 
 ## Using `aspace_tools` in your own code
 

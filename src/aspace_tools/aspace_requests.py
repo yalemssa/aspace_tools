@@ -13,7 +13,7 @@ import traceback
 
 import requests
 
-from script_tools import progress_bar, handle_error, check_config, ArchivesSpaceError
+from aspace_utils import progress_bar, handle_error, check_config, ArchivesSpaceError
 from aspace_run import ASpaceConnection, ASpaceCrud
 
 # THIS WORKS! Goign to have to update docs lol

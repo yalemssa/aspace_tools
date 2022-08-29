@@ -13,7 +13,7 @@ import traceback
 
 import requests
 
-import script_tools
+from script_tools import progress_bar, handle_error, check_config, ArchivesSpaceError
 from aspace_run import ASpaceConnection, ASpaceCrud
 
 # THIS WORKS! Goign to have to update docs lol
@@ -31,7 +31,7 @@ def _api_caller(crud_func):
                 writer.writeheader()
                 err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info'])
                 err_writer.writeheader()
-                for row in script_tools.progress_bar(reader, count=cls.cfg.row_count):
+                for row in progress_bar(reader, count=cls.cfg.row_count):
                     try:
                         row = json_func(row)
                         if crud_func == ASpaceCrud.read_data:
@@ -43,23 +43,19 @@ def _api_caller(crud_func):
                         # they rely on class variables to function. Could nix that and pass 
                         # the sesh + api url, since I have them. But then why even have
                         # the CRUD, why not just use the script tools?
-
-
                     #     if crud_func in (ASpaceCrud.delete_data, ASpaceCrud.read_data):
                     #         row = crud_func(row)
                     #     elif crud_func in (ASpaceCrud.create_data, ASpaceCrud.update_data):
                     #         row = json_func(row)
-
-
                     #     writer.writerow(row)
-                    except (script_tools.ArchivesSpaceError, requests.exceptions.RequestException) as err:
+                    except (ArchivesSpaceError, requests.exceptions.RequestException) as err:
                         print(traceback.format_exc())
                         instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
                         if instructions == 'R':
                             row = crud_func(row)
                             writer.writerow(row)
                         elif instructions == 'S':
-                            row = script_tools.handle_error(err, row)
+                            row = handle_error(err, row)
                             err_writer.writerow(row)
                             continue
                         elif instructions == 'Q':
@@ -71,12 +67,12 @@ def _api_caller(crud_func):
         return wrapper
     return api_caller_decorator
 
-class ASpaceJSON():
+class ASpaceRequests():
 
     def __init__(self, aspace_conn):
         self.cfg = aspace_conn
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def search_all(csv_row: dict) -> str:
         '''Search all published records across repositories.
 
@@ -93,7 +89,7 @@ class ASpaceJSON():
         '''
         return f"/search?q={csv_row.get('search_string')}"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def search_linked_top_containers(csv_row: dict) -> str:
         '''Search containers linked to a published resource and its children.
 
@@ -111,7 +107,7 @@ class ASpaceJSON():
         print(f"{csv_row.get('uri')}/top_containers")
         return f"{csv_row.get('uri')}/top_containers"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def search_container_profiles(csv_row: dict) -> str:
         '''Search container profiles by name.
 
@@ -128,7 +124,7 @@ class ASpaceJSON():
         '''
         return f"/search?page=1&page_size=500&type[]=container_profile&q=title:{csv_row.get('container_profile')}"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def get_nodes(csv_row: dict) -> str:
         '''Gets a list of child URIs for an archival object record
 
@@ -146,7 +142,7 @@ class ASpaceJSON():
         '''
         return f"{csv_row.get('uri')}/tree/node?node_uri={csv_row.get('node_uri')}"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def get_tree(csv_row: dict) -> str:
         '''Gets a tree for a record.
 
@@ -163,7 +159,7 @@ class ASpaceJSON():
         '''
         return f"{csv_row.get('uri')}/tree"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def get_node_from_root(csv_row: dict) -> str:
         '''Gets a tree path from the root record to archival objects.
 
@@ -181,7 +177,7 @@ class ASpaceJSON():
         '''
         return f"{csv_row.get('uri')}/tree/node_from_root?node_ids={int(csv_row.get('node_id'))}"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def get_extents(csv_row: dict) -> str:
         '''Calculates the total extent for a resource record and its children. Uses container profile measurements to make the calculation.
 
@@ -198,7 +194,7 @@ class ASpaceJSON():
         '''
         return f"/extent_calculator?record_uri={csv_row.get('uri')}"
 
-    @_api_caller(ASpaceCrud.read_data)
+    @_api_caller(ASpaceCrud.reader)
     def get_required_fields(csv_row: dict) -> str:
         '''Retrieves required fields for a record type.
 
@@ -217,6 +213,7 @@ class ASpaceJSON():
         return f"{csv_row.get('uri')}/required_fields/{csv_row.get('record_type')}"
 
     #double check this - not sure if I need to GET first - I didn't think so; also need to make sure that 'config' is part of the enum uri
+    @_api_caller(ASpaceCrud.updater)
     def reposition_enumeration(csv_row: dict) -> str:
         '''Updates the position of an enumeration value.
 
@@ -234,6 +231,7 @@ class ASpaceJSON():
         '''
         return f"{csv_row.get('uri')}/position?position={csv_row.get('position')}"
 
+    @_api_caller(ASpaceCrud.updater)
     def suppress_record(csv_row: dict) -> str:
         '''Suppresses a record.
 
@@ -250,6 +248,7 @@ class ASpaceJSON():
         '''
         return f"{csv_row.get('uri')}/suppressed?suppressed=true"
 
+    @_api_caller(ASpaceCrud.updater)
     def set_parent_reposition_archival_object(csv_row: dict) -> str:
         '''Updates the archival object parent and position of an archival object record.
 
@@ -268,6 +267,7 @@ class ASpaceJSON():
         '''
         return f"{csv_row.get('child_uri')}/parent?parent={csv_row.get('parent_uri')}&position={csv_row.get('position')}"
 
+    @_api_caller(ASpaceCrud.updater)
     def merge_data(csv_row: dict) -> tuple[dict, str]:
         '''Merges two records.
 
@@ -293,6 +293,7 @@ class ASpaceJSON():
                       'jsonmodel_type': 'merge_request'}
         return merge_json, f"/merge_requests/{csv_row.get('record_type')}"
 
+    @_api_caller(ASpaceCrud.updater)
     def migrate_enumerations(csv_row: dict) -> tuple[dict, str]:
         '''Merges controlled values.
 
@@ -321,6 +322,7 @@ class ASpaceJSON():
                         'jsonmodel_type': 'enumeration_migration'}
         return merge_json, "/config/enumerations/migration"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_repositories(csv_row: dict) -> tuple[dict, str]:
         '''Creates a repository record.
 
@@ -340,6 +342,7 @@ class ASpaceJSON():
         new_repo = {'jsonmodel_type': 'repository', 'name': csv_row.get('repo_name')}
         return new_repo, '/repositories'
 
+    @_api_caller(ASpaceCrud.creator)
     def create_archival_objects(csv_row: dict) -> tuple[dict, str]:
         '''Creates an archival object record.
 
@@ -392,7 +395,7 @@ class ASpaceJSON():
             del new_ao['parent']
         return new_ao, f"{csv_row.get('repo_uri')}/archival_objects"
 
-
+    @_api_caller(ASpaceCrud.creator)
     def create_minimal_archival_objects(csv_row: dict) -> tuple[dict, str]:
         '''Creates a child archival object record with just a title and level.
 
@@ -419,6 +422,7 @@ class ASpaceJSON():
                     'repository': {'ref': csv_row.get('repo_uri')}}
         return new_ao, f"{csv_row.get('repo_uri')}/archival_objects"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_accessions(csv_row: dict) -> tuple[dict, str]:
         '''Creates an accession record.
 
@@ -442,6 +446,7 @@ class ASpaceJSON():
                          'jsonmodel_type': 'accession'}
         return new_accession, f"{csv_row.get('repo_uri')}/accessions"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_resources(csv_row: dict) -> tuple[dict, str]:
         '''Creates a resource record.
 
@@ -485,6 +490,7 @@ class ASpaceJSON():
                         'repository': {'ref': csv_row.get('repo_uri')}, 'jsonmodel_type': 'resource'}
         return new_resource, f"{csv_row.get('repo_uri')}/resources"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_classification(csv_row: dict) -> tuple[dict, str]:
         '''Creates a classification record.
 
@@ -509,6 +515,7 @@ class ASpaceJSON():
                               'title': csv_row.get('title'), 'description': csv_row.get('description'), 'repository': {'ref': csv_row.get('repo_uri')}}
         return new_classification, f"{csv_row.get('repo_uri')}/classifications"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_classification_term(csv_row: dict) -> tuple[dict, str]:
         '''Creates a classification term with or without a classification term parent.
 
@@ -540,6 +547,7 @@ class ASpaceJSON():
             new_classification_term['parent'] = {'ref': csv_row.get('parent_classification_term_uri')}
         return new_classification_term, f"{csv_row.get('repo_uri')}/classification_terms"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_digital_objects(csv_row: dict) -> tuple[dict, str]:
         '''Creates a digital object record with two file versions.
 
@@ -561,6 +569,7 @@ class ASpaceJSON():
                               'title': csv_row.get('dig_object_title')}
         return new_digital_object, f"{csv_row.get('repo_uri')}/digital_objects"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_digital_object_component(csv_row: dict) -> tuple[dict, str]:
         '''Creates a digital object component record.
 
@@ -574,6 +583,7 @@ class ASpaceJSON():
                    'repository': {'ref': csv_row['repo_uri']}, 'jsonmodel_type': 'digital_object_component'}
         return new_doc, f"{csv_row['repo_uri']}/digital_object_components"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_child(csv_row: dict) -> tuple[dict, str]:
         '''Creates a minimal child archival object record.
 
@@ -590,6 +600,7 @@ class ASpaceJSON():
                     'publish': True}
         return new_ao, f"{csv_row['repo_uri']}/archival_objects"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_subseries(csv_row: dict) -> tuple[dict, str]:
         '''Creates a subseries record.
 
@@ -605,6 +616,7 @@ class ASpaceJSON():
                     'publish': True}
         return new_ao, f"{csv_row['repo_uri']}/archival_objects"
 
+    @_api_caller(ASpaceCrud.creator)
     def create_location_profiles(csv_row: dict) -> tuple[dict, str]:
         '''Creates a location profile record.
 
@@ -631,6 +643,7 @@ class ASpaceJSON():
         csv_row['jsonmodel_type'] = 'location_profile'
         return csv_row, '/location_profiles'
 
+    @_api_caller(ASpaceCrud.updater)
     def create_digital_object_instances(record_json: dict, csv_row: dict) -> tuple[dict, str]:
         '''Creates a instance of a digital object linked to an archival object record.
 
@@ -2174,10 +2187,10 @@ class ASpaceJSON():
         # return csv_row
 
 def main():
-    cfg = script_tools.check_config('as_tools_config.yml')
+    cfg = check_config('as_tools_config.yml')
     aspace_conn = ASpaceConnection.from_dict(cfg)
     as_json = ASpaceJSON(aspace_conn)
-    as_json.get_tree()
+    as_json.update_date_begin()
 
 if __name__ == "__main__":
     main()

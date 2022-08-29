@@ -1,13 +1,13 @@
 agent_authorizer: 
-api_password: 
-api_url: 
-api_username: 
-backup_directory: 
+api_password: Fluffernutter27
+api_url: https://testarchivesspace.library.yale.edu/api
+api_username: amd243
+backup_directory: /Users/aliciadetelich/Dropbox/git/aspace_tools/data/backups
 ead_3_schema: 
 ead_3_transformation: 
 ead_log_path: 
 exclusions:
-input_csv: 
+input_csv: /Users/aliciadetelich/Dropbox/git/aspace_tools/data/inputs/sample_resource_uris.csv
 input_dir: 
 local_sql_database: 
 local_sql_hostname: 

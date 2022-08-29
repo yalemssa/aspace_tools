@@ -103,20 +103,21 @@ class ASpaceConnection:
     sesh: 'requests.sessions.Session'
 
     @classmethod
-    def from_dict(cls: typing.Type["item"], config_file: dict):
+    def from_dict(cls: typing.Type["item"], config_file='as_tools_config.yml': str):
         '''Takes an opened configration file (YML or JSON) as input. Populates the ASpaceConnection variables with values from the config.
         Learned this from: https://dev.to/eblocha/using-dataclasses-for-configuration-in-python-4o53
         '''
+        cfg = script_tools.check_config(config_file)
         return cls(
-            api_url=config_file.get('api_url'),
-            username=config_file.get('api_username'),
-            password=config_file.get('api_password'),
-            dirpath=config_file.get('backup_directory'),
-            csvfile=config_file.get('input_csv'),
-            output_file=f"{config_file.get('input_csv').replace('.csv', '')}_success.csv",
-            error_file=f"{config_file.get('input_csv').replace('.csv', '')}_errors.csv",
-            row_count=script_tools.get_rowcount(config_file.get('input_csv')),
-            sesh=script_tools.start_session(config_file, return_url=False))
+            api_url=cfg.get('api_url'),
+            username=cfg.get('api_username'),
+            password=cfg.get('api_password'),
+            dirpath=cfg.get('backup_directory'),
+            csvfile=cfg.get('input_csv'),
+            output_file=f"{cfg.get('input_csv').replace('.csv', '')}_success.csv",
+            error_file=f"{cfg.get('input_csv').replace('.csv', '')}_errors.csv",
+            row_count=script_tools.get_rowcount(cfg.get('input_csv')),
+            sesh=script_tools.start_session(cfg, return_url=False))
 
 class ASpaceCrud:
     '''Class for handling create, read, update, and delete requests to the ArchivesSpace API
@@ -140,7 +141,7 @@ class ASpaceCrud:
     def __init__(self, aspace_conn):
         self.cfg = aspace_conn
 
-    def create_data(api_url, uri, sesh, record_json, csv_row) -> dict:
+    def creator(api_url, uri, sesh, record_json, csv_row) -> dict:
         '''Creates new records via the ArchivesSpace API.
 
            :param csv_row: A row of a CSV file containing record creation data.
@@ -159,7 +160,7 @@ class ASpaceCrud:
         return script_tools.post_record(api_url, uri, sesh, record_json, csv_row)
 
 #    @_api_caller
-    def read_data(api_url, sesh, uri):
+    def reader(api_url, sesh, uri):
         '''Retrieves data via the ArchivesSpace API.
 
            Parameters:
@@ -179,7 +180,7 @@ class ASpaceCrud:
         return script_tools.get_record(api_url, uri, sesh)
 
  #   @_api_caller
-    def update_data(csv_row, json_func):
+    def updater(csv_row, json_func):
         '''Updates data via the ArchivesSpace API.
 
            Parameters:
@@ -203,7 +204,7 @@ class ASpaceCrud:
         return script_tools.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
 
 #    @_api_caller
-    def delete_data(csv_row):
+    def deleter(csv_row):
         '''Deletes data via the ArchivesSpace API.
 
            :param csv_row['uri']: The URI of the record to delete.

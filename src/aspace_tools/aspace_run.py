@@ -103,7 +103,7 @@ class ASpaceConnection:
     sesh: 'requests.sessions.Session'
 
     @classmethod
-    def from_dict(cls: typing.Type["item"], config_file='as_tools_config.yml': str):
+    def from_dict(cls: typing.Type["item"], config_file='as_tools_config.yml'):
         '''Takes an opened configration file (YML or JSON) as input. Populates the ASpaceConnection variables with values from the config.
         Learned this from: https://dev.to/eblocha/using-dataclasses-for-configuration-in-python-4o53
         '''

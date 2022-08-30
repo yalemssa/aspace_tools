@@ -2,7 +2,7 @@
 #~/anaconda3/bin/python
 
 '''
-JSON data structures for creating or updating ArchivesSpace records. These templates are passed into the aspace_run class.
+JSON template functions for creating or updating ArchivesSpace records.
 '''
 
 import csv
@@ -13,59 +13,8 @@ import traceback
 
 import requests
 
-from aspace_utils import progress_bar, handle_error, check_config, ArchivesSpaceError
-from aspace_run import ASpaceConnection, ASpaceCrud
+from aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
 
-# THIS WORKS! Goign to have to update docs lol
-# I think this will eventually get me there https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
-def _api_caller(crud_func):
-    def api_caller_decorator(json_func):
-        @wraps(json_func)
-        def wrapper(*args, **kw):
-            cls = args[0]
-            with open(cls.cfg.csvfile, 'r', encoding='utf8') as infile, open(cls.cfg.output_file, 'a', encoding='utf8') as outfile, open(cls.cfg.error_file, 'a', encoding='utf8') as err_file:
-                reader = csv.DictReader(infile)
-                # used to be able to call writeheader at initialization of the DictWriter, but seems
-                # like you can't do that anymore in Python 3.10
-                writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info'])
-                writer.writeheader()
-                err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info'])
-                err_writer.writeheader()
-                for row in progress_bar(reader, count=cls.cfg.row_count):
-                    try:
-                        row = json_func(row)
-                        if crud_func == ASpaceCrud.read_data:
-                            row = crud_func(cls.cfg.api_url, cls.cfg.sesh, row)
-                            print(row)
-                        # this is going to wrap the JSON function, and will have access
-                        # to the CRUD functions. Problem right now is that I can't access
-                        # the CRUD functions without instantiating the class. Currently
-                        # they rely on class variables to function. Could nix that and pass 
-                        # the sesh + api url, since I have them. But then why even have
-                        # the CRUD, why not just use the script tools?
-                    #     if crud_func in (ASpaceCrud.delete_data, ASpaceCrud.read_data):
-                    #         row = crud_func(row)
-                    #     elif crud_func in (ASpaceCrud.create_data, ASpaceCrud.update_data):
-                    #         row = json_func(row)
-                    #     writer.writerow(row)
-                    except (ArchivesSpaceError, requests.exceptions.RequestException) as err:
-                        print(traceback.format_exc())
-                        instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
-                        if instructions == 'R':
-                            row = crud_func(row)
-                            writer.writerow(row)
-                        elif instructions == 'S':
-                            row = handle_error(err, row)
-                            err_writer.writerow(row)
-                            continue
-                        elif instructions == 'Q':
-                            break            
-            print(cls.cfg.csvfile)
-            print(cls.cfg.sesh)
-            print(cls.cfg.api_url)
-            print(crud_func)
-        return wrapper
-    return api_caller_decorator
 
 class ASpaceRequests():
 
@@ -2187,10 +2136,9 @@ class ASpaceRequests():
         # return csv_row
 
 def main():
-    cfg = check_config('as_tools_config.yml')
-    aspace_conn = ASpaceConnection.from_dict(cfg)
-    as_json = ASpaceJSON(aspace_conn)
-    as_json.update_date_begin()
+    aspace_conn = ASpaceConnection.from_dict('as_tools_config.yml')
+    as_json = ASpaceRequests(aspace_conn)
+    as_json.get_tree()
 
 if __name__ == "__main__":
     main()

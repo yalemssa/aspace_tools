@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''Classes for handling API and database connections and requests.'''
+'''Functions and classes for handling requests to the ArchivesSpace API'''
 
 import csv
 from dataclasses import dataclass
@@ -11,83 +11,67 @@ import traceback
 
 import requests
 
-
-import db_conn
 import aspace_utils
-#import json_data
 
-# from . import db
-# from . import script_tools
-# from . import json_data
-# from . import queries
-# from . import data_processing as dp
 
-class ASpaceDB():
-    """Class for handling database queries
+def _api_caller(crud_func, decorated=True):
+    '''Source: https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
+    '''
+    def api_caller_decorator(json_func):
+        @wraps(json_func)
+        def wrapper(*args, **kw):
+            # this should make the docrator optional, so that the json functions can be returned by themselves
+            if not decorated:
+                return json_func
+            else:
+                cls = args[0]
+                process_data(cls, json_func, crud_func)       
+                print(cls.cfg.csvfile)
+                print(cls.cfg.sesh)
+                print(cls.cfg.api_url)
+                print(crud_func)
+        return wrapper
+    return api_caller_decorator
 
-       .. code-block:: python
-
-          from aspace_tools import ASpaceDB
-          from aspace_tools import queries
-
-          as_db = ASpaceDB()
-          data = as_db.run_query(queries.box_list)
-          print(data)
-
-    """
-
-    def __init__(self):
-        self.config_file = script_tools.check_config('as_tools_config', 'yml')
-        self.dirpath = self.config_file.get('backup_directory')
-        self.csvfile = self.config_file.get('input_csv')
-        #self.dbconn = db.DBConn(config_file=self.config_path)
-        #self.query_data = ASQueries()
-
-    #def extract_note_query(self):
-        '''Runs a query to get all notes and then extracts the note content and note type
-        '''
-        #try:
-            #query_func = self.query_data.all_notes()
-            #query_data = dp.extract_note_content(query_func, 'extract_notes.csv', self.dbconn)
-            #not this - want a count of the individual things...
-           # counter = query_data['type'].count()
-            #print(counter)
-        #finally:
-            #yes? or do I want this to stay open?
-            #self.dbconn.close_conn()
-        #return query_data
-
-    def run_query(self, query_func, outfile=None):
-        '''Runs a single query against the ArchivesSpace database.
-
-           Parameters:
-            dbconn: The database connection
-            query_func: The query to run.
-
-           Todo:
-            make sure that there is an outfile in the config file to store query data.
-            Have the outfile be a default arg that can set if don't want to just return
-            a generator or whatever.
-        '''
-        #should not need this - should already be passing in a function
-        #query_func = getattr(self.query_data, query_func)
-        #return (self.dbconn.run_query_list(query_func()))
-
-    def run_queries(self, query_func):
-        '''Runs multiple queries against the ArchivesSpace database.
-
-           Parameters:
-            query_func: The query to run. Passed in from queries.py
-
-           Todo:
-            Also need to determine whether running the run_query_list function  is the best approach.
-            Add a thing so I can run a single query on the command line...
-            This works as it should. Formulates the f-string query and runs it, returning a generator
-            of lists (right?). From here can process the output in any way you like - can write to output file or do any additional processing
-            MUST CLOSE THE DB CONNECTION!
-        '''
-        #query_func = getattr(self.query_data, query_func)
-       # return (self.dbconn.run_query_list(query_func(row)) for row in self.csvfile)
+def process_data(cls, json_func, crud_func):
+    '''Boilerplate code for making bulk requests via a CSV input file'''
+    with open(cls.cfg.csvfile, 'r', encoding='utf8') as infile, open(cls.cfg.output_file, 'a', encoding='utf8') as outfile, open(cls.cfg.error_file, 'a', encoding='utf8') as err_file:
+        reader = csv.DictReader(infile)
+        # used to be able to call writeheader at initialization of the DictWriter, but seems
+        # like you can't do that anymore in Python 3.10
+        writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info'])
+        writer.writeheader()
+        err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info'])
+        err_writer.writeheader()
+        for row in aspace_utils.progress_bar(reader, count=cls.cfg.row_count):
+            try:
+                row = json_func(row)
+                if crud_func == ASpaceCrud.reader:
+                    row = crud_func(cls.cfg.api_url, cls.cfg.sesh, row)
+                    print(row)
+                # this is going to wrap the JSON function, and will have access
+                # to the CRUD functions. Problem right now is that I can't access
+                # the CRUD functions without instantiating the class. Currently
+                # they rely on class variables to function. Could nix that and pass 
+                # the sesh + api url, since I have them. But then why even have
+                # the CRUD, why not just use the script tools?
+            #     if crud_func in (ASpaceCrud.delete_data, ASpaceCrud.read_data):
+            #         row = crud_func(row)
+            #     elif crud_func in (ASpaceCrud.create_data, ASpaceCrud.update_data):
+            #         row = json_func(row)
+            #     writer.writerow(row)
+            except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
+                print(traceback.format_exc())
+                instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
+                if instructions == 'R':
+                    row = crud_func(row)
+                    writer.writerow(row)
+                elif instructions == 'S':
+                    row = aspace_utils.handle_error(err, row)
+                    err_writer.writerow(row)
+                    continue
+                elif instructions == 'Q':
+                    break
 
 @dataclass(slots=True)
 class ASpaceConnection:
@@ -107,7 +91,7 @@ class ASpaceConnection:
         '''Takes an opened configration file (YML or JSON) as input. Populates the ASpaceConnection variables with values from the config.
         Learned this from: https://dev.to/eblocha/using-dataclasses-for-configuration-in-python-4o53
         '''
-        cfg = script_tools.check_config(config_file)
+        cfg = aspace_utils.check_config(config_file)
         return cls(
             api_url=cfg.get('api_url'),
             username=cfg.get('api_username'),
@@ -116,8 +100,8 @@ class ASpaceConnection:
             csvfile=cfg.get('input_csv'),
             output_file=f"{cfg.get('input_csv').replace('.csv', '')}_success.csv",
             error_file=f"{cfg.get('input_csv').replace('.csv', '')}_errors.csv",
-            row_count=script_tools.get_rowcount(cfg.get('input_csv')),
-            sesh=script_tools.start_session(cfg, return_url=False))
+            row_count=aspace_utils.get_rowcount(cfg.get('input_csv')),
+            sesh=aspace_utils.start_session(cfg, return_url=False))
 
 class ASpaceCrud:
     '''Class for handling create, read, update, and delete requests to the ArchivesSpace API
@@ -157,7 +141,7 @@ class ASpaceCrud:
                     row = as_run.create_data(row, create_archival_object)
 
         '''
-        return script_tools.post_record(api_url, uri, sesh, record_json, csv_row)
+        return aspace_utils.post_record(api_url, uri, sesh, record_json, csv_row)
 
 #    @_api_caller
     def reader(api_url, sesh, uri):
@@ -177,7 +161,7 @@ class ASpaceCrud:
                 for row in reader:
                     json_record = as_run.read_data(row)
         '''
-        return script_tools.get_record(api_url, uri, sesh)
+        return aspace_utils.get_record(api_url, uri, sesh)
 
  #   @_api_caller
     def updater(csv_row, json_func):
@@ -198,10 +182,10 @@ class ASpaceCrud:
                 for row in reader:
                     row = as_run.update_data(row, update_date_begin)
         '''
-        record_json = script_tools.get_record(self.api_url, csv_row['uri']. self.sesh)
-        script_tools.create_backups(self.dirpath, csv_row['uri'], record_json)
+        record_json = aspace_utils.get_record(self.api_url, csv_row['uri']. self.sesh)
+        aspace_utils.create_backups(self.dirpath, csv_row['uri'], record_json)
         record_json, uri = json_func(record_json, csv_row)
-        return script_tools.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
+        return aspace_utils.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
 
 #    @_api_caller
     def deleter(csv_row):
@@ -222,7 +206,7 @@ class ASpaceCrud:
                     except ArchivesSpaceError:
                         pass
         '''
-        return script_tools.delete_record(csv_row['uri'], self.sesh, self.dirpath)
+        return aspace_utils.delete_record(csv_row['uri'], self.sesh, self.dirpath)
 
     # def run_process(self, crud_func, json_func=None):
     #     '''Loops through a CSV file and runs the user-selected CRUD functions
@@ -254,13 +238,13 @@ class ASpaceCrud:
     #                 elif crud_func in (self.create_data, self.update_data):
     #                     row = crud_func(row, json_func)
     #                 writer.writerow(row)
-    #             except (script_tools.ArchivesSpaceError, requests.exceptions.RequestException) as err:
+    #             except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
     #                 instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
     #                 if instructions == 'R':
     #                     row = self.crud_func(row, json_func)
     #                     writer.writerow(row)
     #                 elif instructions == 'S':
-    #                     row = script_tools.handle_error(err, row)
+    #                     row = aspace_utils.handle_error(err, row)
     #                     err_writer.writerow(row)
     #                     continue
     #                 elif instructions == 'Q':
@@ -276,13 +260,13 @@ class ASpaceCrud:
             #         elif func in (create_data, update_data):
             #             row = func(row, json_func)
             #         writer.writerow(row)
-            #     except (script_tools.ArchivesSpaceError, requests.exceptions.RequestException) as err:
+            #     except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
             #         instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
             #         if instructions == 'R':
             #             row = self.crud_func(row, json_func)
             #             writer.writerow(row)
             #         elif instructions == 'S':
-            #             row = script_tools.handle_error(err, row)
+            #             row = aspace_utils.handle_error(err, row)
             #             err_writer.writerow(row)
             #             continue
             #         elif instructions == 'Q':
@@ -290,7 +274,7 @@ class ASpaceCrud:
 
 
 def main():
-    cfg = script_tools.check_config('as_tools_config.yml')
+    cfg = aspace_utils.check_config('as_tools_config.yml')
     as_conn = ASpaceConnection.from_dict(cfg)
     crud = ASpaceCrud(as_conn)
     print(crud.cfg.csvfile)
@@ -299,7 +283,7 @@ def main():
     crud.cfg.csvfile = "/Users/aliciadetelich/Dropbox/git/aspace_tools/data/inputs/mention.csv"
     print(crud.cfg.csvfile)
     print(crud.cfg.row_count)
-    crud.cfg.row_count = script_tools.get_rowcount(crud.cfg.csvfile)
+    crud.cfg.row_count = aspace_utils.get_rowcount(crud.cfg.csvfile)
     crud.random_test_func()
 
 

@@ -13,6 +13,73 @@ import yaml
 import pandas as pd
 
 
+class ASpaceDB():
+    """Class for handling database queries
+
+       .. code-block:: python
+
+          from aspace_tools import ASpaceDB
+          from aspace_tools import queries
+
+          as_db = ASpaceDB()
+          data = as_db.run_query(queries.box_list)
+          print(data)
+
+    """
+
+    def __init__(self):
+        self.config_file = aspace_utils.check_config('as_tools_config', 'yml')
+        self.dirpath = self.config_file.get('backup_directory')
+        self.csvfile = self.config_file.get('input_csv')
+        #self.dbconn = db.DBConn(config_file=self.config_path)
+        #self.query_data = ASQueries()
+
+    #def extract_note_query(self):
+        '''Runs a query to get all notes and then extracts the note content and note type
+        '''
+        #try:
+            #query_func = self.query_data.all_notes()
+            #query_data = dp.extract_note_content(query_func, 'extract_notes.csv', self.dbconn)
+            #not this - want a count of the individual things...
+           # counter = query_data['type'].count()
+            #print(counter)
+        #finally:
+            #yes? or do I want this to stay open?
+            #self.dbconn.close_conn()
+        #return query_data
+
+    def run_query(self, query_func, outfile=None):
+        '''Runs a single query against the ArchivesSpace database.
+
+           Parameters:
+            dbconn: The database connection
+            query_func: The query to run.
+
+           Todo:
+            make sure that there is an outfile in the config file to store query data.
+            Have the outfile be a default arg that can set if don't want to just return
+            a generator or whatever.
+        '''
+        #should not need this - should already be passing in a function
+        #query_func = getattr(self.query_data, query_func)
+        #return (self.dbconn.run_query_list(query_func()))
+
+    def run_queries(self, query_func):
+        '''Runs multiple queries against the ArchivesSpace database.
+
+           Parameters:
+            query_func: The query to run. Passed in from queries.py
+
+           Todo:
+            Also need to determine whether running the run_query_list function  is the best approach.
+            Add a thing so I can run a single query on the command line...
+            This works as it should. Formulates the f-string query and runs it, returning a generator
+            of lists (right?). From here can process the output in any way you like - can write to output file or do any additional processing
+            MUST CLOSE THE DB CONNECTION!
+        '''
+        #query_func = getattr(self.query_data, query_func)
+       # return (self.dbconn.run_query_list(query_func(row)) for row in self.csvfile)
+
 #add error handling, logging
 #don't forget to close the connection
 class DBConn():

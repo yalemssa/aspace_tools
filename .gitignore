@@ -35,6 +35,8 @@ docs/_build
 
 *.todo.MD
 
+src/aspace_tools/as_tools_config_testing.yml
+
 aspace_tools/app.py
 
 aspace_tools/app_layouts.py

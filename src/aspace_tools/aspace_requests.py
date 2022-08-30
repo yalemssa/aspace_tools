@@ -18,6 +18,21 @@ from aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
 
 class ASpaceRequests():
 
+    '''Class which holds all JSON templates.
+       
+       Parameters:
+        aspace_conn: The ArchivesSpace connection object
+
+       Usage:
+        ::
+
+        >>> aspace_conn = ASpaceConnection.from_dict('as_tools_config.yml')
+        >>> client = ASpaceRequests(aspace_conn)
+        >>> client.get_tree()
+        >>> 
+
+    '''
+
     def __init__(self, aspace_conn):
         self.cfg = aspace_conn
 
@@ -27,14 +42,6 @@ class ASpaceRequests():
 
            Parameters:
             csv_row['search_string']: The search to perform.
-
-           Usage
-            ::
-
-              >>> csv_row = {'search_string': 'MS 150'}
-              >>> uri = search_all(csv_row)
-              >>> print(uri)
-              '/search?q=MS 150'
         '''
         return f"/search?q={csv_row.get('search_string')}"
 
@@ -44,14 +51,6 @@ class ASpaceRequests():
 
            Parameters:
             row['uri']: The URI of the record to retrieve
-
-           Usage
-            ::
-
-              >>> csv_row = {'uri': '/repositories/2/resources/5'}
-              >>> uri = search_linked_top_containers(csv_row)
-              >>> print(uri)
-              '/repositories/2/resources/5/top_containers'
         '''
         print(f"{csv_row.get('uri')}/top_containers")
         return f"{csv_row.get('uri')}/top_containers"
@@ -2136,9 +2135,27 @@ class ASpaceRequests():
         # return csv_row
 
 def main():
-    aspace_conn = ASpaceConnection.from_dict('as_tools_config.yml')
+    # csv_row = {'uri': '/the/uri'}
+    # json_data = ASpaceRequests.search_all(csv_row, decorated=False)
+    # print(json_data)
+    aspace_conn = ASpaceConnection('as_tools_config_testing.yml')
+    print(aspace_conn.csvfile)
+    print(aspace_conn.row_count)
+    print(aspace_conn.dirpath)
+    print(aspace_conn.sesh)
+    fp = "/Users/aliciadetelich/Dropbox/git/aspace_tools/data/inputs/whose.csv"
+    aspace_conn.update_from_input(fp)
+    print(aspace_conn.csvfile)
+    print(aspace_conn.row_count)
+    print(aspace_conn.sesh)
     as_json = ASpaceRequests(aspace_conn)
-    as_json.get_tree()
+    # input('Update config file and press enter to continue: ')
+    # aspace_conn.update_from_config()
+    # print(aspace_conn.csvfile)
+    # print(aspace_conn.row_count)
+    # print(aspace_conn.dirpath)
+    # print(aspace_conn.sesh)
+    # #as_json.get_tree()
 
 if __name__ == "__main__":
     main()

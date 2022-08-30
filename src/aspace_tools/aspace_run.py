@@ -15,7 +15,8 @@ import aspace_utils
 
 
 def _api_caller(crud_func, decorated=True):
-    '''Source: https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
+    '''Sources: https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
+                https://stackoverflow.com/questions/10724854/how-to-do-a-conditional-decorator-in-python
     '''
     def api_caller_decorator(json_func):
         @wraps(json_func)
@@ -73,35 +74,38 @@ def process_data(cls, json_func, crud_func):
                 elif instructions == 'Q':
                     break
 
-@dataclass(slots=True)
 class ASpaceConnection:
     '''Holds ArchivesSpace connection and configuration data'''
-    api_url: str
-    username: str
-    password: str
-    dirpath: str
-    csvfile: str
-    output_file: str
-    error_file: str
-    row_count: int
-    sesh: 'requests.sessions.Session'
 
-    @classmethod
-    def from_dict(cls: typing.Type["item"], config_file='as_tools_config.yml'):
-        '''Takes an opened configration file (YML or JSON) as input. Populates the ASpaceConnection variables with values from the config.
-        Learned this from: https://dev.to/eblocha/using-dataclasses-for-configuration-in-python-4o53
-        '''
+    def __init__(self, config_file='as_tools_config.yml'):
         cfg = aspace_utils.check_config(config_file)
-        return cls(
-            api_url=cfg.get('api_url'),
-            username=cfg.get('api_username'),
-            password=cfg.get('api_password'),
-            dirpath=cfg.get('backup_directory'),
-            csvfile=cfg.get('input_csv'),
-            output_file=f"{cfg.get('input_csv').replace('.csv', '')}_success.csv",
-            error_file=f"{cfg.get('input_csv').replace('.csv', '')}_errors.csv",
-            row_count=aspace_utils.get_rowcount(cfg.get('input_csv')),
-            sesh=aspace_utils.start_session(cfg, return_url=False))
+        self.api_url = cfg.get('api_url')
+        self.username = cfg.get('api_username')
+        self.password = cfg.get('api_password')
+        self.dirpath = cfg.get('backup_directory')
+        self.csvfile = cfg.get('input_csv')
+        self.output_file = f"{cfg.get('input_csv').replace('.csv', '')}_success.csv"
+        self.error_file = f"{cfg.get('input_csv').replace('.csv', '')}_errors.csv"
+        self.row_count = aspace_utils.get_rowcount(cfg.get('input_csv'))
+        self.sesh = aspace_utils.start_session(cfg, return_url=False)
+
+    def update_from_input(self, input_csv: str, backup_dir=None):
+        '''Takes user input and updates input files and row count, and optionally the backup directory'''
+        self.csvfile = input_csv
+        if backup_dir:
+            self.dirpath = backup_dir
+        self.row_count = aspace_utils.get_rowcount(input_csv)
+        self.output_file = f"{input_csv.replace('.csv', '')}_success.csv"
+        self.error_file = f"{input_csv.replace('.csv', '')}_errors.csv"
+
+    def update_from_config(self, config_file='as_tools_config.yml'):
+        '''Takes an updated configuration file and updates inputs without restarting the Aspace session'''
+        cfg = aspace_utils.check_config(config_file)
+        self.csvfile = cfg.get('input_csv')
+        self.dirpath = cfg.get('backup_directory')
+        self.row_count = aspace_utils.get_rowcount(cfg.get('input_csv'))
+        self.output_file = f"{cfg.get('input_csv').replace('.csv', '')}_success.csv"
+        self.error_file = f"{cfg.get('input_csv').replace('.csv', '')}_errors.csv"
 
 class ASpaceCrud:
     '''Class for handling create, read, update, and delete requests to the ArchivesSpace API
@@ -208,100 +212,10 @@ class ASpaceCrud:
         '''
         return aspace_utils.delete_record(csv_row['uri'], self.sesh, self.dirpath)
 
-    # def run_process(self, crud_func, json_func=None):
-    #     '''Loops through a CSV file and runs the user-selected CRUD functions
-
-    #        :param crud_func: The CRUD function to use in the update
-    #        :param json_func: The JSON template to use in the update
-
-    #        Usage:
-    #         ::
-          
-    #           from aspace_tools import ASpaceRun
-
-    #           as_run = ASpaceRun()
-    #           as_run.call_api(update_data, update_date_begin)
-
-    #     '''
-    #     if json_func:
-    #         json_func = getattr(json_data, json_func)
-    #     with open(self.csvfile, 'r', encoding='utf8') as infile, open(self.output_file, 'a', encoding='utf8') as outfile, open(self.error_file, 'a', encoding='utf8') as err_file:
-    #         reader = csv.DictReader(infile)
-    #         # used to be able to call writeheader at initialization of the DictWriter, but seems
-    #         # like you can't do that anymore in Python 3.10
-    #         writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info']).writeheader()
-    #         err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info']).writeheader()
-    #         for row in progress_bar(reader, count=self.row_count):
-    #             try:
-    #                 if crud_func in (self.delete_data, self.read_data):
-    #                     row = crud_func(row)
-    #                 elif crud_func in (self.create_data, self.update_data):
-    #                     row = crud_func(row, json_func)
-    #                 writer.writerow(row)
-    #             except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
-    #                 instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
-    #                 if instructions == 'R':
-    #                     row = self.crud_func(row, json_func)
-    #                     writer.writerow(row)
-    #                 elif instructions == 'S':
-    #                     row = aspace_utils.handle_error(err, row)
-    #                     err_writer.writerow(row)
-    #                     continue
-    #                 elif instructions == 'Q':
-    #                     break
-
-
-            # if json_func:
-            #     json_func = getattr(json_data, json_func)
-            # for row in progress_bar(reader, count=self.row_count):
-            #     try:
-            #         if func in (read_data, delete_data):
-            #             row = func(row)
-            #         elif func in (create_data, update_data):
-            #             row = func(row, json_func)
-            #         writer.writerow(row)
-            #     except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
-            #         instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
-            #         if instructions == 'R':
-            #             row = self.crud_func(row, json_func)
-            #             writer.writerow(row)
-            #         elif instructions == 'S':
-            #             row = aspace_utils.handle_error(err, row)
-            #             err_writer.writerow(row)
-            #             continue
-            #         elif instructions == 'Q':
-            #             break
-
 
 def main():
-    cfg = aspace_utils.check_config('as_tools_config.yml')
-    as_conn = ASpaceConnection.from_dict(cfg)
-    crud = ASpaceCrud(as_conn)
-    print(crud.cfg.csvfile)
-    print(crud.cfg.sesh)
-    print(crud.cfg.row_count)
-    crud.cfg.csvfile = "/Users/aliciadetelich/Dropbox/git/aspace_tools/data/inputs/mention.csv"
-    print(crud.cfg.csvfile)
-    print(crud.cfg.row_count)
-    crud.cfg.row_count = aspace_utils.get_rowcount(crud.cfg.csvfile)
-    crud.random_test_func()
-
-
-
-
+    pass
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-

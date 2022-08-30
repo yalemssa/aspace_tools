@@ -7,7 +7,7 @@ ead_3_schema:
 ead_3_transformation: 
 ead_log_path: 
 exclusions:
-input_csv:
+input_csv: 
 input_dir: 
 local_sql_database: 
 local_sql_hostname: 

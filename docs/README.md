@@ -53,24 +53,18 @@ __Method 1: Updating in the Python interpreter__
 Within the Python interpreter, enter the following to manually update the input CSV file and backup directory:
 
 ```
->>> print(aspace_conn.csvfile)
+>>> print(aspace_conn.csvfile, aspace_conn.row_count, aspace_conn.dirpath, aspace_conn.sesh, sep='\n')
 /path/to/old/input/file.csv
->>> print(aspace_conn.row_count)
 79
->>> print(aspace_conn.dirpath)
 /path/to/old/backup/folder
->>> print(aspace_conn.sesh)
 <requests.sessions.Session object at 0x7f9fa03e5450>
 >>> new_file_path = '/path/to/new/input_file.csv'
 >>> new_backup_directory = '/path/to/new/directory'
 >>> aspace_conn.update_from_input(new_file_path, new_backup_directory)
->>> print(aspace_conn.csvfile)
+>>> print(aspace_conn.csvfile, aspace_conn.row_count, aspace_conn.dirpath, aspace_conn.sesh, sep='\n')
 /path/to/new/input_file.csv
->>> print(aspace_conn.row_count)
 130
->>> print(aspace_conn.dirpath)
 /path/to/new/directory
->>> print(aspace_conn.sesh)
 <requests.sessions.Session object at 0x7f9fa03e5450>
 >>> client.cfg = aspace_conn
 ```

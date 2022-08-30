@@ -87,13 +87,30 @@ Open the configuration file, usually `as_tools_config.yml`, and update the requi
 
 In both methods, the input CSV file and/or backup directories will be changed, but the ArchivesSpace HTTP session will remain the same. To change the API instance you are working with, you must instantiate a new ASpaceConnection object.
 
-<!-- #### Operating on individual records
+#### Operating on individual records
 
-This package is designed to take an input CSV file and perform actions on all rows in that CSV file. However, it is possible to run this code against a single record. To do this, do the following:
+This package is designed to take an input CSV file and perform actions on all rows in that CSV file. However, it is possible to run pieces of the code on individual records if desired.
+
+__Forming a JSON template__
 
 ```
-json_data = ASpaceRequests.search_all(csv_row, decorated=False)
-``` -->
+>>> csv_row = {'search_string': 'A string to search'}
+>>> endpoint = ASpaceRequests.search_all(csv_row)
+>>> print(endpoint)
+>>> /search?q=The string to search
+```
+
+__Getting a JSON record__
+
+```
+
+```
+
+__Posting a JSON record__
+
+```
+```
+
 
 ### Using `aspace_tools` in your own code
 

@@ -13,24 +13,28 @@ import requests
 
 import aspace_utils
 
-
-def _api_caller(crud_func, decorated=True):
+def _api_caller(crud_func):
     '''Sources: https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument
                 https://stackoverflow.com/questions/10724854/how-to-do-a-conditional-decorator-in-python
     '''
     def api_caller_decorator(json_func):
         @wraps(json_func)
         def wrapper(*args, **kw):
-            # this should make the docrator optional, so that the json functions can be returned by themselves
-            if not decorated:
-                return json_func
-            else:
-                cls = args[0]
-                process_data(cls, json_func, crud_func)       
-                print(cls.cfg.csvfile)
-                print(cls.cfg.sesh)
-                print(cls.cfg.api_url)
-                print(crud_func)
+            cls = args[0]
+            # this is a hacky way to make the decorators sort of conditional
+            # if just the regular csv row is passed in, either when the class
+            # is instantiated or not, the function will take the row as 
+            # an argument and will not run the process_data function.
+            if isinstance(cls, dict):
+                return json_func(cls)
+            if len(args) == 2:
+                if isinstance(args[1], dict):
+                    return json_func(args[1])
+            process_data(cls, json_func, crud_func)       
+            print(cls.cfg.csvfile)
+            print(cls.cfg.sesh)
+            print(cls.cfg.api_url)
+            print(crud_func)
         return wrapper
     return api_caller_decorator
 

@@ -43,7 +43,7 @@ todo_include_todos = True
 
 autodoc_typehints = 'signature'
 extensions.append('autoapi.extension')
-autoapi_member_order = 'alphabetical'
+autoapi_member_order = 'bysource'
 autoapi_type = 'python'
 autoapi_dirs = [os.path.abspath('../src/aspace_tools')]
 autoapi_template_dir = 'ntemplates'

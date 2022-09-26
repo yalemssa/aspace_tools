@@ -42,6 +42,8 @@ class ASpaceRequests():
 
            Parameters:
             csv_row['search_string']: The search to perform.
+
+           NOTE: this requires a page parameter
         '''
         return f"/search?q={csv_row.get('search_string')}"
 
@@ -216,7 +218,7 @@ class ASpaceRequests():
         return f"{csv_row.get('child_uri')}/parent?parent={csv_row.get('parent_uri')}&position={csv_row.get('position')}"
 
     @_api_caller(ASpaceCrud.updater)
-    def merge_data(csv_row: dict) -> tuple[dict, str]:
+    def merge_data(csv_row: dict) -> tuple:
         '''Merges two records.
 
            Parameters:
@@ -242,7 +244,7 @@ class ASpaceRequests():
         return merge_json, f"/merge_requests/{csv_row.get('record_type')}"
 
     @_api_caller(ASpaceCrud.updater)
-    def migrate_enumerations(csv_row: dict) -> tuple[dict, str]:
+    def migrate_enumerations(csv_row: dict) -> tuple:
         '''Merges controlled values.
 
            Parameters:
@@ -271,7 +273,7 @@ class ASpaceRequests():
         return merge_json, "/config/enumerations/migration"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_repositories(csv_row: dict) -> tuple[dict, str]:
+    def create_repositories(csv_row: dict) -> tuple:
         '''Creates a repository record.
 
            Parameters:
@@ -291,7 +293,7 @@ class ASpaceRequests():
         return new_repo, '/repositories'
 
     @_api_caller(ASpaceCrud.creator)
-    def create_archival_objects(csv_row: dict) -> tuple[dict, str]:
+    def create_archival_objects(csv_row: dict) -> tuple:
         '''Creates an archival object record.
 
            Parameters:
@@ -344,7 +346,7 @@ class ASpaceRequests():
         return new_ao, f"{csv_row.get('repo_uri')}/archival_objects"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_minimal_archival_objects(csv_row: dict) -> tuple[dict, str]:
+    def create_minimal_archival_objects(csv_row: dict) -> tuple:
         '''Creates a child archival object record with just a title and level.
 
            Parameters:
@@ -371,7 +373,7 @@ class ASpaceRequests():
         return new_ao, f"{csv_row.get('repo_uri')}/archival_objects"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_accessions(csv_row: dict) -> tuple[dict, str]:
+    def create_accessions(csv_row: dict) -> tuple:
         '''Creates an accession record.
 
            Parameters:
@@ -395,7 +397,7 @@ class ASpaceRequests():
         return new_accession, f"{csv_row.get('repo_uri')}/accessions"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_resources(csv_row: dict) -> tuple[dict, str]:
+    def create_resources(csv_row: dict) -> tuple:
         '''Creates a resource record.
 
            Parameters:
@@ -439,7 +441,7 @@ class ASpaceRequests():
         return new_resource, f"{csv_row.get('repo_uri')}/resources"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_classification(csv_row: dict) -> tuple[dict, str]:
+    def create_classification(csv_row: dict) -> tuple:
         '''Creates a classification record.
 
            Parameters:
@@ -464,7 +466,7 @@ class ASpaceRequests():
         return new_classification, f"{csv_row.get('repo_uri')}/classifications"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_classification_term(csv_row: dict) -> tuple[dict, str]:
+    def create_classification_term(csv_row: dict) -> tuple:
         '''Creates a classification term with or without a classification term parent.
 
            Parameters:
@@ -496,7 +498,7 @@ class ASpaceRequests():
         return new_classification_term, f"{csv_row.get('repo_uri')}/classification_terms"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_digital_objects(csv_row: dict) -> tuple[dict, str]:
+    def create_digital_objects(csv_row: dict) -> tuple:
         '''Creates a digital object record with two file versions.
 
            Parameters:
@@ -518,7 +520,7 @@ class ASpaceRequests():
         return new_digital_object, f"{csv_row.get('repo_uri')}/digital_objects"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_digital_object_component(csv_row: dict) -> tuple[dict, str]:
+    def create_digital_object_component(csv_row: dict) -> tuple:
         '''Creates a digital object component record.
 
            Parameters:
@@ -532,7 +534,7 @@ class ASpaceRequests():
         return new_doc, f"{csv_row['repo_uri']}/digital_object_components"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_child(csv_row: dict) -> tuple[dict, str]:
+    def create_child(csv_row: dict) -> tuple:
         '''Creates a minimal child archival object record.
 
            Parameters:
@@ -549,7 +551,7 @@ class ASpaceRequests():
         return new_ao, f"{csv_row['repo_uri']}/archival_objects"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_subseries(csv_row: dict) -> tuple[dict, str]:
+    def create_subseries(csv_row: dict) -> tuple:
         '''Creates a subseries record.
 
            Parameters:
@@ -565,7 +567,7 @@ class ASpaceRequests():
         return new_ao, f"{csv_row['repo_uri']}/archival_objects"
 
     @_api_caller(ASpaceCrud.creator)
-    def create_location_profiles(csv_row: dict) -> tuple[dict, str]:
+    def create_location_profiles(csv_row: dict) -> tuple:
         '''Creates a location profile record.
 
            Parameters:
@@ -592,7 +594,7 @@ class ASpaceRequests():
         return csv_row, '/location_profiles'
 
     @_api_caller(ASpaceCrud.updater)
-    def create_digital_object_instances(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_digital_object_instances(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a instance of a digital object linked to an archival object record.
 
            Parameters:
@@ -615,7 +617,8 @@ class ASpaceRequests():
         record_json['instances'].append(new_ao_instance)
         return record_json, csv_row.get('uri')
 
-    def create_locations(csv_row: dict) -> tuple[dict, str]:
+    @_api_caller(ASpaceCrud.creator)
+    def create_locations(csv_row: dict) -> tuple:
         '''Creates a full location record.
 
            Parameters:
@@ -628,6 +631,7 @@ class ASpaceRequests():
             csv_row['coordinate_2_indicator']: The indicator for coordinate_2, i.e. A.
             csv_row['coordinate_3_label']: The label for coordinate_3, i.e. shelf.
             csv_row['coordinate_3_indicator']: The indicator for coordinate_3, i.e. 4.
+            csv_row['onsite']: A boolean indicating whether the material is stored on or off-site
             csv_row['repo_owner']: The URI of the parent repository.
 
            Other Parameters:
@@ -649,15 +653,21 @@ class ASpaceRequests():
                         'coordinate_2_indicator': ',
                         'coordinate_3_label': 'shelf',
                         'coordinate_3_indicator': '3',
+                        'onsite': True,
                         'location_profile': {'ref': '/location_profiles/4'},
                         'owner_repo': {'ref': '/repositories/2'}}
         '''
         csv_row['jsonmodel_type'] = 'location'
-        if csv_row.get('location_profile') in ('', None):
-            del new_location['location_profile']
+        if csv_row.get('onsite') == 'True':
+            csv_row['onsite'] = True
+        elif csv_row.get('onsite') == 'False':
+            csv_row['onsite'] = False
+        # don't need that anymore, since I'll just be modifying the row.
+        # if csv_row.get('location_profile') in ('', None):
+        #     del csv_row['location_profile']
         return csv_row, '/locations'
 
-    def create_dates(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_dates(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a date record.
 
            Parameters:
@@ -682,7 +692,7 @@ class ASpaceRequests():
         record_json['dates'].append(new_date)
         return record_json, csv_row['uri']
 
-    def create_extent_remove_physdesc(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_extent_remove_physdesc(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an extent record, removes a physdesc record.
 
            Parameters:
@@ -703,7 +713,7 @@ class ASpaceRequests():
                     note.clear()
         return record_json, csv_row['uri']
 
-    def create_extents(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_extents(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an extent record.
 
            Parameters:
@@ -716,7 +726,7 @@ class ASpaceRequests():
         record_json['extents'].append(new_extent)
         return record_json, csv_row['uri']
 
-    def create_events(csv_row: dict) -> tuple[dict, str]:
+    def create_events(csv_row: dict) -> tuple:
         '''Creates an event record.
 
            Parameters:
@@ -753,7 +763,7 @@ class ASpaceRequests():
         #double check if events are scoped to repositories
         return new_event, f"{csv_row['repo_uri']}/events"
 
-    def create_top_containers(csv_row: dict) -> tuple[dict, str]:
+    def create_top_containers(csv_row: dict) -> tuple:
         '''Creates a top container record.
 
            Parameters:
@@ -787,7 +797,7 @@ class ASpaceRequests():
             new_top_container['container_locations'] = new_location
         return new_top_container, f"{csv_row['repo_uri']}/top_containers"
 
-    def update_instance_by_uri(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_instance_by_uri(record_json: dict, csv_row: dict) -> tuple:
         '''Updates an instance subrecord with sub_container data.
 
            Parameters:
@@ -803,7 +813,7 @@ class ASpaceRequests():
                 instance['sub_container']['indicator_2'] = csv_row['indicator_2']
         return record_json, csv_row['uri']
 
-    def update_indicator_2(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_indicator_2(record_json: dict, csv_row: dict) -> tuple:
         '''Updates an instance subrecord with a new indicator_2.
 
            Parameters:
@@ -817,7 +827,7 @@ class ASpaceRequests():
                     instance['sub_container']['indicator_2'] = csv_row['indicator_2']
         return record_json, csv_row['uri']
 
-    def update_instance_ref(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_instance_ref(record_json: dict, csv_row: dict) -> tuple:
         '''Updates an instance subrecord with a new top container URI. 
             Searches for and replaces a top container reference.
 
@@ -833,7 +843,7 @@ class ASpaceRequests():
                     instance['sub_container']['top_container']['ref'] = csv_row['new_top_container']
         return record_json, csv_row['uri']
 
-    def create_subcontainer(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_subcontainer(record_json: dict, csv_row: dict) -> tuple:
         '''Updates the first instance subrecord with a new type_2 and indicator_2.
 
            Parameters:
@@ -847,7 +857,7 @@ class ASpaceRequests():
             record_json['instances'][0]['sub_container']['indicator_2'] = csv_row['indicator_2']
         return record_json, csv_row['uri']
 
-    def update_subcontainer(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_subcontainer(record_json: dict, csv_row: dict) -> tuple:
         '''Updates the top container ref, indicator 2, and type 2 fields of a subcontainer record.
            Assumes that there is just a single instance.
 
@@ -864,7 +874,7 @@ class ASpaceRequests():
             record_json['instances'][0]['sub_container']['top_container']['ref'] = csv_row['tc_uri']
         return record_json, csv_row['uri']
 
-    def create_instances(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_instances(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an instance of a top container and links to an archival object record.
 
            Parameters:
@@ -891,7 +901,7 @@ class ASpaceRequests():
         record_json['instances'].append(new_instance)
         return record_json, csv_row['uri']
 
-    def create_multipart_note(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_multipart_note(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a multipart note and links it to a descriptive record.
 
            Parameters:
@@ -909,7 +919,7 @@ class ASpaceRequests():
         record_json['notes'].append(new_note)
         return record_json, csv_row['uri']
 
-    def create_glad_scope_note(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_glad_scope_note(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a multipart scope and content note and links it to a descriptive record.
 
            Parameters:
@@ -928,7 +938,7 @@ class ASpaceRequests():
             record_json['notes'].append(scope_note)
             return record_json, csv_row['uri']
 
-    def update_glad_scope_note(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_glad_scope_note(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a multipart scope and content note, changing the subnote type
            from note_text to note_definedlist. Replaces an entire set of existing
            subnotes.
@@ -952,7 +962,7 @@ class ASpaceRequests():
                 note['subnotes'] = new_subnote
         return record_json, csv_row['uri']
 
-    def create_container_profiles(csv_row: dict) -> tuple[dict, str]:
+    def create_container_profiles(csv_row: dict) -> tuple:
         '''Creates a container profile record.
 
            Parameters:
@@ -969,7 +979,7 @@ class ASpaceRequests():
         return new_container_profile, '/container_profiles'
 
     #@atl.as_tools_logger(logger)
-    def create_hm_external_ids(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_hm_external_ids(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an external ID subrecord and links it to a descriptive record.
 
            Parameters:
@@ -993,7 +1003,7 @@ class ASpaceRequests():
         #record_json = add_access_notes(record_json, csv_row)
         return record_json, csv_row['uri']
 
-    def update_file_version_format(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_file_version_format(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a file version record with a file format type.
 
            Parameters:
@@ -1007,7 +1017,7 @@ class ASpaceRequests():
                 file_version['file_format_name'] = csv_row['file_format_name']
         return record_json, csv_row['uri']
 
-    def create_digital_content_file_version(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_digital_content_file_version(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a single file version record and adds it to a digital object record.
 
            Parameters:
@@ -1025,7 +1035,7 @@ class ASpaceRequests():
         record_json['file_versions'].append(new_file_version)
         return record_json, csv_row['uri']
 
-    def create_file_version(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_file_version(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a single file version record and adds it to a digital object record.
 
            Parameters:
@@ -1039,7 +1049,7 @@ class ASpaceRequests():
         record_json['file_versions'].append(new_file_version)
         return record_json, csv_row['uri']
 
-    def create_file_versions(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_file_versions(record_json: dict, csv_row: dict) -> tuple:
         '''Creates multiple file versions and adds them to a digital object record.
 
            Parameters:
@@ -1063,7 +1073,7 @@ class ASpaceRequests():
         record_json['file_versions'].extend([file_version_01, file_version_02])
         return record_json, csv_row['uri']
 
-    def create_timebound_access_restriction(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_timebound_access_restriction(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an accessrestrict note with a timebound restriction.
 
            Parameters:
@@ -1083,7 +1093,7 @@ class ASpaceRequests():
         record_json['notes'].append(new_note)
         return record_json, csv_row['uri']
 
-    def update_notes_titles(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_notes_titles(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a subnote record and a title
 
            Parameters:
@@ -1101,7 +1111,7 @@ class ASpaceRequests():
                 note['subnotes'] = subnotes
         return record_json, csv_row['uri']
 
-    def create_use_surrogate_access_notes(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_use_surrogate_access_notes(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an accessrestrict note for HM microfilm surrogates and
            links it to a descriptive record.
 
@@ -1124,7 +1134,7 @@ class ASpaceRequests():
     def check_for_access_note(note_data) -> list:
         return [note.get('persistent_id') for note in note_data if note.get('type') == 'accessrestrict']
 
-    def check_for_matching_use_note_text(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def check_for_matching_use_note_text(record_json: dict, csv_row: dict) -> tuple:
         '''Checks note subrecord for matching use note text.
 
            Parameters:
@@ -1141,7 +1151,7 @@ class ASpaceRequests():
                     print('Use note does not match')
         return record_json, csv_row['uri']
 
-    def update_use_note(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_use_note(record_json: dict, csv_row: dict) -> tuple:
         '''Replaces a note with the type 'userestrict' with new text.
 
            Parameters:
@@ -1154,7 +1164,7 @@ class ASpaceRequests():
                 note['subnotes'][0]['content'] = csv_row['new_note_text'].strip()
         return record_json, csv_row['uri']
 
-    def create_born_digital_access_note(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_born_digital_access_note(record_json: dict, csv_row: dict) -> tuple:
         '''Creates an access note for BornDigital materials
 
            Parameters:
@@ -1183,7 +1193,7 @@ class ASpaceRequests():
         return record_json, csv_row['uri']
 
 
-    def create_local_access_restriction(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_local_access_restriction(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a local access restriction type and links it to an existing note in a descriptive record.
 
            Parameters:
@@ -1200,7 +1210,7 @@ class ASpaceRequests():
                     note['rights_restriction'] = {'local_access_restriction_type': [csv_row['local_type']]}
         return record_json, csv_row['uri']
 
-    def create_timebound_restriction(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def create_timebound_restriction(record_json: dict, csv_row: dict) -> tuple:
         '''Creates a timebound restriction type and links it to a note in a descriptive record.
 
            Parameters:
@@ -1219,7 +1229,7 @@ class ASpaceRequests():
                 note['rights_restriction']['end'] = csv_row['end']
         return record_json, csv_row['uri']
 
-    def update_identifiers(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_identifiers(record_json: dict, csv_row: dict) -> tuple:
         '''Moves resource identifiers which are split across multiple fields into a
            single field.
 
@@ -1237,7 +1247,7 @@ class ASpaceRequests():
             del record_json['id_3']
         return record_json, csv_row['uri']
 
-    def update_container_type(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_container_type(record_json: dict, csv_row: dict) -> tuple:
         '''Updates the container type of a top container record.
 
            Parameters:
@@ -1252,7 +1262,7 @@ class ASpaceRequests():
         record_json['type'] = container_type
         return record_json, csv_row['uri']
 
-    def link_agent_to_record(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def link_agent_to_record(record_json: dict, csv_row: dict) -> tuple:
         '''Links an agent record to a descriptive record.
 
            Parameters:
@@ -1273,7 +1283,7 @@ class ASpaceRequests():
         record_json['linked_agents'].append({'ref': csv_row['agent_uri']})
         return record_json, csv_row['uri']
 
-    def link_event_to_record(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def link_event_to_record(record_json: dict, csv_row: dict) -> tuple:
         '''Links an event record to a descriptive record.
 
            Parameters:
@@ -1294,7 +1304,7 @@ class ASpaceRequests():
         record_json['linked_events'].append({'ref': csv_row['event_uri']})
         return record_json, csv_row['uri']
 
-    def link_record_to_classification(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def link_record_to_classification(record_json: dict, csv_row: dict) -> tuple:
         '''Links a record to a classification or classification term.
 
            Parameters:
@@ -1311,7 +1321,7 @@ class ASpaceRequests():
         record_json['linked_records'].append({'ref': csv_row['uri']})
         return record_json, csv_row['uri']
 
-    def update_eng_finding_aid_language(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_eng_finding_aid_language(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a finding aid language value to English (before v 2.8)
 
            Parameters:
@@ -1322,7 +1332,7 @@ class ASpaceRequests():
         record_json['finding_aid_language'] = "Finding aid written in <language langcode=\"eng\" scriptcode=\"Latn\">English</language>."
         return record_json, csv_row['uri']
 
-    def update_indicators(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_indicators(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a top container record with a new indicator.
 
            Parameters:
@@ -1333,7 +1343,7 @@ class ASpaceRequests():
         record_json['indicator'] = csv_row['indicator']
         return record_json, csv_row['uri']
 
-    def update_barcodes(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_barcodes(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a top container record with barcode.
 
            Parameters:
@@ -1344,7 +1354,7 @@ class ASpaceRequests():
         record_json['barcode'] = csv_row['barcode']
         return record_json, csv_row['uri']
 
-    def update_barcodes_indicators(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_barcodes_indicators(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a top container record with barcode and indicator.
 
            Parameters:
@@ -1358,7 +1368,7 @@ class ASpaceRequests():
         return record_json, csv_row['uri']
 
     #abstract
-    def update_top_containers(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_top_containers(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a top container record with barcode and adds a type value of 'Box'
            to the record. Also adds LSF as the location.
 
@@ -1373,7 +1383,7 @@ class ASpaceRequests():
         record_json['container_locations'].append(new_location)
         return record_json, csv_row['uri']
 
-    def update_container_location(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_container_location(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a top container record with a location
 
            Parameters:
@@ -1385,7 +1395,7 @@ class ASpaceRequests():
         record_json['container_locations'].append(new_location)
         return record_json, csv_row['uri']
 
-    def update_title(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_title(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a record title.
 
            Parameters:
@@ -1396,7 +1406,7 @@ class ASpaceRequests():
         record_json['title'] = csv_row['title']
         return record_json, csv_row['uri']
 
-    def update_container_type_to_box(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_container_type_to_box(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a container record with a type value of 'Box'.
 
            Parameters:
@@ -1406,7 +1416,7 @@ class ASpaceRequests():
         record_json['type'] = 'Box'
         return record_json, csv_row['uri']
 
-    def update_date_begin(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_date_begin(record_json: dict, csv_row: dict) -> tuple:
         '''Updates date subrecords.
 
            Parameters:
@@ -1416,7 +1426,7 @@ class ASpaceRequests():
             date['begin'] = csv_row['begin']
         return record_json, csv_row['uri']
 
-    def update_event_date(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_event_date(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a date subrecord with new begin date, an end
             date if present, and a label
 
@@ -1434,7 +1444,7 @@ class ASpaceRequests():
             record_json['date']['end'] = csv_row['end']
         return record_json, csv_row['uri']
 
-    def update_date_type(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_date_type(record_json: dict, csv_row: dict) -> tuple:
         '''Checks whether a date lacks end value, or whether the begin and end values
           and if either are true changes the date type to 'single'
 
@@ -1449,7 +1459,7 @@ class ASpaceRequests():
                 date['date_type'] = 'single'
         return record_json, csv_row['uri']
 
-    def update_box_numbers(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_box_numbers(record_json: dict, csv_row: dict) -> tuple:
         '''Updates indicator numbers in top container records.
 
            Parameters:
@@ -1462,7 +1472,7 @@ class ASpaceRequests():
             record_json['indicator'] = csv_row['new_box']
         return record_json, csv_row['uri']
 
-    def update_folder_numbers(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_folder_numbers(record_json: dict, csv_row: dict) -> tuple:
         '''Updates indicator numbers in instance subrecords.
 
            Parameters:
@@ -1476,7 +1486,7 @@ class ASpaceRequests():
                 instance['indicator_2'] = csv_row['new_folder']
         return record_json, csv_row['uri']
 
-    def update_revision_statements(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_revision_statements(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a revision statement.
 
            Parameters:
@@ -1491,7 +1501,7 @@ class ASpaceRequests():
                 revision_statement['description'] = csv_row['new_text']
         return record_json, csv_row['uri']
 
-    def update_notes(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_notes(record_json: dict, csv_row: dict) -> tuple:
         '''Updates singlepart or multipart notes.
 
            Parameters:
@@ -1509,7 +1519,7 @@ class ASpaceRequests():
                     note['content'] = [csv_row['note_text']]
         return record_json, csv_row['uri']
 
-    def update_access_notes(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_access_notes(record_json: dict, csv_row: dict) -> tuple:
         '''Updates existing accessrestrict notes for HM films.
 
            Parameters:
@@ -1525,7 +1535,7 @@ class ASpaceRequests():
                 note['rights_restriction'] = {'local_access_restriction_type': ['UseSurrogate']}
         return record_json, csv_row['uri']
 
-    def update_external_document_location(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_external_document_location(record_json: dict, csv_row: dict) -> tuple:
         '''Updates the file location of an external document subrecord.
 
            Parameters:
@@ -1541,7 +1551,7 @@ class ASpaceRequests():
                 external_document['location'] = csv_row['new_link']
         return record_json, csv_row['uri']
 
-    def update_date_expressions(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_date_expressions(record_json: dict, csv_row: dict) -> tuple:
         '''Adds a date expression to a date record.
 
            Parameters:
@@ -1564,7 +1574,7 @@ class ASpaceRequests():
                     date['expression'] = csv_row['expression']
         return record_json, csv_row['uri']
 
-    def update_locations(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_locations(record_json: dict, csv_row: dict) -> tuple:
         '''Updates location records with barcodes, location profiles, repositories,
            and, optionally, coordinate 1 indicator.
 
@@ -1585,7 +1595,7 @@ class ASpaceRequests():
             record_json['coordinate_2_indicator'] = csv_row['coordinate_2_indicator']
         return record_json, csv_row['uri']
 
-    def update_location_coordinates(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_location_coordinates(record_json: dict, csv_row: dict) -> tuple:
         '''Updates location labels and indicators.
 
            Parameters:
@@ -1616,7 +1626,7 @@ class ASpaceRequests():
         record_json['coordinate_3_label'] = csv_row.get('coordinate_3_label')
         return record_json, csv_row.get('uri')
 
-    def update_record_component(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_record_component(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a non-nested field in a top-level record.
 
            Parameters:
@@ -1638,7 +1648,7 @@ class ASpaceRequests():
         record_json[csv_row.get('component')] = csv_row.get('updated_text')
         return record_json, csv_row.get('uri')
 
-    def update_record_components(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_record_components(record_json: dict, csv_row: dict) -> tuple:
         '''Updates non-nested fields in a top-level record.
 
            Parameters:
@@ -1656,7 +1666,7 @@ class ASpaceRequests():
         return record_json, csv_row['uri']
 
     #also need to define the subrecord here.
-    def update_subrecord_component(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_subrecord_component(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a nested field in a top-level record.
 
            Parameters:
@@ -1671,7 +1681,7 @@ class ASpaceRequests():
         return record_json, csv_row['uri']
 
     #also need to define the subrecord here...
-    def update_subrecord_components(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_subrecord_components(record_json: dict, csv_row: dict) -> tuple:
         '''Updates nested fields in a top-level record.
 
            Parameters:
@@ -1692,7 +1702,7 @@ class ASpaceRequests():
                     item[field] = value
         return record_json, csv_row['uri']
 
-    def update_record_pub_status(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_record_pub_status(record_json: dict, csv_row: dict) -> tuple:
         '''Updates publication status of top-level record.
 
            Parameters:
@@ -1707,7 +1717,7 @@ class ASpaceRequests():
         return record_json, csv_row['uri']
 
     #if the subnote is also unpublished will need to fix that as well
-    def update_note_pub_status(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_note_pub_status(record_json: dict, csv_row: dict) -> tuple:
         '''Updates publication status of a note.
 
            Parameters:
@@ -1727,7 +1737,7 @@ class ASpaceRequests():
                     note['publish'] = False
         return record_json, csv_row['uri']
 
-    def update_authority_id(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_authority_id(record_json: dict, csv_row: dict) -> tuple:
         '''Updates a name record with a new authority ID
 
            Parameters:
@@ -1740,7 +1750,7 @@ class ASpaceRequests():
                 name['authority_id'] = csv_row['authority_id']
         return record_json, csv_row['uri']
 
-    def update_names(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_names(record_json: dict, csv_row: dict) -> tuple:
         '''Updates name records to fix improper field usages.
 
            Parameters:
@@ -1770,7 +1780,7 @@ class ASpaceRequests():
                         name['name_order'] = csv_row['name_order']
         return record_json, csv_row['uri']
 
-    def update_sources_auth_ids(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def update_sources_auth_ids(record_json: dict, csv_row: dict) -> tuple:
         '''Updates an agent record with a source value of 'local' and removes vendor-added
            authority ID codes. Used for agents and subjects remediation project.
 
@@ -1797,7 +1807,7 @@ class ASpaceRequests():
         return record_json, csv_row['uri']
 
     #so, for some reason I was able to do this - but deleting the whole instance will not work
-    def delete_subcontainers(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def delete_subcontainers(record_json: dict, csv_row: dict) -> tuple:
         '''Deletes a sub_container subrecord in an instance subrecord.
 
            Parameters:
@@ -1816,7 +1826,7 @@ class ASpaceRequests():
                         del instance['sub_container']['indicator_3']
         return record_json, csv_row['uri']
 
-    def delete_notes(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def delete_notes(record_json: dict, csv_row: dict) -> tuple:
         '''Deletes a note subrecord in a descriptive record.
 
            Parameters:
@@ -1829,7 +1839,7 @@ class ASpaceRequests():
                 note.clear()
         return record_json, csv_row['uri']
 
-    def delete_external_document(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def delete_external_document(record_json: dict, csv_row: dict) -> tuple:
         '''Deletes an external document subrecord.
 
            Parameters:
@@ -1842,7 +1852,7 @@ class ASpaceRequests():
                 external_document.clear()
         return record_json, csv_row['uri']
 
-    def delete_rights_restriction(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    def delete_rights_restriction(record_json: dict, csv_row: dict) -> tuple:
         '''Deletes a local access restriction in an accessrestrict note.
 
            Parameters:
@@ -1856,7 +1866,7 @@ class ASpaceRequests():
                     del note['rights_restriction']
         return record_json, csv_row['uri']
 
-    def get_series(record_json: dict, csv_row: dict) -> tuple[dict, dict]:
+    def get_series(record_json: dict, csv_row: dict) -> tuple:
         '''Gets a list of series-level ancestors for a list of URIs.
 
            Parameters:
@@ -1881,7 +1891,7 @@ class ASpaceRequests():
 
     # Extras, unfinished, needs work
 
-    #def update_subrecord_pub_status(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    #def update_subrecord_pub_status(record_json: dict, csv_row: dict) -> tuple:
     #     '''Updates publication status of subrecord.
 
     #        Parameters:
@@ -1895,7 +1905,7 @@ class ASpaceRequests():
     #     '''
     #     pass
 
-    #def create_classification_scheme(csv_row: dict) -> tuple[dict, str]:
+    #def create_classification_scheme(csv_row: dict) -> tuple:
         '''Combines the create_classification and create_classification_term functions to create a multi-level
            classifcation scheme.
 
@@ -1920,7 +1930,7 @@ class ASpaceRequests():
     #                       'jsonmodel_type': 'note_orderedlist',
     #                       'publish': True}]}
 
-    # def create_ms_135_archival_objects(csv_row: dict) -> tuple[dict, str]:
+    # def create_ms_135_archival_objects(csv_row: dict) -> tuple:
         '''Creates archival object records for MS 135 reconciliation project
 
            Parameters:
@@ -1966,7 +1976,7 @@ class ASpaceRequests():
     #         if note['persistent_id'] == csv_row['persistent_id']:
     #             note['subnotes'][0]['content'] = ""
 
-    #def delete_instances(record_json: dict, csv_row: dict) -> tuple[dict, str]:
+    #def delete_instances(record_json: dict, csv_row: dict) -> tuple:
         '''Deletes an instance.
 
            Parameters:
@@ -1996,7 +2006,7 @@ class ASpaceRequests():
     #         record_json = new_use_surrogate_notes.create_access_note(record_json, csv_row)
     #     return record_json
 
-    # def get_agents(agent_json, csv_row) -> tuple[dict, str]:
+    # def get_agents(agent_json, csv_row) -> tuple:
     #     '''Retrieves data about agents.
 
     #        Parameters:
@@ -2094,7 +2104,7 @@ class ASpaceRequests():
     #         data.append('no_notes')
     #     return data
 
-    #def get_subjects(subject_json, csv_row) -> tuple[dict, str]:
+    #def get_subjects(subject_json, csv_row) -> tuple:
         '''Retrieves data about subjects.
 
            Parameters:

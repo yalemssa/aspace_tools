@@ -92,7 +92,7 @@ def func_template(return_value, func_name, params):
 def post_record_template(return_value, post_type='post_record'):
     '''Retrieves the specified CRUD function depending on whether the record is being created or updated.'''
     template = f"""row = {post_type}(api_url, uri, sesh, record_json, row, writer)
-                   writer.writerow(row)"""
+                    writer.writerow(row)"""
     if return_value == 'tuple':
         return template
     elif return_value == 'str':
@@ -179,7 +179,7 @@ def generate_data():
     fp = "/Users/aliciadetelich/Desktop/script_generator"
     os.chdir(fp)
     config_file_path = os.path.join(fp, 'config.json')
-    source_code, func_string, func_object, docstring, signa = get_func_data(aspace_requests)
+    source_code, func_string, func_object, docstring, signa = get_func_data(aspace_requests.ASpaceRequests)
     script_file_path = os.path.join(fp, f'{func_string}.py')
     csv_template_file_path = os.path.join(fp, f'{func_string}_template.csv')
     return_value = func_object.__annotations__['return'].__name__

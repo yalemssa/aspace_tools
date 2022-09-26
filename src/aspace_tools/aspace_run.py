@@ -44,27 +44,25 @@ def process_data(cls, json_func, crud_func):
         reader = csv.DictReader(infile)
         # used to be able to call writeheader at initialization of the DictWriter, but seems
         # like you can't do that anymore in Python 3.10
-        writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info'])
+        writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info', 'jsonmodel_type'])
         writer.writeheader()
-        err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info'])
+        err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info', 'jsonmodel_type'])
         err_writer.writeheader()
         for row in aspace_utils.progress_bar(reader, count=cls.cfg.row_count):
             try:
-                row = json_func(row)
+                # should I do something different here? I've seen that using a bunch of if/else's
+                # to decide which functions to run is not ideal
+                if crud_func == ASpaceCrud.creator:
+                    # forms the JSON and returns the endpoint
+                    record_json, uri = json_func(row)
+                    # posts the record, returns the input row with the new URI appended
+                    row = crud_func(cls.cfg.api_url, cls.cfg.sesh, uri, record_json, row)
+                if crud_func == ASpaceCrud.updater:
+                    row = crud_func(cls.cfg.api_url, cls.cfg.sesh, cls.cfg.dirpath, row, json_func)
                 if crud_func == ASpaceCrud.reader:
-                    row = crud_func(cls.cfg.api_url, cls.cfg.sesh, row)
-                    print(row)
-                # this is going to wrap the JSON function, and will have access
-                # to the CRUD functions. Problem right now is that I can't access
-                # the CRUD functions without instantiating the class. Currently
-                # they rely on class variables to function. Could nix that and pass 
-                # the sesh + api url, since I have them. But then why even have
-                # the CRUD, why not just use the script tools?
-            #     if crud_func in (ASpaceCrud.delete_data, ASpaceCrud.read_data):
-            #         row = crud_func(row)
-            #     elif crud_func in (ASpaceCrud.create_data, ASpaceCrud.update_data):
-            #         row = json_func(row)
-            #     writer.writerow(row)
+                    # this just returns the result, as JSON. Still need to do something with it. Like write it?
+                    result = crud_func(cls.cfg.api_url, cls.cfg.sesh, row)
+                writer.writerow(row)
             except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
                 print(traceback.format_exc())
                 instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
@@ -112,67 +110,38 @@ class ASpaceConnection:
         self.error_file = f"{cfg.get('input_csv').replace('.csv', '')}_errors.csv"
 
 class ASpaceCrud:
-    '''Class for handling create, read, update, and delete requests to the ArchivesSpace API
+    '''Class which stores functions called by the aspace_requests module. This class
+       is not usually instantiated and the methods are usually not called directly.
 
-       Parameters:
-        self.config_file: The configuration file
-        self.config_file['api_url']: The ArchivesSpace base API URL
-        self.config_file['api_username']: The ArchivesSpace username
-        self.config_file['api_password']: The ArchivesSpace password
-        self.config_file['backup_directory']: The string representation of the backup directory
-        self.config_file['input_csv']: The string representation of the input CSV file path
+       There are no class attributes for ASpaceCrud.
 
-       Usage:
-        ::
-          
-          from aspace_tools import ASpaceCrud
-
-          as_run = ASpaceRun()
     '''
 
-    def __init__(self, aspace_conn):
-        self.cfg = aspace_conn
-
-    def creator(api_url, uri, sesh, record_json, csv_row) -> dict:
+    def creator(api_url, sesh, uri, record_json, csv_row) -> dict:
         '''Creates new records via the ArchivesSpace API.
 
            :param csv_row: A row of a CSV file containing record creation data.
            :param json_data: The json structure to use in the record creation process.
            :return: The CSV dict with the URI of the newly-created record attached
-
-           Usage:
-            ::
-          
-              with open(as_run.csvfile, encoding='utf8') as infile:
-                reader = csv.DictReader(infile)
-                for row in reader:
-                    row = as_run.create_data(row, create_archival_object)
-
         '''
         return aspace_utils.post_record(api_url, uri, sesh, record_json, csv_row)
 
 #    @_api_caller
-    def reader(api_url, sesh, uri):
+    def reader(api_url, sesh, uri, dirpath):
         '''Retrieves data via the ArchivesSpace API.
 
            Parameters:
-            csv_row['uri']: The URI of the record to retrieve
+            uri: The URI of the record to retrieve
 
            Returns:
             dict: The JSON response from the ArchivesSpace API.
-
-           Usage:
-            ::
-          
-              with open(as_run.csvfile, encoding='utf8') as infile:
-                reader = csv.DictReader(infile)
-                for row in reader:
-                    json_record = as_run.read_data(row)
         '''
-        return aspace_utils.get_record(api_url, uri, sesh)
+        record_json = aspace_utils.get_record(api_url, uri, sesh)
+        aspace_utils.create_backups(dirpath, uri, record_json)
+        return record_json
 
  #   @_api_caller
-    def updater(csv_row, json_func):
+    def updater(api_url, sesh, dirpath, csv_row, json_func):
         '''Updates data via the ArchivesSpace API.
 
            Parameters:
@@ -181,40 +150,21 @@ class ASpaceCrud:
 
            Returns:
             list: The CSV row with the URI of the update record appended to the end.
-
-           Usage:
-            ::
-          
-              with open(as_run.csvfile, encoding='utf8') as infile:
-                reader = csv.DictReader(infile)
-                for row in reader:
-                    row = as_run.update_data(row, update_date_begin)
         '''
-        record_json = aspace_utils.get_record(self.api_url, csv_row['uri']. self.sesh)
-        aspace_utils.create_backups(self.dirpath, csv_row['uri'], record_json)
+        record_json = aspace_utils.get_record(api_url, csv_row['uri']. sesh)
+        aspace_utils.create_backups(dirpath, csv_row['uri'], record_json)
         record_json, uri = json_func(record_json, csv_row)
-        return aspace_utils.post_record(self.api_url, uri, self.sesh, record_json, csv_row)
+        return aspace_utils.post_record(api_url, uri, sesh, record_json, csv_row)
 
 #    @_api_caller
-    def deleter(csv_row):
+    def deleter(csv_row, sesh, dirpath):
         '''Deletes data via the ArchivesSpace API.
 
            :param csv_row['uri']: The URI of the record to delete.
            :return: The JSON response from the ArchivesSpace API.
            :raises ArchivesSpaceError: if delete is unsuccessful
-
-           Usage:
-            ::
-          
-              with open(as_run.csvfile, encoding='utf8') as infile:
-                reader = csv.DictReader(infile)
-                for row in reader:
-                    try:
-                        row = as_run.delete_data(row)
-                    except ArchivesSpaceError:
-                        pass
         '''
-        return aspace_utils.delete_record(csv_row['uri'], self.sesh, self.dirpath)
+        return aspace_utils.delete_record(csv_row['uri'], sesh, dirpath)
 
 
 def main():

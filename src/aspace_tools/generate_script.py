@@ -15,8 +15,8 @@ import re
 
 from rich import print
 
-import aspace_requests
-import aspace_utils
+from . import aspace_requests
+from . import aspace_utils
 
 
 def generate_config(config_file_path):

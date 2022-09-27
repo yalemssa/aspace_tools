@@ -24,19 +24,19 @@ This package includes functions for creating, reading, updating, and deleting da
 
 An empty configuration file entitled `as_tools_config.yml` is included in the `/src` directory, so that users may store login credentials and file/directory paths. Entering data into the configuration file is not required. Any data that is missing will be requested by the application when the user attempts to call a function.
 
-#### ArchivesSpace credentials
+__ArchivesSpace credentials__
 
 Connecting to the ArchivesSpace API requires the ArchivesSpace API URL along with the user's username and password. 
 
-#### Input/output files
+__Input/output files__
 
 Most commonly, the functions in this package will be run against a CSV file that is supplied by the user, which contains the data about each record that is to be modified. The configuration file should include the path to this CSV file, e.g. `/Users/username/path/to/file.csv` for Mac or `C:\Users\username\path\to\file.csv`. The required CSV fields for each function are listed in the API documentation for this package. A CSV template can be generated for a given function by running the `generate_script.py` script.
 
-#### Backup directories
+__Backup directories__
 
 When records are updated using functions in this package, JSON backups of the data prior to the updates are saved to a backup directory that is defined by the user.
 
-#### Other configuration settings
+__Other configuration settings__
 
 There are other configuration settings that can be included in order to take advantage of less-developed parts of this package, including the `db_tools.py` module which facilitates querying the ArchivesSpace MySQL database. Additional documentation on these modules is forthcoming.
 
@@ -86,16 +86,16 @@ __Types of requests__
 
 `aspace_tools` supports a variety of CRUD (create, read, update, and delete) requests. There are some variations in how each of these request types is made:
 
-- Create: These types of requests create new records in ArchivesSpace. The only input for create methods is a CSV file which is used to form new JSON records which are posted to ArchivesSpace
-- Read: These requests retrieve data from ArchivesSpace. The input for read methods is a CSV file containing the URIs of the records to be retrieved. 
-- Update: These requests update existing ArchivesSpace data. Input CSV files for update methods must contain the URI of the existing record in addition to the data that is to be updated. The request methods will retrieve the existing record from ArchivesSpace, 
-- Delete: These requests delete existing ArchivesSpace data.
+* __Create__: These types of requests create new records in ArchivesSpace. The only input for create methods is a CSV file which is used to form new JSON records which are posted to ArchivesSpace
+* __Read__: These requests retrieve data from ArchivesSpace. The input for read methods is a CSV file containing the URIs of the records to be retrieved. 
+* __Update__: These requests update existing ArchivesSpace data. Input CSV files for update methods must contain the URI of the existing record in addition to the data that is to be updated. The request methods will retrieve the existing record from ArchivesSpace, 
+* __Delete__: These requests delete existing ArchivesSpace data.
 
 Note that if a CSV input path is present in the configuration file and one of these methods is calld, the update that is defined in the method will be applied to all of the records in the input spreadsheet. When th
 
 Consult the API documentation for more information on available methods and their required CSV fields.
 
-#### After a request is made
+#### When a request is sent
 
 A progress bar will appear in the terminal after the method is called, which will indicate how many records have been processed, the total number of records to be processed, and the overall progress percentage. 
 

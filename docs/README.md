@@ -66,7 +66,7 @@ Login Successful!: https://testarchivesspace.your.domain.edu/api
 
 If credentials are present the in the `as_tools_config.yml` file, authentication will be attempted automatically. If not, the user will be prompted to enter credentials into the interpreter.
 
-#### Sending requests
+#### Sending a batch of requests
 
 After the user is authenticated, it is possible to begin sending requests. Requests are sent by calling methods in the `aspace_requests.ASpaceRequests` class. To access these methods, first instantiate the class with the ArchivesSpace connection object as an argument, and then call one of the available methods to send the request. For example:
 
@@ -77,13 +77,27 @@ After the user is authenticated, it is possible to begin sending requests. Reque
 
 If an input CSV path is present in the `as_tools_config.yml` file, the update will begin immediately. If not, the user will be prompted to enter the path (e.g. `/path/to/the/input/file.csv`) to the file into the interpreter.
 
-Note that if a CSV input path is present in the configuration file and one of these methods is calld, the update that is defined in the method will be applied to all of the records in the input spreadsheet. 
+When the method is called, the input CSV file will be loaded, and each row will be passed into the method. If the record already
+
+
+The method will take the data in the CSV row and form it into a valid JSON record. It will return this JSON record, along with the endpoint where the request will be sent.
+
+__Types of requests__
+
+`aspace_tools` supports a variety of CRUD (create, read, update, and delete) requests. There are some variations in how each of these request types is made:
+
+- Create: These types of requests create new records in ArchivesSpace. The only input for create methods is a CSV file which is used to form new JSON records which are posted to ArchivesSpace
+- Read: These requests retrieve data from ArchivesSpace. The input for read methods is a CSV file containing the URIs of the records to be retrieved. 
+- Update: These requests update existing ArchivesSpace data. Input CSV files for update methods must contain the URI of the existing record in addition to the data that is to be updated. The request methods will retrieve the existing record from ArchivesSpace, 
+- Delete: These requests delete existing ArchivesSpace data.
+
+Note that if a CSV input path is present in the configuration file and one of these methods is calld, the update that is defined in the method will be applied to all of the records in the input spreadsheet. When th
 
 Consult the API documentation for more information on available methods and their required CSV fields.
 
 #### After a request is made
 
-After a request is made, a progress bar will appear in the terminal, which will indicate how many records have been processed, the total number of records to be processed, and the overall progress percentage. 
+A progress bar will appear in the terminal after the method is called, which will indicate how many records have been processed, the total number of records to be processed, and the overall progress percentage. 
 
 If the request is a read, update, or delete request, a JSON backup file will be created for each URI on the input spreadsheet, using the backup directory supplied by the user in the `as_tools_config.yml` file or, if this value is not present in the configuration file, when prompted to enter the path into the interpreter.
 

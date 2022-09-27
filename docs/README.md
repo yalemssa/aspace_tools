@@ -24,11 +24,11 @@ This package includes functions for creating, reading, updating, and deleting da
 
 ### Configuration
 
-An empty configuration file entitled `as_tools_config.yml` is included in the `/src` directory, so that users may store credentials and file paths. It is not required to enter data into the configuration file. Any data that is missing will be requested by the application when the user attempts to call a function.
+An empty configuration file entitled `as_tools_config.yml` is included in the `/src` directory, so that users may store login credentials and file/directory paths. Entering data into the configuration file is not required. Any data that is missing will be requested by the application when the user attempts to call a function.
 
 #### ArchivesSpace Credentials
 
-Logging into the ArchivesSpace API requires the ArchivesSpace API URL along with the user's username and password. 
+Connecting to the ArchivesSpace API requires the ArchivesSpace API URL along with the user's username and password. 
 
 #### Input/Output Files
 
@@ -40,34 +40,58 @@ When records are updated using functions in this package, JSON backups of the da
 
 #### Other Configuration Settings
 
-There are other configuration settings that can be included in order to take advantage of lesser-developed parts of this package, including the `database.py` module which facilitates querying the ArchivesSpace MySQL database. Additional documentation on these modules is forthcoming.
+There are other configuration settings that can be included in order to take advantage of less-developed parts of this package, including the `db_tools.py` module which facilitates querying the ArchivesSpace MySQL database. Additional documentation on these modules is forthcoming.
 
 ### Running `aspace_tools` within an interactive session
 
-`aspace_tools` can be imported into a Python interpreter and run interactively.
-
-#### Creating an ASpaceConnection object
+Most parts of the `aspace_tools` package (except for the `generate_script.py` module) can be imported into the user's preferred Python interpreter and run interactively. To import the module, either install it via pip as described above, or navigate to the `/src` directory, and enter the following:
 
 ```
 $ python
 Python 3.8.5 (default, Sep  4 2020, 02:22:02)
 [Clang 10.0.0 ] :: Anaconda, Inc. on darwin
 Type "help", "copyright", "credits" or "license" for more information.
->>> from aspace_tools import aspace_requests, aspace_run
->>> aspace_conn = aspace_run.ASpaceConnection()
->>> client = aspace_requests.ASpaceRequests(aspace_conn)
->>> client.update_date_begin()
+>>> from aspace_tools import aspace_run, aspace_requests
+>>>
+```
+
+#### Creating an ASpaceConnection object
+
+Authentication is required before making any requests to the ArchivesSpace API. The `aspace_tools` package contains a class, `ASpaceConnection`, which handles authentication andthe user-defined configuration settings. 
+
+To authenticate, enter the following into the interpreter:
 
 ```
+>>> aspace_conn = aspace_run.ASpaceConnection()
+Login Successful!: https://testarchivesspace.your.domain.edu/api
+```
+
+If credentials are present the in the `as_tools_config.yml` file, authentication will be attempted automatically. If not, the user will be prompted to enter credentials into the interpreter.
 
 #### Making a Request
 
+After the user is authenticated, it is possible to begin making requests. Requests are made by calling methods in the `aspace_requests.ASpaceRequests` class. To access these methods, first instantiate the class, and then call one of the available methods. For example:
+
 ```
+>>> client = aspace_requests.ASpaceRequests(aspace_conn)
+>>> client.update_date_begin()
 ```
+
+If an input CSV path is present in the `as_tools_config.yml` file, the update will begin immediately. If not, the user will be prompted to enter the path (e.g. `/path/to/the/input/file.csv`) to the file into the interpreter.
+
+#### What Happens After a Request is Made
+
+After a request is made, a progress bar will appear, which will indicate how many records have been processed, the total number of records to be processed, and the overall progress percentage. 
+
+If the request is a read, update, or delete request, a JSON backup file will be created for each URI on the input spreadsheet, using the backup directory supplied by the user in the `as_tools_config.yml` file or, if this value is not present in the configuration file, when prompted to enter the path into the interpreter.
+
+Any errors which are encountered during the process will be printed to the interpreter, as well as to a log file in the `/logs` directory specified by the user (or, in the absence of this directory, to the user's home directory)
+
+In addition to the error log, two output files will be written to the directory in which the input CSV file is stored.
 
 #### Making multiple requests in an interactive session
 
-To make another request within the same interactive session, you must change the input CSV path in your configuration file. There are two ways to do this:
+To make another request within the same interactive session, using a different set of input data, you must change the input CSV path in your configuration file. There are two ways to do this:
 
 __Method 1: Updating in the Python interpreter__
 
@@ -173,15 +197,24 @@ Follow the on-screen prompts to select an output directory and an available JSON
 
 ### `aspace_utils.py`
 
-This module contains a variety of utility functions which aid in file handling, error handling, progress tracking, logging, etc.
+Utility functions which aid in file handling, error handling, progress tracking, logging, etc.
 
-### `data_processing.py`
+### `post_processing.py`
 
-This module contains assorted functions which can be used to process data that is retrieved from the ArchivesSpace API
+Miscellaneous functions which can be used to process data that is retrieved from the ArchivesSpace API
 
 ### `ead_tools.py`
 
-This module contains functions for exporting, transforming, and validating EAD files from ArchivesSpace.
+Functions for exporting, transforming, and validating EAD files from ArchivesSpace.
+
+### `db_tools.py`
+
+Contains a class, `ASpaceDB` for connecting to and running SQL queries against the ArchivesSpace database
+
+### `templates.py`
+
+An experimental script for generating JSON templates from the ArchivesSpace schema.
+
 
 
 

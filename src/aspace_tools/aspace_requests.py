@@ -13,7 +13,7 @@ import traceback
 
 import requests
 
-from aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
+from .aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
 
 
 class ASpaceRequests():

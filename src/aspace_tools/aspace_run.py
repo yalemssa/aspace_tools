@@ -11,7 +11,7 @@ import traceback
 
 import requests
 
-import aspace_utils
+from . import aspace_utils
 
 def _api_caller(crud_func):
     '''Sources: https://stackoverflow.com/questions/60907323/accessing-class-property-as-decorator-argument

@@ -15,6 +15,42 @@ import requests
 
 from .aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
 
+'''
+This module is comprised of a single class, ASpaceRequests. The class contains methods which take a CSV row and, where applicable, an existing ArchivesSpace JSON record, as input. The methods return a new or updated JSON record and an endpoint/URI where the record will be posted. 
+
+Each method is wrapped by the aspace_run._api_caller decorator. The decorator contains all of the boilerplate code necessary for making bulk HTTP requests - file handling, looping, error handling, tracking, logging, etc. The decorator function also takes one of the ASpaceCrud CRUD methods as an argument, which is passed in when the decorator is applied to the function. This allows the decorator to run different types of CRUD functions as needed.
+
+The aspace_run._api_caller decorator reduces repeated code. The following code is equivalent to calling client.update_date_begin():
+
+::
+
+with open(cls.cfg.csvfile, 'r', encoding='utf8') as infile, open(cls.cfg.output_file, 'a', encoding='utf8') as outfile, open(cls.cfg.error_file, 'a', encoding='utf8') as err_file:
+    reader = csv.DictReader(infile)
+    writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames + ['info', 'jsonmodel_type'])
+    writer.writeheader()
+    err_writer = csv.DictWriter(err_file, fieldnames=reader.fieldnames + ['info', 'jsonmodel_type'])
+    err_writer.writeheader()
+    for row in aspace_utils.progress_bar(reader, count=cls.cfg.row_count):
+        try:
+            record_json = get_record(api_url, row['uri'], sesh)
+            create_backups(backup_directory, row['uri'], record_json)
+            record_json, uri = update_date_begin(record_json, row)
+            row = post_record(api_url, uri, sesh, record_json, row, writer)
+            writer.writerow(row)
+        except (aspace_utils.ArchivesSpaceError, requests.exceptions.RequestException) as err:
+            print(traceback.format_exc())
+            instructions = input(f'Error! Enter R to retry, S to skip, Q to quit: ')
+            if instructions == 'R':
+                row = crud_func(row)
+                writer.writerow(row)
+            elif instructions == 'S':
+                row = aspace_utils.handle_error(err, row)
+                err_writer.writerow(row)
+                continue
+            elif instructions == 'Q':
+                break
+
+'''
 
 class ASpaceRequests():
 
@@ -26,7 +62,7 @@ class ASpaceRequests():
        Usage:
         ::
 
-        >>> aspace_conn = ASpaceConnection.from_dict('as_tools_config.yml')
+        >>> aspace_conn = ASpaceConnection()
         >>> client = ASpaceRequests(aspace_conn)
         >>> client.get_tree()
         >>> 
@@ -52,7 +88,7 @@ class ASpaceRequests():
         '''Search containers linked to a published resource and its children.
 
            Parameters:
-            row['uri']: The URI of the record to retrieve
+            csv_row['uri']: The URI of the record to retrieve
         '''
         print(f"{csv_row.get('uri')}/top_containers")
         return f"{csv_row.get('uri')}/top_containers"
@@ -86,7 +122,7 @@ class ASpaceRequests():
             ::
 
               >>> csv_row = {'uri': '/repositories/2/resources/1', 'node_uri': '/repositories/2/archival_objects/5'}
-              >>> uri = get(nodes(csv_row))
+              >>> uri = get_nodes(csv_row))
               >>> print(uri)
               '/repositories/2/resources/1/tree/node?node_uri=/repositories/2/archival_objects/5'
         '''

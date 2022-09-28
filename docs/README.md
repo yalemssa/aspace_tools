@@ -50,7 +50,7 @@ Python 3.8.5 (default, Sep  4 2020, 02:22:02)
 [Clang 10.0.0 ] :: Anaconda, Inc. on darwin
 Type "help", "copyright", "credits" or "license" for more information.
 >>> from aspace_tools import aspace_run, aspace_requests
->>> 
+>>>
 ```
 
 #### Creating an ASpaceConnection object

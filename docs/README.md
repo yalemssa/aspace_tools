@@ -18,7 +18,7 @@ $ pip install .
 
 This package includes functions for creating, reading, updating, and deleting data from ArchivesSpace. It was created for archivists who use the ArchivesSpace API to programmatically modify archival metadata.
 
-`aspace_tools` can be imported into a Python script or into an interactive Python session. Standalone scripts which can more easily be distributed to end users can be generated using the `generate_script.py` script. See the module overviews below for details on the functionality of the package.
+`aspace_tools` can be imported into a Python script or into an interactive Python session. Standalone scripts which can more easily be distributed to end users can be generated using the `generate_script.py` script.
 
 ### Getting started: configuration
 
@@ -219,39 +219,6 @@ Follow the on-screen prompts to select an available JSON template, and an output
 <!-- ## Running `aspace_tools` from the command line
 
 TBD - need to update the CLI scripts before this can be done. -->
-
-## Module Overview
-
-This section describes the functionality of each `aspace_tools` module.
-
-### `aspace_run.py`
-
-This module contains two classes, `ASpaceConnection` and `ASpaceCrud`, which handle ArchivesSpace connections and HTTP requests (respectively).
-
-
-### `generate_script.py`
-
-The `generate_script.py` file enables the autogeneration of standalone Python scripts which can be run by end users without having to install the entire `aspace_tools` package. These scripts are run from the command line by entering, for example `python update_date_begin.py`.
-
-### `aspace_utils.py`
-
-Utility functions which aid in file handling, error handling, progress tracking, logging, etc.
-
-### `post_processing.py`
-
-Miscellaneous functions which can be used to process data that is retrieved from the ArchivesSpace API
-
-### `ead_tools.py`
-
-Functions for exporting, transforming, and validating EAD files from ArchivesSpace.
-
-### `db_tools.py`
-
-Contains a class, `ASpaceDB` for connecting to and running SQL queries against the ArchivesSpace database
-
-### `templates.py`
-
-An experimental script for generating JSON templates from the ArchivesSpace schema.
 
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-'''Functions for working with EAD files.'''
+'''Functions for exporting, transforming, and validating EAD files from ArchivesSpace.'''
 
 import subprocess
 from lxml import etree

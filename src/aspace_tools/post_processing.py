@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''Assorted data processing functions used on ArchivesSpace outputs.'''
+'''Miscellaneous functions which can be used to process data that is retrieved from the ArchivesSpace API.'''
 
 import itertools
 import string

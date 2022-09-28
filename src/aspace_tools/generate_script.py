@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 
 '''
-A script to generate standalone Python scripts from aspace_tools code. Facilitates distribution of code without requiring use as a package.
-'''
+This file enables the autogeneration of standalone Python scripts which can be run by end users without having to install the entire `aspace_tools` package. These scripts are run from the command line by entering, for example `python update_date_begin.py`.'''
 
 
 import csv

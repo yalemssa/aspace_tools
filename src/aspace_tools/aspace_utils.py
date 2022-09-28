@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-Utility functions and custom exceptions for aspace_tools
+Utility functions which aid in file handling, error handling, progress tracking, logging, etc.
 
 '''
 

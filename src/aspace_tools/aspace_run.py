@@ -1,7 +1,12 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''Functions and classes for handling requests to the ArchivesSpace API'''
+'''
+This module contains two classes, `ASpaceConnection` and `ASpaceCrud`, which handle ArchivesSpace connections and HTTP requests (respectively).
+
+It also includes a decorator, `_api_caller`, which is applied to methods in the `aspace_requests.ASpaceRequests` class, and which runs the boilerplate code necessary to perform bulk CRUD operations against the ArchivesSpace API.
+
+'''
 
 import csv
 from dataclasses import dataclass

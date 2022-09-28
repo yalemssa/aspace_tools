@@ -228,9 +228,6 @@ This section describes the functionality of each `aspace_tools` module.
 
 This module contains two classes, `ASpaceConnection` and `ASpaceCrud`, which handle ArchivesSpace connections and HTTP requests (respectively).
 
-### `aspace_requests.py`
-
-This module contains a single class, ASpaceRequests. The class contains methods which take a CSV row and, in some cases, a record's ArchivesSpace JSON record, as input, and return a new or modified JSON structure. The JSON structures that are returned by these methods are then posted to ArchivesSpace via one of the `aspace_run.ASpaceCrud` functions.
 
 ### `generate_script.py`
 

@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-'''
-JSON template functions for creating or updating ArchivesSpace records.
-'''
-
 import csv
 from functools import wraps
 import json

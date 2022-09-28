@@ -1,16 +1,6 @@
 #!/usr/bin/python3
 #~/anaconda3/bin/python
 
-import csv
-from functools import wraps
-import json
-import pprint
-import traceback
-
-import requests
-
-from .aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
-
 '''
 This module is comprised of a single class, ASpaceRequests. The class contains methods which take a CSV row and, where applicable, an existing ArchivesSpace JSON record, as input. The methods return a new or updated JSON record and an endpoint/URI where the record will be posted. 
 
@@ -47,6 +37,16 @@ with open(cls.cfg.csvfile, 'r', encoding='utf8') as infile, open(cls.cfg.output_
                 break
 
 '''
+
+import csv
+from functools import wraps
+import json
+import pprint
+import traceback
+
+import requests
+
+from .aspace_run import ASpaceConnection, ASpaceCrud, _api_caller
 
 class ASpaceRequests():
 
